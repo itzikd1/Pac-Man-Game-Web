@@ -164,7 +164,20 @@ function Draw(arrow) {
                     context.fillStyle = pac_eye_color; //color
                     context.fill();
                 }
-                //todo: add draw of no touch
+                //todo: fix click start problem
+
+                else { //other
+                    //todo: add draw of no touch like the other move
+                    context.beginPath();
+                    context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
+                    context.lineTo(center.x, center.y);
+                    context.fillStyle = pac_color; //color
+                    context.fill();
+                    context.beginPath();
+                    context.arc(center.x - 15, center.y + 5, 5, 0, 2 * Math.PI); // circle
+                    context.fillStyle = pac_eye_color; //color
+                    context.fill();
+                }
 
             } else if (board[i][j] === 1) {
                 context.beginPath();
