@@ -9,6 +9,14 @@ var interval;
 
 Start();
 
+/**
+ * 4 = wall
+ * 3 =
+ * 2 = pacmen
+ * 1 = food
+ * 0 =
+ * @constructor
+ */
 function Start() {
     board = new Array();
     score = 0;
@@ -52,7 +60,7 @@ function Start() {
     addEventListener("keyup", function (e) {
         keysDown[e.code] = false;
     }, false);
-    interval = setInterval(UpdatePosition, 250);
+    interval = setInterval(UpdatePosition, 200);
 }
 
 
@@ -101,7 +109,7 @@ function Draw() {
                 context.fill();
                 context.beginPath();
                 context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-                context.fillStyle = "black"; //color
+                context.fillStyle = "red"; //color
                 context.fill();
             } else if (board[i][j] === 1) {
                 context.beginPath();
