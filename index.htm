@@ -32,7 +32,60 @@
         my account
     </div>
     <div id="Settings" class="Settings">
-        settings
+        <script type="text/javascript" src=Settings.js></script>
+        <h1 align="center"><u><b>Game Settings</b></u></h1>
+        <h4>Enter keys preferences:</h4>
+        <table id="keys" class="keystable">
+            <tr>
+                <td>
+                    LEFT
+                </td>
+                <td>
+                    UP
+                </td>
+                <td>
+                    DOWN
+                </td>
+                <td>
+                    RIGHT
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" size="10" maxlength="1" onkeydown="getKeyLeft(event)">
+                </td>
+                <td>
+                    <input type="text" size="10" maxlength="1" onkeydown="getKeyUp(event)">
+                </td>
+                <td>
+                    <input type="text" size="10" maxlength="1" onkeydown="getKeyDown(event)">
+                </td>
+                <td>
+                    <input type="text" size="10" maxlength="1" onkeydown="getKeyRight(event)">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img src="images/v.png" id="v_left" hight="20" width="20" style="display: none;" >
+                </td>
+                <td>
+                    <img src="images/v.png" id="v_up" hight="20" width="20" style="display: none;" >
+                </td>
+                <td>
+                    <img src="images/v.png" id="v_down" hight="20" width="20" style="display: none;" >
+                </td>
+                <td>
+                    <img src="images/v.png" id="v_right" hight="20" width="20" style="display: none;" >
+                </td>
+            </tr>
+        </table>
+        <p id="left"></p>
+        <p id="up"></p>
+        <p id="down"></p>
+        <p id="right"></p>
+        <br/>
+        <br/>
+
     </div>
     <div id="About" class="About">
         about
