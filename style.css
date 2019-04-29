@@ -1,6 +1,4 @@
-.Test{
-    display: none;
-}
+
 
 .logo_image_left{
     display: block;
@@ -38,7 +36,13 @@
     color: #f1f1f1;
 }
 
-.Game {
+div {
     padding: 15px 10px;
     margin-left: 160px;
+    position: absolute;
+    top: 130px;
+    left: 40px;
+    width: 600px;
+    height: 600px;
+
 }
