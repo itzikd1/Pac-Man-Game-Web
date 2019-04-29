@@ -2,13 +2,20 @@
     display: none;
 }
 
+.logo_image_left{
+    display: block;
+    margin-left: 0;
+    /*margin-right: auto;*/
+    width: 50%;
+}
+
 /* The side navigation menu */
 .Menu {
     height: 60%; /* 100% Full-height */
     width: 12%; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
+    top: 120px; /* Stay at the top */
     left: 0;
     /*background-color: #111;  Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
@@ -32,6 +39,6 @@
 }
 
 .Game {
-    padding: 0px 10px;
+    padding: 15px 10px;
     margin-left: 160px;
 }
