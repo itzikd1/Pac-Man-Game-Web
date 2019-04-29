@@ -21,6 +21,7 @@ function ShowDiv(id)
     var selected = document.getElementById(id);
     selected .style.visibility="visible";
 
+    //todo: it will be better to call a function here to play the scripts according to id, for now it like this
     if (id==='Game') {
         jQuery.getScript("game.js",function(){
             Start();

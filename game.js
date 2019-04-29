@@ -109,25 +109,63 @@ function GetKeyPressed() {
     }
 }
 
-function Draw() {
+function Draw(arrow) {
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     lblScore.value = score;
     lblTime.value = time_elapsed;
+    var pac_eye_color = 'red'
     for (var i = 0; i < 10; i++) {
         for (var j = 0; j < 10; j++) {
             var center = new Object();
             center.x = i * 60 + 30;
             center.y = j * 60 + 30;
             if (board[i][j] === 2) {
-                context.beginPath();
-                context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-                context.lineTo(center.x, center.y);
-                context.fillStyle = pac_color; //color
-                context.fill();
-                context.beginPath();
-                context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
-                context.fillStyle = "red"; //color
-                context.fill();
+                if (arrow === 4) { //right
+                    context.beginPath();
+                    context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+                    context.lineTo(center.x, center.y);
+                    context.fillStyle = pac_color; //color
+                    context.fill();
+                    context.beginPath();
+                    context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+                    context.fillStyle = pac_eye_color; //color
+                    context.fill();
+                }
+                else if (arrow === 3) { //left
+                    context.beginPath();
+                    context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
+                    context.lineTo(center.x, center.y);
+                    context.fillStyle = pac_color; //color
+                    context.fill();
+                    context.beginPath();
+                    context.arc(center.x - 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
+                    context.fillStyle = pac_eye_color; //color
+                    context.fill();
+                }
+                else if (arrow === 1) { //up
+                    context.beginPath();
+                    context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
+                    context.lineTo(center.x, center.y);
+                    context.fillStyle = pac_color; //color
+                    context.fill();
+                    context.beginPath();
+                    context.arc(center.x + 15, center.y - 5, 5, 0, 2 * Math.PI); // circle
+                    context.fillStyle = pac_eye_color; //color
+                    context.fill();
+                }
+                else if (arrow === 2) { //down
+                    context.beginPath();
+                    context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
+                    context.lineTo(center.x, center.y);
+                    context.fillStyle = pac_color; //color
+                    context.fill();
+                    context.beginPath();
+                    context.arc(center.x - 15, center.y + 5, 5, 0, 2 * Math.PI); // circle
+                    context.fillStyle = pac_eye_color; //color
+                    context.fill();
+                }
+                //todo: add draw of no touch
+
             } else if (board[i][j] === 1) {
                 context.beginPath();
                 context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
@@ -181,6 +219,7 @@ function UpdatePosition() {
         window.clearInterval(interval);
         window.alert("Game completed");
     } else {
-        Draw();
+
+        Draw(x);
     }
 }
