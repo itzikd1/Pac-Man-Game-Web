@@ -7,7 +7,7 @@ var start_time;
 var time_elapsed;
 var interval;
 
-Start();
+//Start();
 
 /**
  * 4 = wall

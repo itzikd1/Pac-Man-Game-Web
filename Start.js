@@ -6,8 +6,7 @@ function PageLoaded()
 function ShowDiv(id)
 {
     //hide all sections
-    var section1 = document.getElementById('Welcome');
-    section1.style.visibility="hidden";
+
     var section1 = document.getElementById('Game');
     section1.style.visibility="hidden";
     var section2 = document.getElementById('Settings');
@@ -16,6 +15,8 @@ function ShowDiv(id)
     section3.style.visibility="hidden";
     var section4 = document.getElementById('About');
     section4.style.visibility="hidden";
+    var section5 = document.getElementById('Welcome');
+    section5.style.visibility="hidden";
 
     //show only one section
     var selected = document.getElementById(id);
