@@ -1,12 +1,14 @@
 
 function PageLoaded()
 {
-    ShowSection('Welcome');
+    ShowDiv('Welcome');
 }
 function ShowDiv(id)
 {
     //hide all sections
     var section1 = document.getElementById('Welcome');
+    section1.style.visibility="hidden";
+    var section1 = document.getElementById('Game');
     section1.style.visibility="hidden";
     var section2 = document.getElementById('Settings');
     section2.style.visibility="hidden";
