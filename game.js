@@ -9,6 +9,11 @@ var interval;
 
 //Start();
 
+if($('#element').is(':visible'))
+{
+    //do your thing
+}
+
 /**
  * 4 = wall
  * 3 =

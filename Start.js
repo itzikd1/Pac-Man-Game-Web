@@ -1,4 +1,3 @@
-
 function PageLoaded()
 {
     ShowDiv('Welcome');
@@ -21,5 +20,13 @@ function ShowDiv(id)
     //show only one section
     var selected = document.getElementById(id);
     selected .style.visibility="visible";
+
+    if (id==='Game') {
+        jQuery.getScript("game.js",function(){
+            Start();
+        });
+    }
 }
+
+
 

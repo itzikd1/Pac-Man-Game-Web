@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <script type="text/javascript" src=jquery-3.4.0.js></script>
+
     <link rel="stylesheet" type="text/css" href="style.css" />
     <img src="images\logo.png" alt="tmp_logo" width="650" height="120" class="logo_image_left">
     <script type="text/javascript" src=Start.js></script>
@@ -36,7 +38,9 @@
         about
     </div>
 
-    <div id="Game" class="Game">
+    <div onclick="Start()" id="Game" class="Game">
+        <script type="text/javascript" src=game.js></script>
+
         SCORE:
         <input id="lblScore" type="text"/>
         <br/>
@@ -48,7 +52,7 @@
         </canvas>
 
 
-        <script type="text/javascript" src=game.js></script>
+
     </div>
 
 
