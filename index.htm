@@ -3,7 +3,6 @@
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <link rel="stylesheet" type="text/css" href="style.css" />
     <img src="images\logo.png" alt="tmp_logo" width="650" height="120" class="logo_image_left">
     <script type="text/javascript" src=Start.js></script>
@@ -28,9 +27,40 @@
         <script type="text/javascript" src=Welcome.js></script>
     </div>
 
-    <div id="My Account" class="My Account">
-        my account
+
+    <div id="My Account" class="container">
+        <form class="form-style-9">
+            <h1>REGISTER</h1>
+            <ul>
+                <li>
+                    <input type="text" name="field1" class="field-style field-split align-left" placeholder="Name" />
+                    <input type="email" name="field2" class="field-style field-split align-right" placeholder="Email" />
+
+                </li>
+                <li>
+                    <input type="text" name="field3" class="field-style field-split align-left" placeholder="Phone" />
+                    <input type="url" name="field4" class="field-style field-split align-right" placeholder="Website" />
+                </li>
+                <li>
+                    <input type="text" name="field3" class="field-style field-full align-none" placeholder="Subject" />
+                </li>
+                <li>
+                    <textarea name="field5" class="field-style" placeholder="Message"></textarea>
+                </li>
+                <li>
+                    <input type="submit" value="Send Message" />
+                </li>
+            </ul>
+        </form>
+        <script type="text/javascript" src="register.js"></script>
     </div>
+
+
+
+
+
+
+
     <div id="Settings" class="Settings">
         <script type="text/javascript" src=Settings.js></script>
         <h1 align="center"><u><b>Game Settings</b></u></h1>
