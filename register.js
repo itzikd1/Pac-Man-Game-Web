@@ -85,7 +85,12 @@ function clickMe() {
 
     if (error_fname === false && error_sname === false && error_email === false && error_password === false && error_fdate === false) {
         alert("Registration Successfull");
-        var person = {username:$("#form_fname").val(), password:$("#form_password").val(), lastname:$("#form_sname").val(), email:$("#form_email").val()}
+        var person = {
+            username: $("#form_fname").val(),
+            password: $("#form_password").val(),
+            lastname: $("#form_sname").val(),
+            email: $("#form_email").val()
+        }
         reg2.push({
             person
         });
