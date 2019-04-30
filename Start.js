@@ -16,6 +16,10 @@ function ShowDiv(id)
     section4.style.visibility="hidden";
     var section5 = document.getElementById('Welcome');
     section5.style.visibility="hidden";
+    var section6 = document.getElementById('Login');
+    section6.style.visibility="hidden";
+    var section7 = document.getElementById('Register');
+    section7.style.visibility="hidden";
 
     //show only one section
     var selected = document.getElementById(id);

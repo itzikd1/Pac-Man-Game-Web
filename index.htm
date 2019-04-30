@@ -32,39 +32,68 @@
 
 
     <div id="Welcome" class="mainArea">
-        test test tests
+        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Login')">Log in</a>
+        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Register')">Register</a>
         <script type="text/javascript" src=Welcome.js></script>
     </div>
 
 
-    <div id="My Account" class="mainArea">
-        <form class="form-style-9">
-            <h1>REGISTER</h1>
-            <ul>
-                <li>
-                    <input type="text" id=form_uname name="field1" class="field-style field-split align-left" placeholder="Username" />
-                    <input type="password" id=form_password name="field2" class="field-style field-split align-right" placeholder="Password" />
-                </li>
-                <li>
-                    <input type="text" id=form_fname name="field3" class="field-style field-split align-left" placeholder="First Name" />
-                    <input type="text" id=form_sname name="field4" class="field-style field-split align-right" placeholder="Last Name" />
-                </li>
-                <li>
-                    <input type="email" id=form_email name="field4" class="field-style field-split align-left" placeholder="Email" />
-                    <input type="date" id=form_date name="field3" class="field-style field-split align-right" placeholder="Birthday" />
-                </li>
-                <li>
-                </li>
-                <li>
-                    <input type="button" value="Register" onclick="clickMe()" />
-                </li>
-            </ul>
-        </form>
-        <script type="text/javascript" src="register.js"></script>
-    </div>
+<div id="Register" class="mainArea">
+    <form class="form-style-9">
+        <h1>REGISTER</h1>
+        <ul>
+            <li>
+                <input type="text" id=form_uname name="field1" class="field-style field-split align-left"
+                       placeholder="Username"/>
+                <input type="password" id=form_password name="field2" class="field-style field-split align-right"
+                       placeholder="Password"/>
+            </li>
+            <li>
+                <input type="text" id=form_fname name="field3" class="field-style field-split align-left"
+                       placeholder="First Name"/>
+                <input type="text" id=form_sname name="field4" class="field-style field-split align-right"
+                       placeholder="Last Name"/>
+            </li>
+            <li>
+                <input type="email" id=form_email name="field4" class="field-style field-split align-left"
+                       placeholder="Email"/>
+                <input type="date" id=form_date name="field3" class="field-style field-split align-right"
+                       placeholder="Birthday"/>
+            </li>
+            <li>
+            </li>
+            <li>
+                <input type="button" value="Register" onclick="register()"/>
+            </li>
+        </ul>
+    </form>
+</div>
+
+
+<div id="Login" class="mainArea">
+    <form class="form-style-9">
+        <h1>Log In</h1>
+        <ul>
+            <li>
+                <input type="text" id=loginID name="field4" class="field-style field-split align-left"
+                       placeholder="name"/>
+                <input type="password" id=loginPASS name="field3" class="field-style field-split align-right"
+                       placeholder="password"/>
+            </li>
+            <li>
+            </li>
+            <li>
+                <input type="button" id=loginButton value="Login" onclick="validate()"/>
+            </li>
+        </ul>
+    </form>
+</div>
 
 
 
+
+<div id="My Account" class="mainArea">
+</div>
 
 
 
@@ -72,58 +101,104 @@
     <div id="Settings" class="Settings mainArea">
         <script type="text/javascript" src=Settings.js></script>
         <h1><u><b>Game Settings</b></u></h1>
-        <h4>Enter keys preferences:</h4>
-        <table id="keys" class="keystable">
-            <tr>
-                <td>
-                    LEFT
-                </td>
-                <td>
-                    UP
-                </td>
-                <td>
-                    DOWN
-                </td>
-                <td>
-                    RIGHT
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" size="10" maxlength="1" onkeydown="getKeyLeft(event)">
-                </td>
-                <td>
-                    <input type="text" size="10" maxlength="1" onkeydown="getKeyUp(event)">
-                </td>
-                <td>
-                    <input type="text" size="10" maxlength="1" onkeydown="getKeyDown(event)">
-                </td>
-                <td>
-                    <input type="text" size="10" maxlength="1" onkeydown="getKeyRight(event)">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="images/v.png" id="v_left" hight="20" width="20" style="display: none;" >
-                </td>
-                <td>
-                    <img src="images/v.png" id="v_up" hight="20" width="20" style="display: none;" >
-                </td>
-                <td>
-                    <img src="images/v.png" id="v_down" hight="20" width="20" style="display: none;" >
-                </td>
-                <td>
-                    <img src="images/v.png" id="v_right" hight="20" width="20" style="display: none;" >
-                </td>
-            </tr>
-        </table>
-        <p id="left"></p>
-        <p id="up"></p>
-        <p id="down"></p>
-        <p id="right"></p>
-        <br/>
-        <br/>
-
+        <div class="wrapper" id="wrapper">
+            <div id="keysDiv">
+                <h4>Enter keys preferences:</h4>
+                <table id="keys" class="keystable">
+                    <tr>
+                        <td>
+                            Left
+                        </td>
+                        <td>
+                            Up
+                        </td>
+                        <td>
+                            Down
+                        </td>
+                        <td>
+                            Right
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" size="10" maxlength="1" onkeydown="getKeyLeft(event)">
+                        </td>
+                        <td>
+                            <input type="text" size="10" maxlength="1" onkeydown="getKeyUp(event)">
+                        </td>
+                        <td>
+                            <input type="text" size="10" maxlength="1" onkeydown="getKeyDown(event)">
+                        </td>
+                        <td>
+                            <input type="text" size="10" maxlength="1" onkeydown="getKeyRight(event)">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="images/v.png" id="v_left" hight="20" width="20" style="display: none;" >
+                        </td>
+                        <td>
+                            <img src="images/v.png" id="v_up" hight="20" width="20" style="display: none;" >
+                        </td>
+                        <td>
+                            <img src="images/v.png" id="v_down" hight="20" width="20" style="display: none;" >
+                        </td>
+                        <td>
+                            <img src="images/v.png" id="v_right" hight="20" width="20" style="display: none;" >
+                        </td>
+                    </tr>
+                </table>
+                <p id="left"></p>
+                <p id="up"></p>
+                <p id="down"></p>
+                <p id="right"></p>
+            </div>
+            <div id="nBallsDiv">
+                <h4>Enter number of balls:</h4>
+                <input id="nBalls" type="text" size="10" maxlength="2">
+                <button type="button" class="submitButtonsSettings" onclick="sendnBalls()">Submit!</button>
+            </div>
+            <div style='clear:both'></div>
+            <div id="colorsPickerDiv">
+                <h4>Choose colors:</h4>
+                <table class="keystable">
+                    <tr>
+                        <td>
+                            5 Points
+                        </td>
+                        <td style="padding-left: 17px">
+                            15 Points
+                        </td>
+                        <td style="padding-left: 17px">
+                            25 Points
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="color" id="5points" name="5points" value="#ffffff">
+                        </td>
+                        <td style="padding-left: 17px">
+                            <input type="color" id="15points" name="15points" value="#ffffff">
+                        </td>
+                        <td style="padding-left: 17px">
+                            <input type="color" id="25points" name="25points" value="#ffffff">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="padding-left: 17px">
+                            <button type="button" class="submitButtonsSettings" onclick="setColors()">Submit!</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="timePickerDiv">
+                <h4>Enter time for your game (in seconds):</h4>
+                <input id="time" type="number" size="10">
+                <button type="button" class="submitButtonsSettings" onclick="updateTime()">Submit!</button>
+            </div>
+        </div>
     </div>
     <div id="About" class="mainArea">
         about
