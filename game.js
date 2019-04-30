@@ -6,6 +6,7 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var pressed; //for the pressed button (1,2,3,4)
 
 //Start();
 
@@ -26,6 +27,8 @@ function Start() {
     board = new Array();
     score = 0;
     pac_color = "yellow";
+    var randomNum = Math.random();
+    pressed = Math.floor(randomNum * 4) + 1
     var cnt = 100;
     var food_remain = 50;
     var pacman_remain = 1;
@@ -37,7 +40,7 @@ function Start() {
             if ((i === 3 && j === 3) || (i === 3 && j === 4) || (i === 3 && j === 5) || (i === 6 && j === 1) || (i === 6 && j === 2)) {
                 board[i][j] = 4;
             } else {
-                var randomNum = Math.random();
+                randomNum = Math.random();
                 if (randomNum <= 1.0 * food_remain / cnt) {
                     food_remain--;
                     board[i][j] = 1;
@@ -109,7 +112,9 @@ function GetKeyPressed() {
     }
 }
 
-function Draw(arrow) {
+
+function Draw() {
+
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     lblScore.value = score;
     lblTime.value = time_elapsed;
@@ -119,8 +124,8 @@ function Draw(arrow) {
             var center = new Object();
             center.x = i * 60 + 30;
             center.y = j * 60 + 30;
-            if (board[i][j] === 2) {
-                if (arrow === 4) { //right
+            if (board[i][j] === 2) { //draw pacmen
+                if (pressed === 4) { //right
                     context.beginPath();
                     context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
                     context.lineTo(center.x, center.y);
@@ -131,7 +136,7 @@ function Draw(arrow) {
                     context.fillStyle = pac_eye_color; //color
                     context.fill();
                 }
-                else if (arrow === 3) { //left
+                else if (pressed === 3) { //left
                     context.beginPath();
                     context.arc(center.x, center.y, 30, 1.15 * Math.PI, 0.85 * Math.PI); // half circle
                     context.lineTo(center.x, center.y);
@@ -142,7 +147,7 @@ function Draw(arrow) {
                     context.fillStyle = pac_eye_color; //color
                     context.fill();
                 }
-                else if (arrow === 1) { //up
+                else if (pressed === 1) { //up
                     context.beginPath();
                     context.arc(center.x, center.y, 30, 1.65 * Math.PI, 1.35 * Math.PI); // half circle
                     context.lineTo(center.x, center.y);
@@ -153,7 +158,7 @@ function Draw(arrow) {
                     context.fillStyle = pac_eye_color; //color
                     context.fill();
                 }
-                else if (arrow === 2) { //down
+                else if (pressed === 2) { //down
                     context.beginPath();
                     context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
                     context.lineTo(center.x, center.y);
@@ -164,20 +169,8 @@ function Draw(arrow) {
                     context.fillStyle = pac_eye_color; //color
                     context.fill();
                 }
-                //todo: fix click start problem
 
-                else { //other
-                    //todo: add draw of no touch like the other move
-                    context.beginPath();
-                    context.arc(center.x, center.y, 30, 0.65 * Math.PI, 0.35 * Math.PI); // half circle
-                    context.lineTo(center.x, center.y);
-                    context.fillStyle = pac_color; //color
-                    context.fill();
-                    context.beginPath();
-                    context.arc(center.x - 15, center.y + 5, 5, 0, 2 * Math.PI); // circle
-                    context.fillStyle = pac_eye_color; //color
-                    context.fill();
-                }
+
 
             } else if (board[i][j] === 1) {
                 context.beginPath();
@@ -199,6 +192,8 @@ function Draw(arrow) {
 function UpdatePosition() {
     board[shape.i][shape.j] = 0;
     var x = GetKeyPressed();
+    if (x==1 || x==2 || x==3 || x==4)
+        pressed=x;
     if (x === 1) {
         if (shape.j > 0 && board[shape.i][shape.j - 1] !== 4) {
             shape.j--;

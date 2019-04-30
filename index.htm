@@ -5,6 +5,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <img src="images\logo.png" alt="tmp_logo" width="650" height="120" class="logo_image_left">
+    <div class="info ">
+        <script type="text/javascript" src=game.js></script>
+        SCORE:
+        <input id="lblScore2" type="text"/>
+        <br/>
+        TIME:
+        <input id="lblTime2" type="text"/>
+        <br/>
+    </div>
     <script type="text/javascript" src=Start.js></script>
     <meta name="author" content="www.twitter.com/cheeriottis">
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -22,13 +31,13 @@
     </section>
 
 
-    <div id="Welcome" class="Welcome">
+    <div id="Welcome" class="mainArea">
         test test tests
         <script type="text/javascript" src=Welcome.js></script>
     </div>
 
 
-    <div id="My Account" class="container">
+    <div id="My Account" class="mainArea">
         <form class="form-style-9">
             <h1>REGISTER</h1>
             <ul>
@@ -60,9 +69,9 @@
 
 
 
-    <div id="Settings" class="Settings">
+    <div id="Settings" class="Settings mainArea">
         <script type="text/javascript" src=Settings.js></script>
-        <h1 align="center"><u><b>Game Settings</b></u></h1>
+        <h1><u><b>Game Settings</b></u></h1>
         <h4>Enter keys preferences:</h4>
         <table id="keys" class="keystable">
             <tr>
@@ -116,11 +125,11 @@
         <br/>
 
     </div>
-    <div id="About" class="About">
+    <div id="About" class="mainArea">
         about
     </div>
 
-    <div onclick="Start()" id="Game" class="Game">
+    <div id="Game" class="Game mainArea">
         <script type="text/javascript" src=game.js></script>
 
         SCORE:
@@ -129,7 +138,7 @@
         TIME:
         <input id="lblTime" type="text"/>
         <br/>
-        <canvas id="canvas" height="600" width="600">
+        <canvas id="canvas" height="420px" width="1000px">
 
         </canvas>
 
