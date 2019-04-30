@@ -86,7 +86,7 @@ function check_date() {
 }
 
 
-function clickMe() {
+function register() {
     error_fname = false;
     error_sname = false;
     error_email = false;
@@ -113,6 +113,7 @@ function clickMe() {
 
         reg2.push(person);
         //go to log-in page here if retunred true - else alert if false
+        ShowDiv('Login')
         return true;
     } else {
         alert("Please Fill the form Correctly");
@@ -126,12 +127,13 @@ function validate(){
     index = reg2.find(o => o.username==username)
     if ( index.password == $("#loginPASS").val()){
         alert ("Login successfully");
-        return false;
+        ShowDiv('Game')
+        return true;
     }
     else{
         attempt --;// Decrementing by one.
         alert("You have left "+attempt+" attempt;");
-// Disabling fields after 3 attempts.
+// Disabling fields after 5 attempts.
         if( attempt == 0){
             document.getElementById("loginID").disabled = true;
             document.getElementById("loginPASS").disabled = true;
