@@ -1,4 +1,3 @@
-var context = canvas.getContext("2d");
 
 var up_key;
 var down_key;
