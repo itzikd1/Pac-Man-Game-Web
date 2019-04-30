@@ -33,22 +33,21 @@
             <h1>REGISTER</h1>
             <ul>
                 <li>
-                    <input type="text" name="field1" class="field-style field-split align-left" placeholder="Name" />
-                    <input type="email" name="field2" class="field-style field-split align-right" placeholder="Email" />
-
+                    <input type="text" id=form_uname name="field1" class="field-style field-split align-left" placeholder="Username" />
+                    <input type="email" id=form_email name="field2" class="field-style field-split align-right" placeholder="Email" />
                 </li>
                 <li>
-                    <input type="text" name="field3" class="field-style field-split align-left" placeholder="Phone" />
-                    <input type="url" name="field4" class="field-style field-split align-right" placeholder="Website" />
+                    <input type="text" id=form_fname name="field3" class="field-style field-split align-left" placeholder="First Name" />
+                    <input type="text" id=form_sname name="field4" class="field-style field-split align-right" placeholder="Last Name" />
                 </li>
                 <li>
-                    <input type="text" name="field3" class="field-style field-full align-none" placeholder="Subject" />
+                    <input type="password" id=form_password name="field3" class="field-style field-split align-left" placeholder="Password" />
+                    <input type="date" id=form_date name="field4" class="field-style field-split align-right" placeholder="Birthday" />
                 </li>
                 <li>
-                    <textarea name="field5" class="field-style" placeholder="Message"></textarea>
                 </li>
                 <li>
-                    <input type="submit" value="Send Message" />
+                    <input type="button" value="Send Message" onclick="clickMe()" />
                 </li>
             </ul>
         </form>

@@ -3,6 +3,7 @@ var reg2 = new Array();
 function check_fname() {
     var pattern = /^[a-zA-Z]*$/;
     var fname = $("#form_fname").val();
+    var fname = $("#form_fname").val();
     if (pattern.test(fname) && fname !== '') {
         $("#fname_error_message").hide();
         $("#form_fname").css("border-bottom", "2px solid #34F458");
