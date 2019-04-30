@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <script type="text/javascript" src="register.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <img src="images\logo.png" alt="tmp_logo" width="650" height="120" class="logo_image_left">
@@ -67,16 +68,35 @@
             </li>
         </ul>
     </form>
-    <script type="text/javascript" src="register.js"></script>
 </div>
 
 
 <div id="Login" class="mainArea">
+    <form class="form-style-9">
+        <h1>Log In</h1>
+        <ul>
+            <li>
+                <input type="text" id=loginID name="field4" class="field-style field-split align-left"
+                       placeholder="name"/>
+                <input type="password" id=loginPASS name="field3" class="field-style field-split align-right"
+                       placeholder="password"/>
+            </li>
+            <li>
+            </li>
+            <li>
+                <input type="button" value="Login" onclick="validate()"/>
+            </li>
+        </ul>
+    </form>
 </div>
+
+
 
 
 <div id="My Account" class="mainArea">
 </div>
+
+
 
 
 <div id="Settings" class="Settings mainArea">

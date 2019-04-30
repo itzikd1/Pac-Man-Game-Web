@@ -1,4 +1,17 @@
 var reg2 = new Array();
+var attempt = 5; // Variable to count number of attempts.
+
+//todo function for first user is this:
+var person = {
+    username: "a",
+    firstname: "a",
+    lastname: "a",
+    password: "a",
+    email: "a@a.com",
+    date: "12/04/1991"
+}
+reg2.push(person)
+
 
 function check_uname() {
     var pattern = /^[a-zA-Z]*$/;
@@ -10,6 +23,7 @@ function check_uname() {
         error_uname = true;
     }
 }
+
 
 function check_password() {
     var pattern = /^[a-zA-Z]*$/;
@@ -24,6 +38,7 @@ function check_password() {
     }
 }
 
+
 function check_fname() {
     var pattern = /^[a-zA-Z]*$/;
     var fname = $("#form_fname").val();
@@ -34,6 +49,7 @@ function check_fname() {
         error_fname = true;
     }
 }
+
 
 function check_sname() {
     var pattern = /^[a-zA-Z]*$/;
@@ -57,6 +73,7 @@ function check_email() {
         error_email = true;
     }
 }
+
 
 function check_date() {
     if ($("#form_date").val() !== '') {
@@ -86,18 +103,40 @@ function clickMe() {
     if (error_fname === false && error_sname === false && error_email === false && error_password === false && error_fdate === false) {
         alert("Registration Successfull");
         var person = {
-            username: $("#form_fname").val(),
-            password: $("#form_password").val(),
+            username: $("#form_uname").val(),
+            firstname: $("#form_fname").val(),
             lastname: $("#form_sname").val(),
-            email: $("#form_email").val()
+            password: $("#form_password").val(),
+            email: $("#form_email").val(),
+            date: $("#form_date").val()
         }
-        reg2.push({
-            person
-        });
+
+        reg2.push(person);
         //go to log-in page here if retunred true - else alert if false
         return true;
     } else {
         alert("Please Fill the form Correctly");
         return false;
+    }
+}
+
+function validate(){
+    var username = document.getElementById("loginID").value;
+    var password = document.getElementById("loginPASS").value;
+    index = reg2.find(o => o.username==username)
+    if ( index.password == $("#loginPASS").val()){
+        alert ("Login successfully");
+        return false;
+    }
+    else{
+        attempt --;// Decrementing by one.
+        alert("You have left "+attempt+" attempt;");
+// Disabling fields after 3 attempts.
+        if( attempt == 0){
+            document.getElementById("username").disabled = true;
+            document.getElementById("password").disabled = true;
+            document.getElementById("submit").disabled = true;
+            return false;
+        }
     }
 }
