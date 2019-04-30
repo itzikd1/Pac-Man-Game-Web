@@ -3,7 +3,7 @@
 
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="style.css"/>
     <img src="images\logo.png" alt="tmp_logo" width="650" height="120" class="logo_image_left">
     <div class="info ">
         <script type="text/javascript" src=game.js></script>
@@ -22,130 +22,138 @@
 <body onload="PageLoaded()">
 
 
-    <section id="Menu" class="Menu">
-        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Welcome')">Welcome</a>
-        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Game')">Play</a>
-        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('My Account')">My Account</a>
-        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Settings')">Settings</a>
-        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('About')">About</a>
-    </section>
+<section id="Menu" class="Menu">
+    <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Welcome')">Welcome</a>
+    <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Game')">Play</a>
+    <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('My Account')">My Account</a>
+    <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Settings')">Settings</a>
+    <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('About')">About</a>
+</section>
 
 
-    <div id="Welcome" class="mainArea">
-        test test tests
-        <script type="text/javascript" src=Welcome.js></script>
-    </div>
+<div id="Welcome" class="mainArea">
+    <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Login')">Log in</a>
+    <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Register')">Register</a>
+    <script type="text/javascript" src=Welcome.js></script>
+</div>
 
 
-    <div id="My Account" class="mainArea">
-        <form class="form-style-9">
-            <h1>REGISTER</h1>
-            <ul>
-                <li>
-                    <input type="text" id=form_uname name="field1" class="field-style field-split align-left" placeholder="Username" />
-                    <input type="password" id=form_password name="field2" class="field-style field-split align-right" placeholder="Password" />
-                </li>
-                <li>
-                    <input type="text" id=form_fname name="field3" class="field-style field-split align-left" placeholder="First Name" />
-                    <input type="text" id=form_sname name="field4" class="field-style field-split align-right" placeholder="Last Name" />
-                </li>
-                <li>
-                    <input type="email" id=form_email name="field4" class="field-style field-split align-left" placeholder="Email" />
-                    <input type="date" id=form_date name="field3" class="field-style field-split align-right" placeholder="Birthday" />
-                </li>
-                <li>
-                </li>
-                <li>
-                    <input type="button" value="Register" onclick="clickMe()" />
-                </li>
-            </ul>
-        </form>
-        <script type="text/javascript" src="register.js"></script>
-    </div>
+<div id="My Account" class="mainArea">
+    <form class="form-style-9">
+        <h1>REGISTER</h1>
+        <ul>
+            <li>
+                <input type="text" id=form_uname name="field1" class="field-style field-split align-left"
+                       placeholder="Username"/>
+                <input type="password" id=form_password name="field2" class="field-style field-split align-right"
+                       placeholder="Password"/>
+            </li>
+            <li>
+                <input type="text" id=form_fname name="field3" class="field-style field-split align-left"
+                       placeholder="First Name"/>
+                <input type="text" id=form_sname name="field4" class="field-style field-split align-right"
+                       placeholder="Last Name"/>
+            </li>
+            <li>
+                <input type="email" id=form_email name="field4" class="field-style field-split align-left"
+                       placeholder="Email"/>
+                <input type="date" id=form_date name="field3" class="field-style field-split align-right"
+                       placeholder="Birthday"/>
+            </li>
+            <li>
+            </li>
+            <li>
+                <input type="button" value="Register" onclick="clickMe()"/>
+            </li>
+        </ul>
+    </form>
+    <script type="text/javascript" src="register.js"></script>
+</div>
 
 
+<div id="Register" class="mainArea">
+</div>
 
 
+<div id="Login" class="mainArea">
+</div>
 
 
+<div id="Settings" class="Settings mainArea">
+    <script type="text/javascript" src=Settings.js></script>
+    <h1><u><b>Game Settings</b></u></h1>
+    <h4>Enter keys preferences:</h4>
+    <table id="keys" class="keystable">
+        <tr>
+            <td>
+                LEFT
+            </td>
+            <td>
+                UP
+            </td>
+            <td>
+                DOWN
+            </td>
+            <td>
+                RIGHT
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" size="10" maxlength="1" onkeydown="getKeyLeft(event)">
+            </td>
+            <td>
+                <input type="text" size="10" maxlength="1" onkeydown="getKeyUp(event)">
+            </td>
+            <td>
+                <input type="text" size="10" maxlength="1" onkeydown="getKeyDown(event)">
+            </td>
+            <td>
+                <input type="text" size="10" maxlength="1" onkeydown="getKeyRight(event)">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="images/v.png" id="v_left" hight="20" width="20" style="display: none;">
+            </td>
+            <td>
+                <img src="images/v.png" id="v_up" hight="20" width="20" style="display: none;">
+            </td>
+            <td>
+                <img src="images/v.png" id="v_down" hight="20" width="20" style="display: none;">
+            </td>
+            <td>
+                <img src="images/v.png" id="v_right" hight="20" width="20" style="display: none;">
+            </td>
+        </tr>
+    </table>
+    <p id="left"></p>
+    <p id="up"></p>
+    <p id="down"></p>
+    <p id="right"></p>
+    <br/>
+    <br/>
 
-    <div id="Settings" class="Settings mainArea">
-        <script type="text/javascript" src=Settings.js></script>
-        <h1><u><b>Game Settings</b></u></h1>
-        <h4>Enter keys preferences:</h4>
-        <table id="keys" class="keystable">
-            <tr>
-                <td>
-                    LEFT
-                </td>
-                <td>
-                    UP
-                </td>
-                <td>
-                    DOWN
-                </td>
-                <td>
-                    RIGHT
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" size="10" maxlength="1" onkeydown="getKeyLeft(event)">
-                </td>
-                <td>
-                    <input type="text" size="10" maxlength="1" onkeydown="getKeyUp(event)">
-                </td>
-                <td>
-                    <input type="text" size="10" maxlength="1" onkeydown="getKeyDown(event)">
-                </td>
-                <td>
-                    <input type="text" size="10" maxlength="1" onkeydown="getKeyRight(event)">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <img src="images/v.png" id="v_left" hight="20" width="20" style="display: none;" >
-                </td>
-                <td>
-                    <img src="images/v.png" id="v_up" hight="20" width="20" style="display: none;" >
-                </td>
-                <td>
-                    <img src="images/v.png" id="v_down" hight="20" width="20" style="display: none;" >
-                </td>
-                <td>
-                    <img src="images/v.png" id="v_right" hight="20" width="20" style="display: none;" >
-                </td>
-            </tr>
-        </table>
-        <p id="left"></p>
-        <p id="up"></p>
-        <p id="down"></p>
-        <p id="right"></p>
-        <br/>
-        <br/>
+</div>
+<div id="About" class="mainArea">
+    about
+</div>
 
-    </div>
-    <div id="About" class="mainArea">
-        about
-    </div>
+<div id="Game" class="Game mainArea">
+    <script type="text/javascript" src=game.js></script>
 
-    <div id="Game" class="Game mainArea">
-        <script type="text/javascript" src=game.js></script>
+    SCORE:
+    <input id="lblScore" type="text"/>
+    <br/>
+    TIME:
+    <input id="lblTime" type="text"/>
+    <br/>
+    <canvas id="canvas" height="420px" width="1000px">
 
-        SCORE:
-        <input id="lblScore" type="text"/>
-        <br/>
-        TIME:
-        <input id="lblTime" type="text"/>
-        <br/>
-        <canvas id="canvas" height="420px" width="1000px">
-
-        </canvas>
-
+    </canvas>
 
 
-    </div>
-
+</div>
 
 
 </body>
