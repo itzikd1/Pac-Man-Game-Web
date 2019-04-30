@@ -153,7 +153,7 @@
     font-size: 21px;
 }
 
-#nBallsDiv{
+#nBallsDiv, #timePickerDiv{
     overflow: hidden;
     padding-left: 80px;
     font-size: 21px;
@@ -163,6 +163,7 @@
     font-size: 21px;
     float:left;
 }
+
 
 /*register*/
 .form-style-9 {

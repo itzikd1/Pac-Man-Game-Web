@@ -1,4 +1,4 @@
-var context = canvas.getContext("2d");
+// var context = canvas.getContext("2d");
 
 var up_key;
 var down_key;
@@ -10,6 +10,8 @@ var nBalls;
 var points5color;
 var points15color;
 var points25color;
+
+var time;
 
 function getKeyLeft(event) {
     var x = event.which || event.keyCode;
@@ -61,6 +63,16 @@ function setColors() {
     points5color = p5;
     points15color = p15;
     points25color = p25;
+}
+
+function updateTime() {
+    var t = document.getElementById("time").value;
+
+    if ( parseInt(t) >= 60){
+        time = t;
+    }
+    else
+        alert("Set at least 60 seconds for your game !")
 }
 
 
