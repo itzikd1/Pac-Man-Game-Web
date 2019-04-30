@@ -5,6 +5,12 @@ var down_key;
 var left_key;
 var right_key;
 
+var nBalls;
+
+var points5color;
+var points15color;
+var points25color;
+
 function getKeyLeft(event) {
     var x = event.which || event.keyCode;
     if (left_key === null || (x !== 9 && x!==20 && x!==91 && x!==27 && x!==112 && x!==113 && x!==114 && x!==115
@@ -38,6 +44,23 @@ function getKeyRight(event) {
     }
 }
 
+function sendnBalls() {
+    var x = document.getElementById("nBalls").value;
+    x = parseInt(x);
+    if (isNaN(x))
+        alert("Number of balls should be between 50 and 90 !")
+    if (x >= 50 && x <= 90)
+        nBalls = x;
+}
 
+function setColors() {
+    var p5 = document.getElementById("5points").value;
+    var p15 = document.getElementById("15points").value;
+    var p25 = document.getElementById("25points").value;
+
+    points5color = p5;
+    points15color = p15;
+    points25color = p25;
+}
 
 

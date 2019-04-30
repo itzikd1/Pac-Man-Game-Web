@@ -23,10 +23,9 @@
     position: absolute;
     top: 130px;
     left: 40px;
-    width: 420px;
-    height: 1000px;
+    width: 1000px;
+    height: 420px;
     visibility: hidden;
-
 }
 
 
@@ -117,19 +116,53 @@
 .keystable {
     text-align: center;
     font-family: 'Pacifico', cursive;
-    font-size: 14px;
+    font-size: 16px;
     color: #ad6bff;
     text-decoration: none;
 }
 
 .Settings {
     font-family: 'Pacifico', cursive;
-    font-size: 16px;
-    color: #96ff5b;
+    font-size: 21px;
+    color: #F2CF66;
     text-decoration: none;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
+.submitButtonsSettings{
+    background-color: #F2CF66;
+    border-bottom: 5px solid #D1B358;
+    text-shadow: 0px -2px #D1B358;
+    font-family: 'Pacifico', cursive;
+    font-size: 14px;
+    border-radius: 6px;
+    color: #818181;
+}
+
+.submitButtonsSettings:hover {
+    color: #f1f1f1;
+}
+
+.wrapper{
+    overflow: hidden;
+}
+
+#keysDiv{
+    float:left;
+    display: inline;
+    font-size: 21px;
+}
+
+#nBallsDiv{
+    overflow: hidden;
+    padding-left: 80px;
+    font-size: 21px;
+}
+
+#colorsPickerDiv{
+    font-size: 21px;
+    float:left;
+}
 
 /*register*/
 .form-style-9 {
