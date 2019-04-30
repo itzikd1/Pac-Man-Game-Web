@@ -133,9 +133,9 @@ function validate(){
         alert("You have left "+attempt+" attempt;");
 // Disabling fields after 3 attempts.
         if( attempt == 0){
-            document.getElementById("username").disabled = true;
-            document.getElementById("password").disabled = true;
-            document.getElementById("submit").disabled = true;
+            document.getElementById("loginID").disabled = true;
+            document.getElementById("loginPASS").disabled = true;
+            document.getElementById("loginButton").disabled = true;
             return false;
         }
     }
