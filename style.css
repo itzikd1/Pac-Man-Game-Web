@@ -6,6 +6,32 @@
     width: 50%;
 }
 
+.info {
+    position: absolute;
+    top: 0px;
+    left: 600px;
+    width: 600px;
+    height: 200px;
+    vertical-align:top;
+    display:inline-block;
+    margin:25px 0 25px 10px;
+}
+
+.mainArea {
+    padding: 15px 10px;
+    margin-left: 160px;
+    position: absolute;
+    top: 130px;
+    left: 40px;
+    width: 420px;
+    height: 1000px;
+    visibility: hidden;
+
+}
+
+
+
+
 /* The side navigation menu */
 .Menu {
     height: 60%; /* 100% Full-height */
@@ -39,17 +65,7 @@
     color: #f1f1f1;
 }
 
-div {
-    padding: 15px 10px;
-    margin-left: 160px;
-    position: absolute;
-    top: 130px;
-    left: 40px;
-    width: 600px;
-    height: 600px;
-    visibility: hidden;
 
-}
 
 .animate {
     transition: all 0.1s;
