@@ -32,36 +32,68 @@
 
 
     <div id="Welcome" class="mainArea">
-        test test tests
+        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Login')">Log in</a>
+        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Register')">Register</a>
         <script type="text/javascript" src=Welcome.js></script>
     </div>
 
 
-    <div id="My Account" class="mainArea">
-        <form class="form-style-9">
-            <h1>REGISTER</h1>
-            <ul>
-                <li>
-                    <input type="text" id=form_uname name="field1" class="field-style field-split align-left" placeholder="Username" />
-                    <input type="password" id=form_password name="field2" class="field-style field-split align-right" placeholder="Password" />
-                </li>
-                <li>
-                    <input type="text" id=form_fname name="field3" class="field-style field-split align-left" placeholder="First Name" />
-                    <input type="text" id=form_sname name="field4" class="field-style field-split align-right" placeholder="Last Name" />
-                </li>
-                <li>
-                    <input type="email" id=form_email name="field4" class="field-style field-split align-left" placeholder="Email" />
-                    <input type="date" id=form_date name="field3" class="field-style field-split align-right" placeholder="Birthday" />
-                </li>
-                <li>
-                </li>
-                <li>
-                    <input type="button" value="Register" onclick="clickMe()" />
-                </li>
-            </ul>
-        </form>
-        <script type="text/javascript" src="register.js"></script>
-    </div>
+<div id="Register" class="mainArea">
+    <form class="form-style-9">
+        <h1>REGISTER</h1>
+        <ul>
+            <li>
+                <input type="text" id=form_uname name="field1" class="field-style field-split align-left"
+                       placeholder="Username"/>
+                <input type="password" id=form_password name="field2" class="field-style field-split align-right"
+                       placeholder="Password"/>
+            </li>
+            <li>
+                <input type="text" id=form_fname name="field3" class="field-style field-split align-left"
+                       placeholder="First Name"/>
+                <input type="text" id=form_sname name="field4" class="field-style field-split align-right"
+                       placeholder="Last Name"/>
+            </li>
+            <li>
+                <input type="email" id=form_email name="field4" class="field-style field-split align-left"
+                       placeholder="Email"/>
+                <input type="date" id=form_date name="field3" class="field-style field-split align-right"
+                       placeholder="Birthday"/>
+            </li>
+            <li>
+            </li>
+            <li>
+                <input type="button" value="Register" onclick="register()"/>
+            </li>
+        </ul>
+    </form>
+</div>
+
+
+<div id="Login" class="mainArea">
+    <form class="form-style-9">
+        <h1>Log In</h1>
+        <ul>
+            <li>
+                <input type="text" id=loginID name="field4" class="field-style field-split align-left"
+                       placeholder="name"/>
+                <input type="password" id=loginPASS name="field3" class="field-style field-split align-right"
+                       placeholder="password"/>
+            </li>
+            <li>
+            </li>
+            <li>
+                <input type="button" id=loginButton value="Login" onclick="validate()"/>
+            </li>
+        </ul>
+    </form>
+</div>
+
+
+
+
+<div id="My Account" class="mainArea">
+</div>
 
 
 
