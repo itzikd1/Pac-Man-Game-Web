@@ -131,13 +131,13 @@ function GetKeyPressed() {
 
 
 function Draw() {
-    var c=0;
-    for (var i=0; i<rows; i++)
-        for (var j=0; j<cols; j++)
-            if (board[i][j] === 3 )
-                c++;
-
-    document.write(c);
+    // var c=0;
+    // for (var i=0; i<rows; i++)
+    //     for (var j=0; j<cols; j++)
+    //         if (board[i][j] === 3 )
+    //             c++;
+    //
+    // document.write(c);
     var icons_radius = 15;
     var eye_radius = 2.5;
     var points_radius = 5;
