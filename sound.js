@@ -1,3 +1,4 @@
+mySound = new sound("1.mp3");
 function sound(src) {
     this.sound = document.createElement("audio");
     this.sound.src = src;
@@ -14,6 +15,5 @@ function sound(src) {
 }
 
 function startSound() {
-    mySound = new sound("1.mp3");
     mySound.play();
 }
