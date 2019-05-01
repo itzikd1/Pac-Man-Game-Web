@@ -11,8 +11,6 @@ var pressed; //for the pressed button (1,2,3,4)
 
 var rows = 38;
 var cols = 17;
-var food_remain = 90;
-var time_limit;
 var ghosts_remain = 3;
 //todo: write walls
 var ghosts = new Array();
@@ -37,7 +35,8 @@ function Start() {
     var cnt = rows * cols;
     var pacman_remain = 1;
 
-
+    var food_remain = 90;
+    var time_limit;
     start_time = new Date();
     for (var i = 0; i < rows; i++) {
         board[i] = new Array();
@@ -68,12 +67,16 @@ function Start() {
     options_points.push([0,0]);
     options_points.push([0,cols-1]);
     options_points.push([rows-1,0]);
-    options_points.push([0,rows-1]);
+    options_points.push([rows-1,cols-1]);
 
+    //plaster
+    if (ghosts_remain == 0 && ghosts.length != 0)
+        ghosts_remain=ghosts.length;
+    
     while (ghosts_remain > 0) {
         randomNum = Math.random();
         var point = options_points[Math.floor(randomNum * 4)];
-        if (board[point[0]][point[1]]!=0){
+        if (board[point[0]][point[1]]===0){
             board[point[0]][point[1]] = 3;
             ghosts_remain--;
             var g = new Object();
@@ -131,13 +134,7 @@ function GetKeyPressed() {
 
 
 function Draw() {
-    // var c=0;
-    // for (var i=0; i<rows; i++)
-    //     for (var j=0; j<cols; j++)
-    //         if (board[i][j] === 3 )
-    //             c++;
-    //
-    // document.write(c);
+
     var icons_radius = 15;
     var eye_radius = 2.5;
     var points_radius = 5;
