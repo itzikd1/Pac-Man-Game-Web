@@ -16,7 +16,7 @@ var ghosts_remain = 3;
 var ghosts = new Array();
 
 
-
+var drawing_helper=0;
 
 /**
  * 4 = wall
@@ -27,6 +27,15 @@ var ghosts = new Array();
  * @constructor
  */
 function Start() {
+
+    ///////colors//////
+    points5 = Math.floor(nBalls * 60 / 100);
+    points15 = Math.floor(nBalls * 30 / 100);
+    points25 = Math.floor(nBalls * 10 / 100);
+    //rest value
+    points5 += (nBalls - points5 - points15 - points25);
+    ///////////////////
+
     board = new Array();
     score = 0;
     pac_color = "yellow";
@@ -35,8 +44,8 @@ function Start() {
     var cnt = rows * cols;
     var pacman_remain = 1;
 
-    var food_remain = 90;
-    var time_limit;
+    var food_remain = nBalls;
+    var time_limit = time; //todo: use it !
     start_time = new Date();
     for (var i = 0; i < rows; i++) {
         board[i] = new Array();
@@ -98,10 +107,10 @@ function Start() {
     }
     keysDown = {};
     addEventListener("keydown", function (e) {
-        keysDown[e.code] = true;
+        keysDown[e.which] = true;
     }, false);
     addEventListener("keyup", function (e) {
-        keysDown[e.code] = false;
+        keysDown[e.which] = false;
     }, false);
     interval = setInterval(UpdatePosition, 200);
     var interval2 = setInterval(    UpdateGhostsPosition, 500);
@@ -123,16 +132,16 @@ function findRandomEmptyCell(board) {
  * @return {number}
  */
 function GetKeyPressed() {
-    if (keysDown['ArrowUp']) {
+    if (keysDown[up_key]) { //up
         return 1;
     }
-    if (keysDown['ArrowDown']) {
+    if (keysDown[down_key]) { //down
         return 2;
     }
-    if (keysDown['ArrowLeft']) {
+    if (keysDown[left_key]) { //left
         return 3;
     }
-    if (keysDown['ArrowRight']) {
+    if (keysDown[right_key]) { //right
         return 4;
     }
 }
@@ -231,9 +240,16 @@ function Draw() {
                 }
             }
         }
-
-
 }
+
+// function pickcolor(){
+//     while(true){
+//         var r = Math.floor(Math.random() * 3) + 1;
+//         if (r == 1 && points5 > 0){
+//
+//         }
+//     }
+// }
 
 function DrawGhosts() {
     var icon_radius = 15;

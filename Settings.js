@@ -136,11 +136,11 @@ function putRandomValues() {
     document.getElementById("keyLeft").value = "Left Button"
     left_key = 37;
     document.getElementById("keyUp").value = "Up Button"
-    left_key = 38;
+    up_key = 38;
     document.getElementById("keyRight").value = "Right Button"
-    left_key = 39;
+    right_key = 39;
     document.getElementById("keyDown").value = "Down Button"
-    left_key = 40;
+    down_key = 40;
 
     document.getElementById("v_left").style.display = "block";
     document.getElementById("v_up").style.display = "block";
@@ -180,6 +180,8 @@ function submitIt() {
 
     if (bBalls && bColor && bGhost && bTime){
         //todo: send data to game
+        ShowDiv('Game')
+        // Start(left_key,up_key,down_key,right_key,nBalls,points5color,points15color,points25color,time,ghost);
     }
 }
 
