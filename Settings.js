@@ -118,7 +118,7 @@ function updateTime() {
 function updateGhost() {
     var g = document.getElementById("ghost").value;
 
-    if ( parseInt(g) >= 1 && parseInt(g) <= 1){
+    if ( parseInt(g) >= 1 && parseInt(g) <= 3){
         ghost = g;
         return true;
     }
