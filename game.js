@@ -253,8 +253,10 @@ function DrawGhosts() {
 
 function UpdateGhostsPosition() {
     for (var i = 0; i < ghosts.length; i++) {
-        var new_i = Math.floor(Math.random() * rows);
-        var new_j = Math.floor(Math.random() * cols);
+        var new_i;
+        var new_j;
+
+        //todo:// ghostd algorightm ghosts_remain.
 
         board[new_i][new_j] = 3;
 
