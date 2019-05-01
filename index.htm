@@ -122,16 +122,16 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" size="10" maxlength="1" onkeydown="getKeyLeft(event)">
+                            <input type="text" id="keyLeft" size="10" maxlength="1" onkeydown="getKeyLeft(event)">
                         </td>
                         <td>
-                            <input type="text" size="10" maxlength="1" onkeydown="getKeyUp(event)">
+                            <input type="text" id="keyUp" size="10" maxlength="1" onkeydown="getKeyUp(event)">
                         </td>
                         <td>
-                            <input type="text" size="10" maxlength="1" onkeydown="getKeyDown(event)">
+                            <input type="text" id="keyDown" size="10" maxlength="1" onkeydown="getKeyDown(event)">
                         </td>
                         <td>
-                            <input type="text" size="10" maxlength="1" onkeydown="getKeyRight(event)">
+                            <input type="text" id="keyRight" size="10" maxlength="1" onkeydown="getKeyRight(event)">
                         </td>
                     </tr>
                     <tr>
@@ -154,10 +154,12 @@
                 <p id="down"></p>
                 <p id="right"></p>
             </div>
-            <div id="nBallsDiv">
-                <h4>Enter number of balls:</h4>
+            <div id="nBallsGhostsDiv">
+                <h4 style="display: inline-block">Enter number of balls:</h4>
                 <input id="nBalls" type="text" size="10" maxlength="2">
-                <button type="button" class="submitButtonsSettings" onclick="sendnBalls()">Submit!</button>
+                </br>
+                <h4 style="display: inline">Enter number of ghosts:</h4>
+                <input id="ghost" type="number" size="10">
             </div>
             <div style='clear:both'></div>
             <div id="colorsPickerDiv">
@@ -185,20 +187,19 @@
                             <input type="color" id="25points" name="25points" value="#ffffff">
                         </td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td style="padding-left: 17px">
-                            <button type="button" class="submitButtonsSettings" onclick="setColors()">Submit!</button>
-                        </td>
-                        <td></td>
-                    </tr>
                 </table>
             </div>
-            <div id="timePickerDiv">
-                <h4>Enter time for your game (in seconds):</h4>
+            <div id="timePickerSubmitRandomDiv">
+                <h4 style="display: inline-block">Enter time for your game (in seconds):</h4>
                 <input id="time" type="number" size="10">
-                <button type="button" class="submitButtonsSettings" onclick="updateTime()">Submit!</button>
+                </br>
+                <button type="button" class="submitButtonsSettings" style="margin-left: 200px;
+                margin-right: 30px; margin-top: 30px"
+                        onclick="putRandomValues()">Random Values</button>
+                <button type="button" class="submitButtonsSettings" style=""
+                        onclick="submitIt()">Submit!</button>
             </div>
+            <div style='clear:both'></div>
         </div>
     </div>
 
