@@ -70,9 +70,10 @@ function Start() {
     options_points.push([rows-1,cols-1]);
 
     //plaster
-    if (ghosts_remain == 0 && ghosts.length != 0)
+    if (ghosts_remain === 0 && ghosts.length !== 0)
         ghosts_remain=ghosts.length;
-    
+    //todo: find the problem with plaster
+
     while (ghosts_remain > 0) {
         randomNum = Math.random();
         var point = options_points[Math.floor(randomNum * 4)];
