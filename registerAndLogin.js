@@ -132,6 +132,7 @@ function validate(){
         ShowDiv('Game');
         HideWelcome();
         ShowGame();
+        startSound();
         return true;
     }
     else{
