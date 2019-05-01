@@ -69,10 +69,11 @@ function Start() {
     options_points.push([rows-1,0]);
     options_points.push([rows-1,cols-1]);
 
-    //plaster
-    if (ghosts_remain === 0 && ghosts.length !== 0)
+    //plaster for restart a new game
+    if (ghosts_remain === 0 && ghosts.length !== 0) {
         ghosts_remain=ghosts.length;
-    //todo: find the problem with plaster
+        ghosts = new Array();
+    }
 
     while (ghosts_remain > 0) {
         randomNum = Math.random();
