@@ -64,7 +64,7 @@ function Start() {
     }
 
     //put ghosts
-    options_points = []
+    options_points = [];
     options_points.push([0,0]);
     options_points.push([0,cols-1]);
     options_points.push([rows-1,0]);
