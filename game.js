@@ -84,6 +84,8 @@ function Start() {
             var g = new Object();
             g.i = point[0];
             g.j = point[1];
+            g.old_j = 0;
+            g.old_i = 0;
             ghosts.push(g)
         }
 
@@ -102,6 +104,7 @@ function Start() {
         keysDown[e.code] = false;
     }, false);
     interval = setInterval(UpdatePosition, 200);
+    var interval2 = setInterval(    UpdateGhostsPosition, 500);
 }
 
 
@@ -231,6 +234,42 @@ function Draw() {
 
 
 }
+
+function DrawGhosts() {
+    var icon_radius = 15;
+    for (var k=0; k<ghosts.length; k++) {
+        var center = new Object();
+        center.x = ghosts[k].i * 2* icons_radius + icons_radius;
+        center.y = ghosts[k].j * 2 * icons_radius + icons_radius;
+
+        //draw background
+        context.beginPath();
+        context.clearRect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
+        context.fillStyle = "black"; //color
+        context.fill();
+    }
+
+}
+
+function UpdateGhostsPosition() {
+    for (var i = 0; i < ghosts.length; i++) {
+        var new_i = Math.floor(Math.random() * rows);
+        var new_j = Math.floor(Math.random() * cols);
+
+        board[new_i][new_j] = 3;
+
+        ghosts[i].old_i = ghosts[i].i;
+        ghosts[i].old_j = ghosts[i].j;
+        board[ghosts[i].i][ghosts[i].j] = 1;
+        ghosts[i].i = new_i;
+        ghosts[i].j = new_j;
+    }
+    DrawGhosts();
+}
+
+
+
+
 
 function UpdatePosition() {
     board[pacmen.i][pacmen.j] = 0;
