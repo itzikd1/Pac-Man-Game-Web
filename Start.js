@@ -25,9 +25,17 @@ function ShowDiv(id)
     var selected = document.getElementById(id);
     selected .style.visibility="visible";
 
+    //hide gamebutton untill loging
+    if (welcomebutton.innerText=="Welcome")
+    {
+        HideGame();
+    }
+
     //if logout button was pressed
-    if (welcomebutton.innerText=="Log Out")
-        welcomebutton.innerText="Welcome";
+    if (welcomebutton.innerText=="Log Out" && id=="Welcome") {
+        welcomebutton.innerText = "Welcome";
+        HideGame();
+    }
 
     //todo: it will be better to call a function here to play the scripts according to id, for now it like this
     if (id==='Game') {
@@ -36,6 +44,16 @@ function ShowDiv(id)
         // });
         Start();
     }
+}
+
+function HideGame() {
+    var gamebutton = document.getElementById('gamebutton');
+    gamebutton.style.display = "none";
+}
+
+function ShowGame() {
+    var gamebutton = document.getElementById('gamebutton');
+    gamebutton.style.display = "block";
 }
 
 function HideWelcome(){
