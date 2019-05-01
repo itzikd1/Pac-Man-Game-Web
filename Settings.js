@@ -142,6 +142,11 @@ function putRandomValues() {
     document.getElementById("keyDown").value = "Down Button"
     left_key = 40;
 
+    document.getElementById("v_left").style.display = "block";
+    document.getElementById("v_up").style.display = "block";
+    document.getElementById("v_down").style.display = "block";
+    document.getElementById("v_right").style.display = "block";
+
     nBalls = Math.floor(Math.random() * (90-50+1) + 50);
     document.getElementById("nBalls").value = nBalls;
     points5color = getRandomColor();
