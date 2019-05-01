@@ -33,7 +33,7 @@ function Start() {
     score = 0;
     pac_color = "yellow";
     var randomNum = Math.random();
-    pressed = Math.floor(randomNum * 4) + 1
+    pressed = Math.floor(randomNum * 4) + 1;
     var cnt = rows * cols;
     var pacman_remain = 1;
 
@@ -64,7 +64,7 @@ function Start() {
     }
 
     //put ghosts
-    options_points = []
+    options_points = [];
     options_points.push([0,0]);
     options_points.push([0,cols-1]);
     options_points.push([rows-1,0]);
