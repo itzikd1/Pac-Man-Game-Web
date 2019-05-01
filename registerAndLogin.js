@@ -125,9 +125,13 @@ function validate(){
     var username = document.getElementById("loginID").value;
     var password = document.getElementById("loginPASS").value;
     index = reg2.find(o => o.username==username)
-    if ( index.password == $("#loginPASS").val()){
+    if (index==undefined)
+        alert ("Not such a user exist");
+    else if ( index.password == $("#loginPASS").val()){
         alert ("Login successfully");
-        ShowDiv('Game')
+        ShowDiv('Game');
+        HideWelcome();
+        ShowGame();
         return true;
     }
     else{

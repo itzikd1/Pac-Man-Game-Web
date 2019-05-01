@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
     <img src="images\logo.png" alt="tmp_logo" width="650" height="120" class="logo_image_left">
     <div class="info ">
-        <script type="text/javascript" src=game.js></script>
         SCORE:
         <input id="lblScore" type="text"/>
         <br/>
@@ -15,6 +14,7 @@
         <input id="lblTime" type="text"/>
         <br/>
     </div>
+    <script type="text/javascript" src=game.js></script>
     <script type="text/javascript" src=Start.js></script>
     <meta name="author" content="www.twitter.com/cheeriottis">
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -24,8 +24,8 @@
 
 
     <section id="Menu" class="Menu">
-        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Welcome')">Welcome</a>
-        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Game')">Play</a>
+        <a href="#" class="action-button shadow animate yellow" id="welcomebutton" onclick="ShowDiv('Welcome')">Welcome</a>
+        <a href="#" class="action-button shadow animate yellow" id="gamebutton" onclick="ShowDiv('Game')">Play</a>
         <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('My Account')">My Account</a>
         <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Settings')">Settings</a>
         <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('About')">About</a>
@@ -207,12 +207,11 @@
     </div>
 
     <div id="Game" class="Game mainArea">
+
+
+        <canvas id="game_canvas" height="550px" width="1200px"></canvas>
         <script type="text/javascript" src=game.js></script>
 
-
-        <canvas id="game_canvas" height="550px" width="1200px">
-
-        </canvas>
 
 
 
