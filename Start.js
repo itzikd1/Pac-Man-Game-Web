@@ -25,12 +25,21 @@ function ShowDiv(id)
     var selected = document.getElementById(id);
     selected .style.visibility="visible";
 
+    //if logout button was pressed
+    if (welcomebutton.innerText=="Log Out")
+        welcomebutton.innerText="Welcome";
+
     //todo: it will be better to call a function here to play the scripts according to id, for now it like this
     if (id==='Game') {
         jQuery.getScript("game.js",function(){
             Start();
         });
     }
+}
+
+function HideWelcome(){
+    var welcomebutton = document.getElementById('welcomebutton');
+    welcomebutton.innerText="Log Out";
 }
 
 
