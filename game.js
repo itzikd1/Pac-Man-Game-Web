@@ -107,6 +107,8 @@ function Start() {
             var g = new Object();
             g.i = point[0];
             g.j = point[1];
+            //g.old_j = 0;
+            //g.old_i = 0;
             // g.old_j = 0;
             // g.old_i = 0;
             ghosts.push(g)
@@ -300,9 +302,6 @@ function UpdateGhostsPosition() {
     for (var i = 0; i < ghosts.length; i++) {
         var new_i = 5;
         var new_j = 5;
-
-        //todo:// ghostd algorightm ghosts_remain.
-
         board[new_i][new_j] = 3;
 
         ghosts[i].old_i = ghosts[i].i;
@@ -346,15 +345,15 @@ function UpdatePosition() {
     if (board[pacmen.i][pacmen.j] === 11) {
         score+=5;
     }
-    else     if (board[pacmen.i][pacmen.j] === 12) {
+    else if (board[pacmen.i][pacmen.j] === 12) {
         score+=15;
-    }else     if (board[pacmen.i][pacmen.j] === 13) {
+    }else  if (board[pacmen.i][pacmen.j] === 13) {
         score+=25;
     }
     board[pacmen.i][pacmen.j] = 2;
     var currentTime = new Date()
    // var time_time = new Date(time);
-    time_elapsed = time - (currentTime - start_time) / 1000;
+    time_elapsed = Math.floor(time - (currentTime - start_time) / 1000);
 
         Draw(x);
 }
