@@ -12,8 +12,8 @@ var pressed; //for the pressed button (1,2,3,4)
 
 var points5, points15, points25;
 
-var rows = 38;
-var cols = 17;
+var rows = 16;
+var cols = 36;
 //todo: write walls
 var ghosts = new Array();
 
@@ -60,7 +60,35 @@ function Start() {
         //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
         for (var j = 0; j < cols; j++) {
             //todo: walls drawing
-            if ((i === 3 && j === 3) || (i === 3 && j === 4) || (i === 3 && j === 5) || (i === 6 && j === 1) || (i === 6 && j === 2)) {
+            if ((i === 4 && j === 3) ||
+                (i === 5 && j === 3)||
+                (i === 6 && j === 3)||
+                (i === 7 && j === 3)||
+                (i === 8 && j === 3)||
+                (i === 9 && j === 3)||
+                (i === 10 && j === 3)||
+                (i === 3 && j === 4) ||
+                (i === 3 && j === 5) ||
+                (i === 3 && j === 6) ||
+                (i === 4 && j === 7) ||
+                (i === 5 && j === 7) ||
+                (i === 6 && j === 6)||
+                (i === 6 && j === 5)||
+                (i === 6 && j === 4)||//////////////p
+
+                (i === 10 && j === 9)||
+                (i === 10 && j === 10)||
+                (i === 9 && j === 8)||
+               // (i === 9 && j === 8)||
+                (i === 8 && j === 8)||
+                (i === 7 && j === 9)||
+                (i === 7 && j === 10)||
+                //(i === 7 && j === 11)||
+                (i === 8 && j === 11)||
+                (i === 9 && j === 11)||
+                (i === 10 && j === 12)
+
+            ) {
                 board[i][j] = 4;
             } else {
                 randomNum = Math.random();
@@ -136,11 +164,11 @@ function Start() {
 
 
 function findRandomEmptyCell(board) {
-    var i = Math.floor((Math.random() * (cols-1)) + 1);
-    var j = Math.floor((Math.random() * (rows-1)) + 1);
+    var i = Math.floor((Math.random() * (rows-1)) + 1);
+    var j = Math.floor((Math.random() * (cols-1)) + 1);
     while (board[i][j] !== 0) {
-        i = Math.floor((Math.random() * (cols-1)) + 1);
-        j = Math.floor((Math.random() * (rows-1)) + 1);
+        i = Math.floor((Math.random() * (rows-1)) + 1);
+        j = Math.floor((Math.random() * (cols-1)) + 1);
     }
     return [i, j];
 }
@@ -176,14 +204,18 @@ function Draw() {
     for (var i = 0; i < rows; i++) {
         for (var j = 0; j < cols; j++) {
             var center = new Object();
-            center.x = i * 2* icons_radius + icons_radius;
-            center.y = j * 2 * icons_radius + icons_radius;
+            center.x = j * 2* icons_radius + icons_radius;
+            center.y = i * 2 * icons_radius + icons_radius;
 
             //draw background
-            context.beginPath();
-            context.rect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
-            context.fillStyle = "black"; //color
-            context.fill();
+
+                context.beginPath();
+                context.rect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
+                context.fillStyle = "black"; //color
+                context.fill();
+                DrawGhosts();
+
+
 
             if (board[i][j] === 2) { //draw pacmen
                 if (pressed === 4) { //right
@@ -266,8 +298,8 @@ function DrawGhosts() {
     var eye_radius = 2.5;
     for (var k=0; k<ghosts.length; k++) {
         var center = new Object();
-        center.x = ghosts[k].i * 2* icons_radius + icons_radius;
-        center.y = ghosts[k].j * 2 * icons_radius + icons_radius;
+        center.x = ghosts[k].j * 2* icons_radius + icons_radius;
+        center.y = ghosts[k].i* 2 * icons_radius + icons_radius;
 
         //draw background
         context.beginPath();
@@ -288,7 +320,7 @@ function UpdateGhostsPosition() {
         var min = steps[0];
         var index = 0;
         for (var i=1; i<steps.length; i++) {
-            if (min >= steps[i]) {
+            if (min > steps[i]) {
                 min = steps[i];
                 index = i;
             }
@@ -302,14 +334,29 @@ function UpdateGhostsPosition() {
         var distance_down = rows*cols;
         var distance_left = rows*cols;
         var distance_right = rows*cols;
-        if (ghosts[i].i-1 >=0 && board[ghosts[i].i-1][ghosts[i].j]!==4)
-            distance_up = Math.abs(pacmen.i-ghosts[i].i-1) + Math.abs(pacmen.j-ghosts[i].j);
-        if (ghosts[i].i+1 <rows && board[ghosts[i].i+1][ghosts[i].j]!==4)
-            distance_down = Math.abs(pacmen.i-ghosts[i].i+1) + Math.abs(pacmen.j-ghosts[i].j);
-        if (ghosts[i].j-1 >=0 && board[ghosts[i].i][ghosts[i].j-1]!==4)
-            distance_left = Math.abs(pacmen.i-ghosts[i].i) + Math.abs(pacmen.j-ghosts[i].j-1);
-        if (ghosts[i].j+1 <cols && board[ghosts[i].i][ghosts[i].j+1]!==4)
-            distance_right = Math.abs(pacmen.i-ghosts[i].i) + Math.abs(pacmen.j-ghosts[i].j+1);
+        if (ghosts[i].i-1 >=0 && board[ghosts[i].i-1][ghosts[i].j]!=4) {
+            distance_up = (Math.abs((pacmen.i - (ghosts[i].i - 1))) + Math.abs((pacmen.j - ghosts[i].j)));
+            // console.log("pacmen location: [" + pacmen.i +"," + + pacmen.j + "] ghost " + i + " move up: [" + (parseInt(ghosts[i].i)-1) + "," +ghosts[i].j +  "] destination: " + (Math.abs(pacmen.i-(ghosts[i].i-1)))+ "+" + (Math.abs(pacmen.j-ghosts[i].j)) + "=" + (Math.abs(pacmen.i-(ghosts[i].i-1)) + Math.abs(pacmen.j-ghosts[i].j)) );
+        }
+        if (ghosts[i].i+1 <rows && board[ghosts[i].i+1][ghosts[i].j]!=4) {
+            distance_down = (Math.abs(pacmen.i - (ghosts[i].i + 1)) + Math.abs(pacmen.j - ghosts[i].j));
+            // console.log("pacmen location: [" + pacmen.i +"," + + pacmen.j + "] ghost " + i + " move down: [" + (parseInt(ghosts[i].i)+1) + "," +ghosts[i].j +  "] destination: " + (Math.abs(pacmen.i-(ghosts[i].i+1))+ "+" + (Math.abs(pacmen.j-ghosts[i].j) )+ "=" + (Math.abs(pacmen.i-(ghosts[i].i+1)) + Math.abs(pacmen.j-ghosts[i].j)))) ;
+
+        }
+        if (ghosts[i].j-1 >=0 && board[ghosts[i].i][ghosts[i].j-1]!=4) {
+            distance_left = (Math.abs(pacmen.i - ghosts[i].i) + Math.abs(pacmen.j - (ghosts[i].j - 1)));
+            // console.log("pacmen location: [" + pacmen.i +"," + + pacmen.j + "] ghost " + i + " move left: [" + (parseInt(ghosts[i].i)) + "," +(ghosts[i].j-1) +  "] destination: " + (Math.abs(pacmen.i-(ghosts[i].i))+ "+" + (Math.abs(pacmen.j-ghosts[i].j-1)) + "=" + (Math.abs(pacmen.i-(ghosts[i].i)) + Math.abs(pacmen.j-ghosts[i].j-1)))) ;
+
+        }
+        if (ghosts[i].j+1 <cols && board[ghosts[i].i][ghosts[i].j+1]!=4) {
+            distance_right = (Math.abs(pacmen.i - ghosts[i].i) + Math.abs(pacmen.j - (ghosts[i].j + 1)));
+            // console.log("pacmen location: [" + pacmen.i +"," + + pacmen.j + "] ghost " + i + " move right: [" + (parseInt(ghosts[i].i)) + "," +(ghosts[i].j+1) +  "] destination: " + (Math.abs(pacmen.i-(ghosts[i].i))+ "+" + (Math.abs(pacmen.j-ghosts[i].j+1)) + "=" + (Math.abs(pacmen.i-(ghosts[i].i)) + Math.abs(pacmen.j-ghosts[i].j+1))) );
+        }
+
+        // console.log("pacmen i: " + pacmen.i + " ghost.i: " + ghosts[i].i+1 +  " down i: " + Math.abs(pacmen.i-ghosts[i].i+1));
+        // console.log("pacmen j: " + pacmen.j + " ghost.j: " + ghosts[i].j + " down j: " + Math.abs(pacmen.j-ghosts[i].j));
+
+
         var steps = [distance_up,distance_down,distance_left,distance_right];
         var locations = [[ghosts[i].i-1,ghosts[i].j],[ghosts[i].i+1,ghosts[i].j],[ghosts[i].i,ghosts[i].j-1],[ghosts[i].i,ghosts[i].j+1]];
         var minIndex = getMinIndex(steps);
@@ -321,7 +368,7 @@ function UpdateGhostsPosition() {
         ghosts[i].i = new_i;
         ghosts[i].j = new_j;
     }
-    DrawGhosts();
+    //DrawGhosts();
 }
 
 
@@ -333,22 +380,22 @@ function UpdatePosition() {
     var x = GetKeyPressed();
     if (x==1 || x==2 || x==3 || x==4)
         pressed=x;
-    if (x === 1) {
+    if (x === 3) {
         if (pacmen.j > 0 && board[pacmen.i][pacmen.j - 1] !== 4) {
             pacmen.j--;
         }
     }
-    if (x === 2) {
+    if (x === 4) {
         if (pacmen.j < cols-1 && board[pacmen.i][pacmen.j + 1] !== 4) {
             pacmen.j++;
         }
     }
-    if (x === 3) {
+    if (x === 1) {
         if (pacmen.i > 0 && board[pacmen.i - 1][pacmen.j] !== 4) {
             pacmen.i--;
         }
     }
-    if (x === 4) {
+    if (x === 2) {
         if (pacmen.i < rows-1 && board[pacmen.i + 1][pacmen.j] !== 4) {
             pacmen.i++;
         }
