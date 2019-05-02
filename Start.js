@@ -66,9 +66,6 @@ function HideWelcome(){
     welcomebutton.innerText="Log Out";
 }
 
-function ShowUserName(){
-
-}
 
 
 

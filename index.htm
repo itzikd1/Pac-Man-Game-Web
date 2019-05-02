@@ -15,7 +15,7 @@
                 Score: <input style="border:none" size=5 id="lblScore" align="left" type="text"/>
             </span>
         </span>
-                    User Name: <input style="border:none" size=5 id="username" type="text" class="logo_image_left"/>
+        User Name: <input style="border:none" size=5 id="username2" type="text" class="logo_image_left"/>
 
     </span>
     <script type="text/javascript" src=game.js></script>
@@ -27,13 +27,14 @@
 
 <body onload="PageLoaded()">
 
+<script type="text/javascript" src=modal.js></script>
 
     <section id="Menu" class="Menu">
         <a href="#" class="action-button shadow animate yellow" id="welcomebutton" onclick="ShowDiv('Welcome')">Welcome</a>
         <a href="#" class="action-button shadow animate yellow" id="gamebutton" onclick="ShowDiv('Game')">Play</a>
         <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('My Account')">My Account</a>
         <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Settings')">Play</a>
-        <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('About')">About</a>
+        <a href="#" class="action-button shadow animate yellow" onclick="showDialog()">About</a>
     </section>
 
 
@@ -211,9 +212,20 @@
 
 
 
-    <div id="About" class="mainArea">
-        about
-    </div>
+        <dialog id="myDialog">
+            <h3>Pacman Work!</h3>
+            Itzik Daniely
+            <br>
+            Anael Gorfinkel
+            <br>
+            Maor Elfassy
+            <br>
+            <br>
+            this work is very hard
+            <br>
+            <button id="closebuttonID" onclick="closeD()">X</button>
+
+        </dialog>
 
 
 

@@ -131,8 +131,8 @@ function validate(){
         alert ("Login successfully");
         ShowDiv('Settings');
         HideWelcome();
+        // $("#username2").text("User sadadsName: "+username);
         ShowGame();
-        ShowUserName();
         return true;
     }
     else{
