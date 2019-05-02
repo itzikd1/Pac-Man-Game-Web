@@ -107,8 +107,8 @@ function Start() {
             var g = new Object();
             g.i = point[0];
             g.j = point[1];
-            g.old_j = 0;
-            g.old_i = 0;
+            // g.old_j = 0;
+            // g.old_i = 0;
             ghosts.push(g)
         }
 
@@ -281,7 +281,7 @@ function Draw() {
 // }
 
 function DrawGhosts() {
-    var icon_radius = 15;
+    var icons_radius = 15;
     for (var k=0; k<ghosts.length; k++) {
         var center = new Object();
         center.x = ghosts[k].i * 2* icons_radius + icons_radius;
@@ -298,8 +298,8 @@ function DrawGhosts() {
 
 function UpdateGhostsPosition() {
     for (var i = 0; i < ghosts.length; i++) {
-        var new_i;
-        var new_j;
+        var new_i = 5;
+        var new_j = 5;
 
         //todo:// ghostd algorightm ghosts_remain.
 
@@ -352,11 +352,9 @@ function UpdatePosition() {
         score+=25;
     }
     board[pacmen.i][pacmen.j] = 2;
-    var currentTime = new Date();
-    time_elapsed = (currentTime - start_time) / 1000;
-    if (score >= 20 && time_elapsed <= 10) {
-        pac_color = "green";
-    }
+    var currentTime = new Date()
+   // var time_time = new Date(time);
+    time_elapsed = time - (currentTime - start_time) / 1000;
 
         Draw(x);
 }
