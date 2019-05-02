@@ -129,10 +129,9 @@ function validate(){
         alert ("Not such a user exist");
     else if ( index.password == $("#loginPASS").val()){
         alert ("Login successfully");
-        ShowDiv('Game');
+        ShowDiv('Settings');
         HideWelcome();
         ShowGame();
-        startSound();
         return true;
     }
     else{

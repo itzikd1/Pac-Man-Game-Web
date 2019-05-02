@@ -43,7 +43,7 @@ function Start() {
     pressed = Math.floor(randomNum * 4) + 1;
     var cnt = rows * cols;
     var pacman_remain = 1;
-
+    startSound();
     var food_remain = nBalls;
     var time_limit = time; //todo: use it !
     start_time = new Date();
