@@ -270,14 +270,31 @@ function DrawGhosts() {
 
         //draw background
         context.beginPath();
-        //context.clearRect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
-        context.fillStyle = "black"; //color
+        context.fillStyle = "pink"; //color
+        context.arc(center.x, center.y, icons_radius, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+        context.lineTo(center.x, center.y);
+        context.fill();
+        context.beginPath();
+        context.arc(center.x + 2, center.y - 8, eye_radius, 0, 2 * Math.PI); // circle
+        context.fillStyle = pac_eye_color; //color
         context.fill();
     }
 
 }
 
 function UpdateGhostsPosition() {
+    function getMinIndex(steps) {
+        var min = steps[0];
+        var index = 0;
+        for (var i=1; i<steps.length; i++) {
+            if (min > steps[i]) {
+                min = steps[i];
+                index = i;
+            }
+        }
+        return index;
+    }
+
     for (var i = 0; i < ghosts.length; i++) {
         var new_i, new_j;
         var distance_up = rows*cols;
@@ -293,8 +310,8 @@ function UpdateGhostsPosition() {
         if (ghosts[i].j+1 <cols && board[ghosts[i].i][ghosts[i].j+1]!==4)
             distance_right = Math.abs(pacmen.i-ghosts[i].i) + Math.abs(pacmen.j-ghosts[i].j+1);
         var steps = [distance_up,distance_down,distance_left,distance_right];
-        var locations = [[ghosts[i].i-1][ghosts[i].j],[ghosts[i].i+1][ghosts[i].j],[ghosts[i].i][ghosts[i].j-1],[ghosts[i].i][ghosts[i].j+1]];
-        var minIndex = steps.indexOf(Math.min(steps));
+        var locations = [[ghosts[i].i-1,ghosts[i].j],[ghosts[i].i+1,ghosts[i].j],[ghosts[i].i,ghosts[i].j-1],[ghosts[i].i,ghosts[i].j+1]];
+        var minIndex = getMinIndex(steps);
         new_i = locations[minIndex][0];
         new_j = locations[minIndex][1];
 
