@@ -13,7 +13,6 @@ var points5, points15, points25;
 
 var rows = 38;
 var cols = 17;
-var ghosts_remain = 3;
 //todo: write walls
 var ghosts = new Array();
 
@@ -22,13 +21,13 @@ var drawing_helper=0;
 
 /**
  * 4 = wall
- * 3 = ghost
+ * 3 = ghosts_remain
  * 2 = pacmen
  * 1 = food
  * 11 = 5 points
  * 12 = 15 points
  * 13 25 points
- * 0 =
+ * 0 = empty
  * @constructor
  */
 function Start() {
@@ -85,7 +84,7 @@ function Start() {
         }
     }
 
-    //put ghosts
+    //put ghosts on pinot
     options_points = [];
     options_points.push([0,0]);
     options_points.push([0,cols-1]);
@@ -273,14 +272,7 @@ function Draw() {
         }
 }
 
-// function pickcolor(){
-//     while(true){
-//         var r = Math.floor(Math.random() * 3) + 1;
-//         if (r == 1 && points5 > 0){
-//
-//         }
-//     }
-// }
+
 
 function DrawGhosts() {
     var icons_radius = 15;
@@ -303,7 +295,6 @@ function UpdateGhostsPosition() {
         var new_i = 5;
         var new_j = 5;
         board[new_i][new_j] = 3;
-
         ghosts[i].old_i = ghosts[i].i;
         ghosts[i].old_j = ghosts[i].j;
         board[ghosts[i].i][ghosts[i].j] = 1;

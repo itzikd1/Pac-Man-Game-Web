@@ -12,7 +12,7 @@ var points25color;
 
 var time;
 
-var ghost;
+var ghosts_remain;
 
 function ButtonsValue(code) {
     switch (code) {
@@ -119,11 +119,11 @@ function updateGhost() {
     var g = document.getElementById("ghost").value;
 
     if ( parseInt(g) >= 1 && parseInt(g) <= 3){
-        ghost = g;
+        ghosts_remain = g;
         return true;
     }
     else if (parseInt(g) < 1) {
-        alert("Set at least 1 ghost !");
+        alert("Set at least 1 ghosts_remain !");
         return false;
     }
     else {
@@ -159,8 +159,8 @@ function putRandomValues() {
     if ( time < 60 )
         time = time + 60;
     document.getElementById("time").value = time;
-    ghost = Math.floor(Math.random() * 3) + 1;
-    document.getElementById("ghost").value = ghost;
+    ghosts_remain = Math.floor(Math.random() * 3) + 1;
+    document.getElementById("ghost").value = ghosts_remain;
 }
 
 function getRandomColor() {
@@ -181,7 +181,7 @@ function submitIt() {
     if (bBalls && bColor && bGhost && bTime){
         //todo: send data to game
         ShowDiv('Game')
-        // Start(left_key,up_key,down_key,right_key,nBalls,points5color,points15color,points25color,time,ghost);
+        // Start(left_key,up_key,down_key,right_key,nBalls,points5color,points15color,points25color,time,ghosts_remain);
     }
 }
 
