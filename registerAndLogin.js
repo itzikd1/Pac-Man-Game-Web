@@ -132,6 +132,7 @@ function validate(){
         ShowDiv('Settings');
         HideWelcome();
         ShowGame();
+        ShowUserName();
         return true;
     }
     else{

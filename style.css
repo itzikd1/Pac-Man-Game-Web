@@ -269,9 +269,18 @@
 /* Centered text */
 .centered {
     position: absolute;
-    top: 50%;
+    top: -200%;
+    left: 150%;
+    transform: translate(10%, -55%);
+    vertical-align: middle;
+}
+
+.username {
+    position: absolute;
+    top: -100%;
     left: 50%;
     transform: translate(-50%, -50%);
+    vertical-align: top;
 }
 
 #lblTime{
