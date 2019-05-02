@@ -9,6 +9,8 @@ var time_elapsed;
 var interval;
 var pressed; //for the pressed button (1,2,3,4)
 
+var points5, points15, points25;
+
 var rows = 38;
 var cols = 17;
 var ghosts_remain = 3;
@@ -23,6 +25,9 @@ var drawing_helper=0;
  * 3 = ghost
  * 2 = pacmen
  * 1 = food
+ * 11 = 5 points
+ * 12 = 15 points
+ * 13 25 points
  * 0 =
  * @constructor
  */
@@ -34,6 +39,9 @@ function Start() {
     points25 = Math.floor(nBalls * 10 / 100);
     //rest value
     points5 += (nBalls - points5 - points15 - points25);
+    var points_remain = [points5,points15,points25];
+    var points_indexes = [11,12,13];
+
     ///////////////////
 
     board = new Array();
@@ -51,13 +59,19 @@ function Start() {
         board[i] = new Array();
         //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
         for (var j = 0; j < cols; j++) {
+            //todo: walls drawing
             if ((i === 3 && j === 3) || (i === 3 && j === 4) || (i === 3 && j === 5) || (i === 6 && j === 1) || (i === 6 && j === 2)) {
                 board[i][j] = 4;
             } else {
                 randomNum = Math.random();
                 if (randomNum <= 1.0 * food_remain / cnt) {
-                    food_remain--;
-                    board[i][j] = 1;
+                    var random = Math.floor(Math.random() * 3);
+                    if (points_remain[random]>0) {
+                        points_remain[random]--;
+                        food_remain--;
+                        board[i][j] = points_indexes[random];
+                    }
+
                 } else if (randomNum < 1.0 * (pacman_remain + food_remain) / cnt) {
                     pacmen.i = i;
                     pacmen.j = j;
@@ -102,8 +116,12 @@ function Start() {
     }
     while (food_remain > 0) {
         var emptyCell = findRandomEmptyCell(board);
-        board[emptyCell[0]][emptyCell[1]] = 1;
-        food_remain--;
+        var random = Math.floor(Math.random() * 3);
+        if (points_remain[random]>0) {
+            points_remain[random]--;
+            food_remain--;
+            board[emptyCell[0]][emptyCell[1]] = points_indexes[random];
+        }
     }
     keysDown = {};
     addEventListener("keydown", function (e) {
@@ -216,12 +234,23 @@ function Draw() {
 
 
 
-            } else if (board[i][j] === 1) {
+            } else if (board[i][j] === 11) {
                 context.beginPath();
                 context.arc(center.x , center.y , points_radius, 0, 2 * Math.PI); // circle
-                context.fillStyle = "gold"; //color
+                context.fillStyle = points5color; //color
                 context.fill();
-            } else if (board[i][j] === 4) {
+            } else if (board[i][j] === 12) {
+                context.beginPath();
+                context.arc(center.x , center.y , points_radius, 0, 2 * Math.PI); // circle
+                context.fillStyle = points15color; //color
+                context.fill();
+            } else if (board[i][j] === 13) {
+                context.beginPath();
+                context.arc(center.x , center.y , points_radius, 0, 2 * Math.PI); // circle
+                context.fillStyle = points25color; //color
+                context.fill();
+            }
+            else if (board[i][j] === 4) {
                 context.beginPath();
                 context.rect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
                 context.fillStyle = "white"; //color
@@ -314,8 +343,13 @@ function UpdatePosition() {
             pacmen.i++;
         }
     }
-    if (board[pacmen.i][pacmen.j] === 1) {
-        score++;
+    if (board[pacmen.i][pacmen.j] === 11) {
+        score+=5;
+    }
+    else     if (board[pacmen.i][pacmen.j] === 12) {
+        score+=15;
+    }else     if (board[pacmen.i][pacmen.j] === 13) {
+        score+=25;
     }
     board[pacmen.i][pacmen.j] = 2;
     var currentTime = new Date();
@@ -323,11 +357,6 @@ function UpdatePosition() {
     if (score >= 20 && time_elapsed <= 10) {
         pac_color = "green";
     }
-    if (score === 50) {
-        window.clearInterval(interval);
-        window.alert("Game completed");
-    } else {
 
         Draw(x);
-    }
 }
