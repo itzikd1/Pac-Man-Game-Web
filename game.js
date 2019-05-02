@@ -263,6 +263,7 @@ function Draw() {
 
 function DrawGhosts() {
     var icons_radius = 15;
+    var eye_radius = 2.5;
     for (var k=0; k<ghosts.length; k++) {
         var center = new Object();
         center.x = ghosts[k].i * 2* icons_radius + icons_radius;
@@ -276,7 +277,7 @@ function DrawGhosts() {
         context.fill();
         context.beginPath();
         context.arc(center.x + 2, center.y - 8, eye_radius, 0, 2 * Math.PI); // circle
-        context.fillStyle = pac_eye_color; //color
+        context.fillStyle = "yellow"; //color
         context.fill();
     }
 
@@ -287,7 +288,7 @@ function UpdateGhostsPosition() {
         var min = steps[0];
         var index = 0;
         for (var i=1; i<steps.length; i++) {
-            if (min > steps[i]) {
+            if (min >= steps[i]) {
                 min = steps[i];
                 index = i;
             }
