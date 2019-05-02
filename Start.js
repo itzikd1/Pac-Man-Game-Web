@@ -1,6 +1,6 @@
 function PageLoaded()
 {
-    ShowDiv('Welcome');
+    ShowDiv('Settings');
 }
 function ShowDiv(id)
 {
