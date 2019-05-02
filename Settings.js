@@ -105,12 +105,12 @@ function setColors() {
 function updateTime() {
     var t = document.getElementById("time").value;
 
-    if ( parseInt(t) >= 60){
+    if ( parseInt(t) >= 60 && parseInt(t) <= 240){
         time = t;
         return true;
     }
     else {
-        alert("Set at least 60 seconds for your game !")
+        alert("The time should be between 60 and 240 seconds !")
         return false;
     }
 }
@@ -155,7 +155,7 @@ function putRandomValues() {
     document.getElementById("15points").value = points15color;
     points25color = getRandomColor();
     document.getElementById("25points").value = points25color;
-    time = Math.floor(Math.random()*1000);
+    time = Math.floor(Math.random() * 240);
     if ( time < 60 )
         time = time + 60;
     document.getElementById("time").value = time;

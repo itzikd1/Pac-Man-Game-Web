@@ -107,8 +107,8 @@ function Start() {
             var g = new Object();
             g.i = point[0];
             g.j = point[1];
-            g.old_j = 0;
-            g.old_i = 0;
+            //g.old_j = 0;
+            //g.old_i = 0;
             ghosts.push(g)
         }
 
@@ -346,9 +346,9 @@ function UpdatePosition() {
     if (board[pacmen.i][pacmen.j] === 11) {
         score+=5;
     }
-    else     if (board[pacmen.i][pacmen.j] === 12) {
+    else if (board[pacmen.i][pacmen.j] === 12) {
         score+=15;
-    }else     if (board[pacmen.i][pacmen.j] === 13) {
+    }else  if (board[pacmen.i][pacmen.j] === 13) {
         score+=25;
     }
     board[pacmen.i][pacmen.j] = 2;
