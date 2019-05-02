@@ -7,6 +7,7 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var interval_ghosts;
 var pressed; //for the pressed button (1,2,3,4)
 
 var points5, points15, points25;
@@ -106,10 +107,7 @@ function Start() {
             var g = new Object();
             g.i = point[0];
             g.j = point[1];
-            //g.old_j = 0;
-            //g.old_i = 0;
-            // g.old_j = 0;
-            // g.old_i = 0;
+
             ghosts.push(g)
         }
 
@@ -132,7 +130,7 @@ function Start() {
         keysDown[e.which] = false;
     }, false);
     interval = setInterval(UpdatePosition, 200);
-    var interval2 = setInterval(    UpdateGhostsPosition, 500);
+    interval_ghosts = setInterval(UpdateGhostsPosition, 500);
 }
 
 
@@ -257,19 +255,8 @@ function Draw() {
                 context.fillStyle = "white"; //color
                 context.fill();
             }
-                else if (board[i][j] === 3) { //draw ghosts
-                    context.beginPath();
-                    context.arc(center.x, center.y, icons_radius, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-                    context.lineTo(center.x, center.y);
-                    context.fillStyle = "green"; //color
-                    context.fill();
-                    context.beginPath();
-                    context.arc(center.x + 2, center.y - 8, eye_radius, 0, 2 * Math.PI); // circle
-                    context.fillStyle = "white"; //color
-                    context.fill();
-                }
-            }
         }
+    }
 }
 
 
@@ -283,7 +270,7 @@ function DrawGhosts() {
 
         //draw background
         context.beginPath();
-        context.clearRect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
+        //context.clearRect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
         context.fillStyle = "black"; //color
         context.fill();
     }
@@ -292,12 +279,27 @@ function DrawGhosts() {
 
 function UpdateGhostsPosition() {
     for (var i = 0; i < ghosts.length; i++) {
-        var new_i = 5;
-        var new_j = 5;
-        board[new_i][new_j] = 3;
+        var new_i, new_j;
+        var distance_up = rows*cols;
+        var distance_down = rows*cols;
+        var distance_left = rows*cols;
+        var distance_right = rows*cols;
+        if (ghosts[i].i-1 >=0 && board[ghosts[i].i-1][ghosts[i].j]!==4)
+            distance_up = Math.abs(pacmen.i-ghosts[i].i-1) + Math.abs(pacmen.j-ghosts[i].j);
+        if (ghosts[i].i+1 <rows && board[ghosts[i].i+1][ghosts[i].j]!==4)
+            distance_down = Math.abs(pacmen.i-ghosts[i].i+1) + Math.abs(pacmen.j-ghosts[i].j);
+        if (ghosts[i].j-1 >=0 && board[ghosts[i].i][ghosts[i].j-1]!==4)
+            distance_left = Math.abs(pacmen.i-ghosts[i].i) + Math.abs(pacmen.j-ghosts[i].j-1);
+        if (ghosts[i].j+1 <cols && board[ghosts[i].i][ghosts[i].j+1]!==4)
+            distance_right = Math.abs(pacmen.i-ghosts[i].i) + Math.abs(pacmen.j-ghosts[i].j+1);
+        var steps = [distance_up,distance_down,distance_left,distance_right];
+        var locations = [[ghosts[i].i-1][ghosts[i].j],[ghosts[i].i+1][ghosts[i].j],[ghosts[i].i][ghosts[i].j-1],[ghosts[i].i][ghosts[i].j+1]];
+        var minIndex = steps.indexOf(Math.min(steps));
+        new_i = locations[minIndex][0];
+        new_j = locations[minIndex][1];
+
         ghosts[i].old_i = ghosts[i].i;
         ghosts[i].old_j = ghosts[i].j;
-        board[ghosts[i].i][ghosts[i].j] = 1;
         ghosts[i].i = new_i;
         ghosts[i].j = new_j;
     }
