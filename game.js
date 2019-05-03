@@ -544,15 +544,15 @@ function UpdatePosition() {
                 stickercanvas.visibility="visible";
                 let boom_image = new Image();
                 boom_image.src = 'images/boom.png';
-                Console.log("ghost number " + i );
+                console.log("ghost number " + i );
+                stickercontext.drawImage(boom_image, 60, 10, 58 , 35);
+                // stickercanvas.visibility="hidden";
                 setTimeout(function(){
-                    stickercontext.drawImage(boom_image, 60, 10, 58 , 35);
-                    //console.log("hi");
+                    stickercanvas.visibility="hidden";
+                    stickercontext.clearRect(0,0,stickercanvas.width,stickercanvas.height);
                 },2000);
-
             }
-            // stickercanvas.clearRect(0,0,stickercanvas.width,stickercanvas.height);
-            // stickercanvas.visibility="hidden";
+
         }
     }
     board[pacmen.i][pacmen.j] = 2;
