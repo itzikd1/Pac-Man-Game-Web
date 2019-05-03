@@ -83,12 +83,59 @@ function Start() {
                 (i === 8 && j === 8)||
                 (i === 7 && j === 9)||
                 (i === 7 && j === 10)||
+                (i === 7 && j === 8)||
+                (i === 7 && j === 11)||
+                (i === 10 && j === 8)||
                 //(i === 7 && j === 11)||
                 (i === 8 && j === 11)||
                 (i === 9 && j === 11)||
-                (i === 10 && j === 12)
+                (i === 10 && j === 12)||
+                (i === 7 && j === 14)||
+                (i === 7 && j === 15)||
+                (i === 7 && j === 16)||
+                (i === 10 && j === 14)||
+                (i === 10 && j === 15)||
+                (i === 10 && j === 16)||
+                (i === 8 && j === 14)||
+                (i === 9 && j === 14)||
+                (i === 10 && j === 18)||
+                (i === 8 && j === 18)||
+                (i === 9 && j === 18)||
+                (i === 10 && j === 22)||
+                (i === 8 && j === 22)||
+                (i === 9 && j === 22)||
+                (i === 8 && j === 20)||
+                (i === 7 && j === 18) ||
+                (i === 7 && j === 21)||
+                (i === 7 && j === 22)||
+                (i === 7 && j === 18) ||
+                (i === 7 && j === 19) ||
+                (i === 9 && j === 20) ||
+                (i === 7 && j === 24) ||
+                (i === 8 && j === 24) ||
+                (i === 9 && j === 24) ||
+                (i === 10 && j === 24)||
+                (i === 7 && j === 27) ||
+                (i === 8 && j === 27) ||
+                (i === 9 && j === 27) ||
+                (i === 10 && j === 28)||
+                (i === 10 && j === 25)||
+                (i === 10 && j === 26)||
+                (i === 7 && j === 25)||
+                (i === 7 && j === 26)     ||
+                (i === 10 && j === 30)||
+                (i === 9 && j === 30)||
+                (i === 8 && j === 30)||
+                (i === 7 && j === 30) ||
+                (i === 9 && j === 33)||
+                (i === 8 && j === 33)||
+                (i === 7 && j === 33) ||
+                (i === 10 && j === 33)||
+                (i === 8 && j === 31)||
+                (i === 9 && j === 32)
+            )
 
-            ) {
+             {
                 board[i][j] = 4;
             } else {
                 randomNum = Math.random();
@@ -101,10 +148,13 @@ function Start() {
                     }
 
                 } else if (randomNum < 1.0 * (pacman_remain + food_remain) / cnt) {
-                    pacmen.i = i;
-                    pacmen.j = j;
-                    pacman_remain--;
-                    board[i][j] = 2;
+                    if (is_not_locked_point(i,j)) {
+                        pacmen.i = i;
+                        pacmen.j = j;
+                        pacman_remain--;
+                        board[i][j] = 2;
+                    }
+
                 } else {
                     board[i][j] = 0;
                 }
@@ -161,12 +211,19 @@ function Start() {
     interval_ghosts = setInterval(UpdateGhostsPosition, 500);
 }
 
+function is_not_locked_point(i,j) {
+    if ((i==9 && j==31) || (i==8 && j==31) || (i==9 && j==32)|| (i==8 && j==32) ||(i==9 && j==10) || (i==8 && j==10) || (i==9 && j==11)|| (i==8 && j==11) || (i==4 && j==4) || (i==4 && j==5) || (i==4 && j==6)|| (i==5 && j==4) || (i==5 && j==5) || (i==5 && j==6)
+    )
+        return false;
+    return true;
+}
+
 
 
 function findRandomEmptyCell(board) {
     var i = Math.floor((Math.random() * (rows-1)) + 1);
     var j = Math.floor((Math.random() * (cols-1)) + 1);
-    while (board[i][j] !== 0) {
+    while (board[i][j] !== 0 || !is_not_locked_point(i,j)) {
         i = Math.floor((Math.random() * (rows-1)) + 1);
         j = Math.floor((Math.random() * (cols-1)) + 1);
     }
