@@ -23,6 +23,7 @@
     <script type="text/javascript" src=sound.js></script>
     <meta name="author" content="www.twitter.com/cheeriottis">
     <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+
 </head>
 
 <body onload="PageLoaded()">
@@ -34,7 +35,7 @@
         <a href="#" class="action-button shadow animate yellow" id="gamebutton" onclick="ShowDiv('Game')">Play</a>
         <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('My Account')">My Account</a>
         <a href="#" class="action-button shadow animate yellow" onclick="ShowDiv('Settings')">Play</a>
-        <a href="#" class="action-button shadow animate yellow" onclick="showDialog()">About</a>
+        <a href="#" class="action-button shadow animate yellow" onclick="ShowModal()">About</a>
     </section>
 
 
@@ -209,21 +210,35 @@
         </div>
     </div>
 
-<div id="About">
-    <dialog id="myDialog">
-        <h3>Pacman Work!</h3>
-        Itzik Daniely
-        <br>
-        Anael Gorfinkel
-        <br>
-        Maor Elfassy
-        <br>
-        <br>
-        this work is very hard
-        <br>
-        <button id="closebuttonID" onclick="closeD()">X</button>
+<div id="About" class="modal">
+    <script type="text/javascript" src=modal.js></script>
+<!--        <h3>Pacman Work!</h3>-->
+<!--        Itzik Daniely-->
+<!--        <br>-->
+<!--        Anael Gorfinkel-->
+<!--        <br>-->
+<!--        Maor Elfassy-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        this work is very hard-->
+<!--        <br>-->
+<!--        <button id="closebuttonID" onclick="closeD()">X</button>-->
 
-    </dialog>
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" onclick="closeD()">&times;</span>
+        <p>
+            Submitted by: Itzik Daniely, Anael Gorfinkel, Maor Elfassy.
+            <br>
+            We used "" JQuery Plugin in the Register section.
+            <br>
+            We had some problems with the game board build and with the new interval of the ghosts.
+            <br>
+            See you next Time :)
+        </p>
+    </div>
+
+
 </div>
 
 

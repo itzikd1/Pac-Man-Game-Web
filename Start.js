@@ -2,6 +2,13 @@ function PageLoaded()
 {
     ShowDiv('Welcome');
 }
+
+function ShowModal(){
+    var selected = document.getElementById('About');
+    selected .style.visibility="visible";
+    openD();
+}
+
 function ShowDiv(id)
 {
     //hide all sections
