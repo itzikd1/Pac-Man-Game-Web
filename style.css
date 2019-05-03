@@ -29,6 +29,17 @@
 }
 
 
+.stickers {
+    padding: 15px 10px;
+    margin-left: 160px;
+    position: absolute;
+    top: 130px;
+    left: 40px;
+    width: 1200px;
+    height: 550px;
+}
+
+
 
 
 /* The side navigation menu */

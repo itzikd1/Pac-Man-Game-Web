@@ -1,5 +1,9 @@
 var canvas = document.getElementById("game_canvas");
 var context = canvas.getContext("2d");
+
+var stickercanvas = document.getElementById("sticker_canvas");
+var stickercontext = stickercanvas.getContext("2d");
+
 var pacmen = new Object();
 var nikud_zaz = new Object();
 var board;
@@ -519,8 +523,19 @@ function UpdatePosition() {
     }else  if (board[pacmen.i][pacmen.j] === 13) {
         score+=25;
     }
+    else { //lose points
+        for (var i = 0; i < ghosts.length; i++) {
+            if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
+                score -= 10;
+                stickercanvas.visibility="visible";
+                let boom_image = new Image();
+                boom_image.src = 'images/boom.png';
+                stickercontext.drawImage(boom_image, 0, 0, 58 , 35);
+            }
+        }
+    }
     board[pacmen.i][pacmen.j] = 2;
-    var currentTime = new Date()
+    var currentTime = new Date();
    // var time_time = new Date(time);
     time_elapsed = Math.floor(time - (currentTime - start_time) / 1000);
 
