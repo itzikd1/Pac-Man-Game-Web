@@ -43,7 +43,7 @@
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 0px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-    margin-left: 25px;
+    margin-left: 20px;
     margin-top: 25px;
 }
 
@@ -51,15 +51,16 @@
 .Menu a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 19px;
     color: #818181;
     display: block;
     transition: 0.3s;
-    width: 140px;
+    width: 130px;
     height: 30px;
 }
 
 /* When you mouse over the navigation links, change their color */
+.action-button:hover,
 .Menu a:hover {
     color: #f1f1f1;
 }
@@ -79,7 +80,7 @@
     border-radius: 10px;
     font-family: 'Pacifico', cursive;
     font-size: 25px;
-    color: #FFF;
+    color: #818181;
     text-decoration: none;
 }
 
@@ -289,4 +290,63 @@
 
 #lblScore{
     background-color:transparent;
+}
+
+/****modal section*****/
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 150px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #eee2a9;
+    margin: auto;
+    padding: 30px;
+    border: 5px solid #000000;
+    width: 60%;
+    font-family: 'Pacifico', cursive;
+    font-size: 21px;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logButton{
+    position:absolute;
+    transition: .5s ease;
+    top: 22%;
+    left: 20%;
+    padding: 20px 50px 20px 50px;
+}
+
+.regButton{
+    position:absolute;
+    transition: .5s ease;
+    top: 22%;
+    left: 40%;
+    padding: 20px 50px 20px 50px;
 }
