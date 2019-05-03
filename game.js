@@ -16,6 +16,7 @@ var interval_ghosts;
 var interval_nikud_zaz;
 var pressed; //for the pressed button (1,2,3,4)
 var restart = false;
+var lives;
 
 var points5, points15, points25;
 
@@ -42,6 +43,8 @@ var drawing_helper=0;
  * @constructor
  */
 function Start() {
+
+    lives = 3;
 
     ///////colors//////
     points5 = Math.floor(nBalls * 60 / 100);
@@ -537,11 +540,19 @@ function UpdatePosition() {
         for (var i = 0; i < ghosts.length; i++) {
             if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
                 score -= 10;
+                lives--;
                 stickercanvas.visibility="visible";
                 let boom_image = new Image();
                 boom_image.src = 'images/boom.png';
-                stickercontext.drawImage(boom_image, 0, 0, 58 , 35);
+                Console.log("ghost number " + i );
+                setTimeout(function(){
+                    stickercontext.drawImage(boom_image, 60, 10, 58 , 35);
+                    //console.log("hi");
+                },2000);
+
             }
+            // stickercanvas.clearRect(0,0,stickercanvas.width,stickercanvas.height);
+            // stickercanvas.visibility="hidden";
         }
     }
     board[pacmen.i][pacmen.j] = 2;
