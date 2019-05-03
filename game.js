@@ -16,6 +16,7 @@ var interval_ghosts;
 var interval_nikud_zaz;
 var pressed; //for the pressed button (1,2,3,4)
 var restart = false;
+var lives;
 
 var points5, points15, points25;
 
@@ -43,6 +44,7 @@ var drawing_helper=0;
  */
 function Start() {
 
+    lives = 3;
     ///////colors//////
     points5 = Math.floor(nBalls * 60 / 100);
     points15 = Math.floor(nBalls * 30 / 100);
@@ -235,7 +237,7 @@ function Start() {
 }
 
 function is_not_locked_point(i,j) {
-if (  (i==4 && j==5) || (i==5 && j==6) ||(i==5 && j==5) || (i==5 && j==4) || (i==4 && j==4) || (i==6 && j==5) || (i==8 && j==9)||
+if (  (i==4 && j==5) || (i==5 && j==6) ||(i==5 && j==5) || (i==5 && j==4) || (i==4 && j==4) || (i==6 && j==5)|| (i==4 && j==6) || (i==8 && j==9)||
     (i==8 && j==10) || (i==9 && j==9) || (i==9 && j==10) ||(i==9 && j==26) || (i==9 && j==25) ||(i==8 && j==26) || (i==8 && j==25))
         return false;
     return true;
