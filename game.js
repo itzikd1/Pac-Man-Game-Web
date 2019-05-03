@@ -146,7 +146,7 @@ function Start() {
                 board[i][j] = 4;
             } else {
                 randomNum = Math.random();
-                if (randomNum <= 1.0 * food_remain / cnt) {
+                if (randomNum <= 1.0 * food_remain / cnt && is_not_locked_point(i,j)) {
                     var random = Math.floor(Math.random() * 3);
                     if (points_remain[random]>0) {
                         points_remain[random]--;
@@ -222,14 +222,17 @@ function Start() {
     addEventListener("keyup", function (e) {
         keysDown[e.which] = false;
     }, false);
+    UpdatePosition();
+    UpdateGhostsPosition();
+    UpdateNikudZazPosition();
     interval = setInterval(UpdatePosition, 200);
-    interval_ghosts = setInterval(UpdateGhostsPosition, 500);
-    interval_nikud_zaz = setInterval(UpdateNikudZazPosition,100);
+    interval_ghosts = setInterval(UpdateGhostsPosition, 350);
+    interval_nikud_zaz = setInterval(UpdateNikudZazPosition,1000);
 }
 
 function is_not_locked_point(i,j) {
-    if ((i==9 && j==31) || (i==8 && j==31) || (i==9 && j==32)|| (i==8 && j==32) ||(i==9 && j==10) || (i==8 && j==10) || (i==9 && j==11)|| (i==8 && j==11) || (i==9 && j==31) || (i==8 && j==31) || (i==9 && j==32)|| (i==8 && j==32) || (i==9 && j==5) || (i==8 && j==6)
-    )
+if (  (i==4 && j==5) || (i==5 && j==6) ||(i==5 && j==5) || (i==5 && j==4) || (i==4 && j==4) || (i==6 && j==5) || (i==8 && j==9)||
+    (i==8 && j==10) || (i==9 && j==9) || (i==9 && j==10) ||(i==9 && j==26) || (i==9 && j==25) ||(i==8 && j==26) || (i==8 && j==25))
         return false;
     return true;
 }
@@ -286,7 +289,8 @@ function Draw() {
                 context.rect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
                 context.fillStyle = "black"; //color
                 context.fill();
-                DrawGhosts();
+                DrawGhosts()
+                DrawNikudZaz();
 
 
 
@@ -377,7 +381,9 @@ function DrawNikudZaz() {
         context.arc(center.x, center.y, icons_radius, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
         context.lineTo(center.x, center.y);
         context.fill();
-        context.fillText("50",center.x,center.y,25);
+        context.fillStyle = "white"; //color
+        context.fillText("50",center.x-3,center.y,40);
+
 
 }
 
@@ -430,7 +436,7 @@ function getMaxIndex(steps) {
 function UpdateGhostsPosition() {
 
 
-    var chance_random = 0.17;
+    var chance_random = 0.2;
     var random_number;
     for (var i = 0; i < ghosts.length; i++) {
         var new_i, new_j;
@@ -439,21 +445,21 @@ function UpdateGhostsPosition() {
         var distance_left = rows*cols;
         var distance_right = rows*cols;
         if (ghosts[i].i-1 >=0 && board[ghosts[i].i-1][ghosts[i].j]!=4) {
-            distance_up = (Math.abs((pacmen.i - (ghosts[i].i - 1))) + Math.abs((pacmen.j - ghosts[i].j)));
+            distance_up = ((Math.abs((pacmen.i - (ghosts[i].i - 1)))) + (Math.abs((pacmen.j - ghosts[i].j))));
             // console.log("pacmen location: [" + pacmen.i +"," + + pacmen.j + "] ghost " + i + " move up: [" + (parseInt(ghosts[i].i)-1) + "," +ghosts[i].j +  "] destination: " + (Math.abs(pacmen.i-(ghosts[i].i-1)))+ "+" + (Math.abs(pacmen.j-ghosts[i].j)) + "=" + (Math.abs(pacmen.i-(ghosts[i].i-1)) + Math.abs(pacmen.j-ghosts[i].j)) );
         }
         if (ghosts[i].i+1 <rows && board[ghosts[i].i+1][ghosts[i].j]!=4) {
-            distance_down = (Math.abs(pacmen.i - (ghosts[i].i + 1)) + Math.abs(pacmen.j - ghosts[i].j));
+            distance_down = ((Math.abs(pacmen.i - (ghosts[i].i + 1))) + (Math.abs(pacmen.j - ghosts[i].j)));
             // console.log("pacmen location: [" + pacmen.i +"," + + pacmen.j + "] ghost " + i + " move down: [" + (parseInt(ghosts[i].i)+1) + "," +ghosts[i].j +  "] destination: " + (Math.abs(pacmen.i-(ghosts[i].i+1))+ "+" + (Math.abs(pacmen.j-ghosts[i].j) )+ "=" + (Math.abs(pacmen.i-(ghosts[i].i+1)) + Math.abs(pacmen.j-ghosts[i].j)))) ;
 
         }
         if (ghosts[i].j-1 >=0 && board[ghosts[i].i][ghosts[i].j-1]!=4) {
-            distance_left = (Math.abs(pacmen.i - ghosts[i].i) + Math.abs(pacmen.j - (ghosts[i].j - 1)));
+            distance_left = (((Math.abs(pacmen.i - ghosts[i].i))) + (Math.abs(pacmen.j - (ghosts[i].j - 1))));
             // console.log("pacmen location: [" + pacmen.i +"," + + pacmen.j + "] ghost " + i + " move left: [" + (parseInt(ghosts[i].i)) + "," +(ghosts[i].j-1) +  "] destination: " + (Math.abs(pacmen.i-(ghosts[i].i))+ "+" + (Math.abs(pacmen.j-ghosts[i].j-1)) + "=" + (Math.abs(pacmen.i-(ghosts[i].i)) + Math.abs(pacmen.j-ghosts[i].j-1)))) ;
 
         }
         if (ghosts[i].j+1 <cols && board[ghosts[i].i][ghosts[i].j+1]!=4) {
-            distance_right = (Math.abs(pacmen.i - ghosts[i].i) + Math.abs(pacmen.j - (ghosts[i].j + 1)));
+            distance_right = (((Math.abs(pacmen.i - ghosts[i].i))) + (Math.abs(pacmen.j - (ghosts[i].j + 1))));
             // console.log("pacmen location: [" + pacmen.i +"," + + pacmen.j + "] ghost " + i + " move right: [" + (parseInt(ghosts[i].i)) + "," +(ghosts[i].j+1) +  "] destination: " + (Math.abs(pacmen.i-(ghosts[i].i))+ "+" + (Math.abs(pacmen.j-ghosts[i].j+1)) + "=" + (Math.abs(pacmen.i-(ghosts[i].i)) + Math.abs(pacmen.j-ghosts[i].j+1))) );
         }
 
@@ -461,7 +467,7 @@ function UpdateGhostsPosition() {
         var locations = [[ghosts[i].i-1,ghosts[i].j],[ghosts[i].i+1,ghosts[i].j],[ghosts[i].i,ghosts[i].j-1],[ghosts[i].i,ghosts[i].j+1]];
         var minIndex;
         random_number = Math.floor(Math.random());
-        if (random_number < chance_random) {
+        if (Math.random() < chance_random) {
             minIndex = Math.floor(Math.random() * 4);
             if (locations[minIndex][0] < 0 || locations[minIndex][0] >= rows || locations[minIndex][1] < 0 || locations[minIndex][1] >= cols || board[locations[minIndex][0]][locations[minIndex][1]]== 4)
                 return UpdateGhostsPosition();
@@ -518,6 +524,10 @@ function UpdatePosition() {
         score+=15;
     }else  if (board[pacmen.i][pacmen.j] === 13) {
         score+=25;
+    } else if(   board[pacmen.i][pacmen.j] === 7) {
+        board[pacmen.i][pacmen.j] = 0;
+        score+=50;
+        nikud_zaz = new Object();
     }
     board[pacmen.i][pacmen.j] = 2;
     var currentTime = new Date()
@@ -531,32 +541,32 @@ function UpdatePosition() {
 
 function UpdateNikudZazPosition() {
 
-    var chance_random = 0.3;
+    var chance_random = 0.2;
     var random_number;
     var new_i, new_j;
-    var distance_up = rows*cols;
-    var distance_down = rows*cols;
-    var distance_left = rows*cols;
-    var distance_right = rows*cols;
+    var distance_up = -1;
+    var distance_down = -1;
+    var distance_left = -1;
+    var distance_right = -1;
     if (nikud_zaz.i-1 >=0 && board[nikud_zaz.i-1][nikud_zaz.j]!=4) {
-        distance_up = (Math.abs((pacmen.i - (nikud_zaz.i - 1))) + Math.abs((pacmen.j - nikud_zaz.j)));
+        distance_up = ((Math.abs((pacmen.i - (nikud_zaz.i - 1)))) + (Math.abs((pacmen.j - nikud_zaz.j))));
     }
     if (nikud_zaz.i+1 <rows && board[nikud_zaz.i+1][nikud_zaz.j]!=4) {
-        distance_down = (Math.abs(pacmen.i - (nikud_zaz.i + 1)) + Math.abs(pacmen.j - nikud_zaz.j));
+        distance_down = ((Math.abs(pacmen.i - (nikud_zaz.i + 1)) + (Math.abs(pacmen.j - nikud_zaz.j))));
 
     }
-    if (nikud_zaz[i].j-1 >=0 && board[nikud_zaz.i][nikud_zaz.j-1]!=4) {
-        distance_left = (Math.abs(pacmen.i - nikud_zaz.i) + Math.abs(pacmen.j - (nikud_zaz.j - 1)));
+    if (nikud_zaz.j-1 >=0 && board[nikud_zaz.i][nikud_zaz.j-1]!=4) {
+        distance_left = ((Math.abs(pacmen.i - nikud_zaz.i)) + (Math.abs(pacmen.j - (nikud_zaz.j - 1))));
 
     }
-    if (nikud_zaz[i].j+1 <cols && board[nikud_zaz.i][nikud_zaz.j+1]!=4) {
-        distance_right = (Math.abs(pacmen.i - nikud_zaz.i) + Math.abs(pacmen.j - (nikud_zaz.j + 1)));
+    if (nikud_zaz.j+1 <cols && board[nikud_zaz.i][nikud_zaz.j+1]!=4) {
+        distance_right = ((Math.abs(pacmen.i - nikud_zaz.i)) + (Math.abs(pacmen.j - (nikud_zaz.j + 1))));
     }
 
     var steps = [distance_up,distance_down,distance_left,distance_right];
     var locations = [[nikud_zaz.i-1,nikud_zaz.j],[nikud_zaz.i+1,nikud_zaz.j],[nikud_zaz.i,nikud_zaz.j-1],[nikud_zaz.i,nikud_zaz.j+1]];
     var maxIndex;
-    random_number = Math.floor(Math.random());
+    random_number = Math.random();
     if (random_number < chance_random) {
         maxIndex = Math.floor(Math.random() * 4);
         if (locations[maxIndex][0] < 0 || locations[maxIndex][0] >= rows || locations[maxIndex][1] < 0 || locations[maxIndex][1] >= cols || board[locations[maxIndex][0]][locations[maxIndex][1]]== 4)
@@ -569,13 +579,14 @@ function UpdateNikudZazPosition() {
 
     nikud_zaz.old_i = nikud_zaz.i;
     nikud_zaz.old_j = nikud_zaz.j;
+    board[nikud_zaz.old_i][nikud_zaz.old_j] = 0;
     nikud_zaz.i = new_i;
     nikud_zaz.j = new_j;
+    board[nikud_zaz.i][nikud_zaz.j] = 7;
 
-    //DrawGhosts();
+
     if (typeof(nikud_zaz.i) === "undefined"){
         interval_nikud_zaz.clearInterval(); //nikud has ben eeaten
     }
-    DrawNikudZaz();
 
 }
