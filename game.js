@@ -120,6 +120,35 @@ function DrawBaseOfInfoCanvas() {
 }
 
 
+function locateGhosts() {
+    //put ghosts on pinot
+    options_points = [];
+    options_points.push([0, 0]);
+    options_points.push([0, cols - 1]);
+    options_points.push([rows - 1, 0]);
+    options_points.push([rows - 1, cols - 1]);
+
+    //plaster for restart a new game
+    if (restart == true && ghosts.length !== 0) {
+        ghosts_remain = ghosts.length;
+        ghosts = new Array();
+    }
+
+    while (ghosts_remain > 0) {
+        randomNum = Math.random();
+        var point = options_points[Math.floor(randomNum * 4)];
+        if (board[point[0]][point[1]] === 0) {
+            board[point[0]][point[1]] = 3;
+            ghosts_remain--;
+            var g = new Object();
+            g.i = point[0];
+            g.j = point[1];
+
+            ghosts.push(g)
+        }
+    }
+}
+
 /**
  * 7 = nikud zaz
  * 4 = wall
@@ -272,34 +301,13 @@ function Start() {
         }
     }
 
-    //put ghosts on pinot
-    options_points = [];
-    options_points.push([0,0]);
-    options_points.push([0,cols-1]);
-    options_points.push([rows-1,0]);
-    options_points.push([rows-1,cols-1]);
-
-    //plaster for restart a new game
-    if (restart==true && ghosts.length !== 0) {
-        ghosts_remain=ghosts.length;
-        ghosts = new Array();
-    }
-
-    while (ghosts_remain > 0) {
-        randomNum = Math.random();
-        var point = options_points[Math.floor(randomNum * 4)];
-        if (board[point[0]][point[1]]===0){
-            board[point[0]][point[1]] = 3;
-            ghosts_remain--;
-            var g = new Object();
-            g.i = point[0];
-            g.j = point[1];
-
-            ghosts.push(g)
-        }
+   locateGhosts();
 
 
-    }
+
+
+
+
     while (food_remain > 0) {
         var emptyCell = findRandomEmptyCell(board);
         var random = Math.floor(Math.random() * 3);
@@ -353,6 +361,15 @@ function findRandomEmptyCell(board) {
         j = Math.floor((Math.random() * (cols-1)) + 1);
     }
     return [i, j];
+}
+
+function locatePacmen() {
+
+    point = findRandomEmptyCell(board);
+    pacmen.i = point[0];
+    pacmen.j = point[1];
+
+
 }
 
 /**
@@ -669,6 +686,12 @@ function UpdatePosition() {
             if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
                 score -= 10;
                 lives--;
+                if (lives <= 0)
+                    return GameOver();
+                else {
+                    locatePacmen();
+                    locateGhosts();
+            }
             }
 
         }
@@ -677,9 +700,9 @@ function UpdatePosition() {
     var currentTime = new Date();
    // var time_time = new Date(time);
     time_elapsed = Math.floor(time - (currentTime - start_time) / 1000);
+    if (time_elapsed <= 0)
+        return GameOver();
 
-    if (lives <= 0)
-        GameOver();
 
 
         Draw();
