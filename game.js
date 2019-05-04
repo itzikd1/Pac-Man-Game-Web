@@ -589,15 +589,7 @@ function UpdatePosition() {
     } else if(   board[pacmen.i][pacmen.j] === 7) {
         board[pacmen.i][pacmen.j] = 0;
         score+=50;
-        // stickercanvas.visibility="visible";
-        // bonus_image = new Image();
-        // bonus_image.src = 'images/bonus.png';
-        // stickercontext.drawImage(bonus_image, 60, 10, 50 , 20);
-        // console.log("im here !");
-        // setTimeout(function(){
-        //     stickercanvas.visibility="hidden";
-        //     stickercontext.clearRect(0,0,stickercanvas.width,stickercanvas.height);
-        // },2000);
+        clearInterval(interval_nikud_zaz);
 
         nikud_zaz = new Object();
 
@@ -607,14 +599,6 @@ function UpdatePosition() {
             if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
                 score -= 10;
                 lives--;
-                // stickercanvas.visibility="visible";
-                // boom_image = new Image();
-                // boom_image.src = 'images/boom.png';
-                // stickercontext.drawImage(boom_image, 60, 10, 58 , 35);
-                // setTimeout(function(){
-                //     stickercanvas.visibility="hidden";
-                //     stickercontext.clearRect(0,0,stickercanvas.width,stickercanvas.height);
-                // },2000);
             }
 
         }
@@ -663,8 +647,8 @@ function UpdateNikudZazPosition() {
     random_number = Math.random();
     if (random_number < chance_random) {
         maxIndex = Math.floor(Math.random() * 4);
-        if (locations[maxIndex][0] < 0 || locations[maxIndex][0] >= rows || locations[maxIndex][1] < 0 || locations[maxIndex][1] >= cols || board[locations[maxIndex][0]][locations[maxIndex][1]]== 4)
-            return UpdateNikudZazPosition();
+        while (locations[maxIndex][0] < 0 || locations[maxIndex][0] >= rows || locations[maxIndex][1] < 0 || locations[maxIndex][1] >= cols || board[locations[maxIndex][0]][locations[maxIndex][1]]== 4)
+            maxIndex = Math.floor(Math.random() * 4);
     }
     else
         maxIndex = getMaxIndex(steps);
@@ -678,10 +662,10 @@ function UpdateNikudZazPosition() {
     nikud_zaz.j = new_j;
     board[nikud_zaz.i][nikud_zaz.j] = 7;
 
-
-    if (typeof(nikud_zaz.i) === "undefined"){
-        interval_nikud_zaz.clearInterval(); //nikud has ben eeaten
-    }
+    //
+    // if (typeof(nikud_zaz.i) === "undefined"){
+    //     interval_nikud_zaz.clearInterval(); //nikud has ben eeaten
+    // }
 
 }
 
