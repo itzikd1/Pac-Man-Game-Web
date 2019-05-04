@@ -43,8 +43,8 @@
 
 /* The side navigation menu */
 .Menu {
-    height: 60%; /* 100% Full-height */
-    width: 12%; /* 0 width - change this with JavaScript */
+    height: 450px; /* 100% Full-height */
+    width: 190px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
     top: 120px; /* Stay at the top */
