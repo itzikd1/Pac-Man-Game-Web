@@ -17,9 +17,11 @@ var time_elapsed;
 var interval;
 var interval_ghosts;
 var interval_nikud_zaz;
+var interval_sticker;
 var pressed; //for the pressed button (1,2,3,4)
 var restart = false;
 var lives;
+var bonus_flag ;
 
 var points5, points15, points25;
 
@@ -48,7 +50,7 @@ var drawing_helper=0;
 function Start() {
 
     lives = 3;
-
+    bonus_flag = true;
     ///////colors//////
     points5 = Math.floor(nBalls * 60 / 100);
     points15 = Math.floor(nBalls * 30 / 100);
@@ -238,6 +240,7 @@ function Start() {
     interval = setInterval(UpdatePosition, 200);
     interval_ghosts = setInterval(UpdateGhostsPosition, 350);
     interval_nikud_zaz = setInterval(UpdateNikudZazPosition,1000);
+    interval_sticker = setInterval(CheckStickerOptions,100);
 }
 
 function is_not_locked_point(i,j) {
@@ -551,25 +554,34 @@ function UpdatePosition() {
     } else if(   board[pacmen.i][pacmen.j] === 7) {
         board[pacmen.i][pacmen.j] = 0;
         score+=50;
+        // stickercanvas.visibility="visible";
+        // bonus_image = new Image();
+        // bonus_image.src = 'images/bonus.png';
+        // stickercontext.drawImage(bonus_image, 60, 10, 50 , 20);
+        // console.log("im here !");
+        // setTimeout(function(){
+        //     stickercanvas.visibility="hidden";
+        //     stickercontext.clearRect(0,0,stickercanvas.width,stickercanvas.height);
+        // },2000);
+
         nikud_zaz = new Object();
+
     }
     else { //lose points
         for (var i = 0; i < ghosts.length; i++) {
             if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
                 score -= 10;
                 lives--;
-                stickercanvas.visibility="visible";
-                let boom_image = new Image();
-                boom_image.src = 'images/boom.png';
-                console.log("ghost number " + i );
-                setTimeout(function(){
-                    stickercontext.drawImage(boom_image, 60, 10, 58 , 35);
-                    //console.log("hi");
-                },2000);
-
+                // stickercanvas.visibility="visible";
+                // boom_image = new Image();
+                // boom_image.src = 'images/boom.png';
+                // stickercontext.drawImage(boom_image, 60, 10, 58 , 35);
+                // setTimeout(function(){
+                //     stickercanvas.visibility="hidden";
+                //     stickercontext.clearRect(0,0,stickercanvas.width,stickercanvas.height);
+                // },2000);
             }
-            // stickercanvas.clearRect(0,0,stickercanvas.width,stickercanvas.height);
-            // stickercanvas.visibility="hidden";
+
         }
     }
     board[pacmen.i][pacmen.j] = 2;
@@ -636,4 +648,38 @@ function UpdateNikudZazPosition() {
         interval_nikud_zaz.clearInterval(); //nikud has ben eeaten
     }
 
+}
+
+
+function CheckStickerOptions() {
+    var boom_image, bonus_image;
+    if( bonus_flag &&  (pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) || typeof(nikud_zaz.i) === "undefined" ){
+        stickercanvas.visibility="visible";
+        bonus_image = new Image();
+        bonus_image.src = 'images/bonus.png';
+        if(bonus_flag) {
+            stickercontext.drawImage(bonus_image, 60, 10, 50, 20);
+            console.log("im here !");
+            setTimeout(function () {
+                stickercanvas.visibility = "hidden";
+                stickercontext.clearRect(0, 0, stickercanvas.width, stickercanvas.height);
+            }, 2000);
+            bonus_flag = false;
+        }
+    }
+    else {
+        for (var i = 0; i < ghosts.length; i++) {
+            if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
+                stickercanvas.visibility="visible";
+                boom_image = new Image();
+                boom_image.src = 'images/boom.png';
+                stickercontext.drawImage(boom_image, 60, 10, 58 , 35);
+                setTimeout(function(){
+                    stickercanvas.visibility="hidden";
+                    stickercontext.clearRect(0,0,stickercanvas.width,stickercanvas.height);
+                },2000);
+            }
+
+        }
+    }
 }
