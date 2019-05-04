@@ -4,6 +4,7 @@ var context = canvas.getContext("2d");
 var infocanvas = document.getElementById("info_canvas");
 var infocontext = infocanvas.getContext("2d");
 
+var colision;
 var lives = 3;
 var pacmen = new Object();
 var nikud_zaz = new Object();
@@ -657,8 +658,8 @@ function UpdatePosition() {
     }else if (board[pacmen.i][pacmen.j] === 20) {
         if(lives<3){
             lives++;
-            lives_flag = true;
         }
+        lives_flag = true;
     } else if(   board[pacmen.i][pacmen.j] === 7) {
         board[pacmen.i][pacmen.j] = 0;
         score+=50;
@@ -670,8 +671,19 @@ function UpdatePosition() {
     else { //lose points
         for (var i = 0; i < ghosts.length; i++) {
             if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
-                score -= 10;
-                lives--;
+                if (lives === 3){
+                    colision = new Date();
+                    score -= 10;
+                    lives--;
+                }
+                else {
+                    var now= new Date();
+                    if(now-colision >= 1000){
+                        score -= 10;
+                        lives--;
+                        colision = now;
+                    }
+                }
             }
 
         }
@@ -755,21 +767,9 @@ function CheckStickerOptions() {
         });
     }
     else if (lives_flag){
-        var element = $('#bigPill_image');
-        tmpAnimation = tmpAnimation + 90;
-
-        $({degrees: tmpAnimation - 90}).animate({degrees: tmpAnimation}, {
-            duration: 2000,
-            step: function(now) {
-                element.css({
-                    transform: 'rotate(' + now + 'deg)'
-                });
-            }
+        $('#bigPill_image').fadeIn('slow',function(){
+            $('#bigPill_image').delay(2000).stop().fadeOut();
         });
-
-        // $('#bigPill_image').fadeIn('slow',function(){
-        //     $('#bigPill_image').delay(3000).fadeOut();
-        // });
         lives_flag = false;
     }
     else {
