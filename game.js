@@ -7,26 +7,20 @@ var stickercontext = stickercanvas.getContext("2d");
 var infocanvas = document.getElementById("info_canvas");
 var infocontext = infocanvas.getContext("2d");
 
-infocanvas.width = 650;
-infocanvas.height = 120;
-infocanvas.style.left = "700px";
-infocanvas.style.top = "0px";
-infocanvas.style.position = "absolute";
-
+var lives = 3;
 var pacmen = new Object();
 var nikud_zaz = new Object();
 var board;
-var score;
+var score = 0;
 var pac_color;
 var start_time;
-var time_elapsed;
+var time_elapsed = 0;
 var interval;
 var interval_ghosts;
 var interval_nikud_zaz;
 var interval_sticker;
 var pressed; //for the pressed button (1,2,3,4)
 var restart = false;
-var lives;
 var bonus_flag ;
 
 var points5, points15, points25;
@@ -38,7 +32,95 @@ var ghosts = new Array();
 
 
 var drawing_helper=0;
+DrawBaseOfInfoCanvas();
 
+
+
+
+function DrawLives() {
+    var life_image = new Image();
+    life_image.src = 'images/life_s.png';
+
+    for (var i=0; i<lives; i++) {
+        infocontext.drawImage(life_image, 10 + i* 50, 50, 50, 50);
+    }
+}
+
+function DrawLine(number, number2) {
+    infocontext.fillStyle = "2px -6px #D1B358";
+    infocontext.beginPath();
+    infocontext.moveTo(number, number2);
+    infocontext.lineTo(number, 100 + number2);
+    infocontext.lineWidth="5";
+    infocontext.stroke();
+
+}
+
+function DrawBaseOfInfoCanvas() {
+    infocanvas.width = 600;
+    infocanvas.height = 120;
+    infocanvas.style.left = "700px";
+    infocanvas.style.top = "5px";
+    infocanvas.style.position = "absolute";
+
+
+    infocontext.fillStyle = "#F2CF66";
+    infocontext.lineWidth="10";
+    infocontext.strokeStyle="#D1B358";
+    infocontext.rect(0,0,infocanvas.width,infocanvas.height);
+    infocontext.fill();
+    infocontext.stroke();
+
+    //username
+    infocontext.fillStyle = "white";
+    infocontext.font =  '30px Pacifico';
+    infocontext.textShadow = "2px -6px #D1B358";
+    infocontext.fillText("User Name",10,35);
+
+    //lifes
+    DrawLives();
+
+    DrawLine(170,10);
+
+    //Time
+    infocontext.fillStyle = "white";
+    infocontext.font =  '30px Pacifico';
+    infocontext.textShadow = "2px -6px #D1B358";
+    infocontext.fillText("Time:",180,35);
+
+    //clock
+    infocontext.fillStyle = "white";
+    infocontext.font =  '30px Pacifico';
+    infocontext.textShadow = "2px -6px #D1B358";
+    infocontext.fillText(time_elapsed,200,90);
+
+    DrawLine(260,10);
+
+    //Time
+    infocontext.fillStyle = "white";
+    infocontext.font =  '30px Pacifico';
+    infocontext.textShadow = "2px -6px #D1B358";
+    infocontext.fillText("Score:",280,35);
+
+    //clock
+    infocontext.fillStyle = "white";
+    infocontext.font =  '30px Pacifico';
+    infocontext.textShadow = "2px -6px #D1B358";
+    infocontext.fillText(score,300,90);
+
+    DrawLine(370,10);
+
+
+
+
+
+
+
+
+
+
+
+}
 
 
 /**
@@ -293,12 +375,8 @@ function Draw() {
     var eye_radius = 2.5;
     var points_radius = 5;
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
-    lblScore.value = score;
-    lblTime.value = time_elapsed;
+    DrawBaseOfInfoCanvas();
 
-    infocontext.fillStyle = "red";
-    infocontext.rect(0,0,50,50);
-    infocontext.fill();
     var pac_eye_color = 'red'
     for (var i = 0; i < rows; i++) {
         for (var j = 0; j < cols; j++) {

@@ -23,8 +23,8 @@
     position: absolute;
     top: 130px;
     left: 40px;
-    width: 1200px;
-    height: 550px;
+    width: 1000px;
+    height: 200px;
     visibility: hidden;
 }
 
@@ -52,7 +52,7 @@
 
 /* The side navigation menu */
 .Menu {
-    height: 450px; /* 100% Full-height */
+    height: 400px; /* 100% Full-height */
     width: 190px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
@@ -287,12 +287,6 @@
 }
 
 
-.info_canvas {
-    position: absolute;
-    left: 550px;
-    top: 0px;
-
-}
 
 /* Centered text */
 .centered {
