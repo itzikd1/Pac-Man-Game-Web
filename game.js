@@ -132,14 +132,16 @@ function locateGhosts() {
     //plaster for restart a new game
     if (restart == true && ghosts.length !== 0) {
         ghosts_remain = ghosts.length;
+        for (var k=0; k<ghosts.length; k++) {
+            board[ghosts[k].i][ghosts[k].j] = 0;
+        }
         ghosts = new Array();
     }
 
     while (ghosts_remain > 0) {
         randomNum = Math.random();
         var point = options_points[Math.floor(randomNum * 4)];
-        if (board[point[0]][point[1]] === 0) {
-            board[point[0]][point[1]] = 3;
+        if (board[point[0]][point[1]] != 4) {
             ghosts_remain--;
             var g = new Object();
             g.i = point[0];
@@ -291,7 +293,7 @@ function Start() {
                     pacmen.j = j;
                     pacman_remain--;
                     board[i][j] = 2;
-                } else if (randomNum < 0.2 && two_pills > 0 && (i === 2 || i === 4 || i === 10)){
+                } else if (randomNum < 0.2 && two_pills > 0 && (i === 2 || i === 4 || i === 10) && is_not_locked_point(i,j)){
                     board[i][j] = 20;
                     two_pills--;
                 }
@@ -319,7 +321,8 @@ function Start() {
             board[emptyCell[0]][emptyCell[1]] = points_indexes[random];
         }
     }
-    while (typeof(nikud_zaz.i) === "undefined") {
+    nikud_zaz.i = null;
+    while (nikud_zaz.i != null) {
         randomNum = Math.random();
         var point = options_points[Math.floor(randomNum * 4)];
         if (board[point[0]][point[1]]===0){
@@ -617,6 +620,7 @@ function UpdateGhostsPosition() {
     if (ghosts.length === 0) {
         interval_ghosts.clearInterval(); //all of ghosts has been killed //to check if this possible
     }
+
 }
 
 
@@ -629,6 +633,12 @@ function GameOver() {
             msg = "You Can Do Better than " + score + " Points";
         else
             msg = "We Have a Winner! "+ score + " Points - WoW!";
+
+    // clearInterval(interval_sticker);
+    // clearInterval(interval);
+    // clearInterval(interval_ghosts);
+    // clearInterval(interval_nikud_zaz);
+
 
 
 }
@@ -681,7 +691,7 @@ function UpdatePosition() {
         score+=50;
         clearInterval(interval_nikud_zaz);
 
-        nikud_zaz = new Object();
+        nikud_zaz = null;
 
     }
     else { //lose points
@@ -690,7 +700,7 @@ function UpdatePosition() {
                 score -= 10;
                 lives--;
                 if (lives <= 0)
-                    return GameOver();
+                     GameOver();
                 else {
                     locatePacmen();
                     locateGhosts();
@@ -704,7 +714,7 @@ function UpdatePosition() {
    // var time_time = new Date(time);
     time_elapsed = Math.floor(time - (currentTime - start_time) / 1000);
     if (time_elapsed <= 0)
-        return GameOver();
+        GameOver();
 
 
 
