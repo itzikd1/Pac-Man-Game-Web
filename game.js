@@ -653,17 +653,17 @@ function UpdateNikudZazPosition() {
 
 function CheckStickerOptions() {
     var boom_image, bonus_image;
-    if( bonus_flag &&  (pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) || typeof(nikud_zaz.i) === "undefined" ){
+    if( bonus_flag &&  ((pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) || typeof(nikud_zaz.i) === "undefined") ){
         stickercanvas.visibility="visible";
         bonus_image = new Image();
         bonus_image.src = 'images/bonus.png';
         if(bonus_flag) {
             stickercontext.drawImage(bonus_image, 60, 10, 50, 20);
             console.log("im here !");
-            setTimeout(function () {
-                stickercanvas.visibility = "hidden";
-                stickercontext.clearRect(0, 0, stickercanvas.width, stickercanvas.height);
-            }, 2000);
+            // setTimeout(function () {
+            //     stickercanvas.visibility = "hidden";
+            //     stickercontext.clearRect(0, 0, stickercanvas.width, stickercanvas.height);
+            // }, 2000);
             bonus_flag = false;
         }
     }
