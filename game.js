@@ -642,16 +642,20 @@ function UpdatePosition() {
     if (board[pacmen.i][pacmen.j] === 11) {
         score+=5;
         food_counter--;
-        console.log("food_counter = " + food_counter);
+        // console.log("food_counter = " + food_counter);
     }
     else if (board[pacmen.i][pacmen.j] === 12) {
         score+=15;
         food_counter--;
-        console.log("food_counter = " + food_counter);
+        // console.log("food_counter = " + food_counter);
     }else  if (board[pacmen.i][pacmen.j] === 13) {
         score+=25;
         food_counter--;
-        console.log("food_counter = " + food_counter);
+        // console.log("food_counter = " + food_counter);
+    }else if (board[pacmen.i][pacmen.j] === 20) {
+        if(lives<3){
+            lives++;
+        }
     } else if(   board[pacmen.i][pacmen.j] === 7) {
         board[pacmen.i][pacmen.j] = 0;
         score+=50;
