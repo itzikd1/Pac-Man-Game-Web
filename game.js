@@ -626,14 +626,29 @@ function UpdateGhostsPosition() {
 
 function GameOver() {
     msg = "";
-    if (lives == 0)
+    if (lives == 0) {
         msg = "You Lost";
-    else if(time_elapsed <= 0)
-        if (score < 150)
+        document.getElementById("msg1").style.display = "block";
+        document.getElementById("msg2").style.display = "none";
+        document.getElementById("msg3").style.display = "none";
+    }
+    else if(time_elapsed <= 0) {
+        if (score < 150) {
             msg = "You Can Do Better than " + score + " Points";
-        else
-            msg = "We Have a Winner! "+ score + " Points - WoW!";
-
+            document.getElementById("msg2").style.display = "block";
+            document.getElementById("msg2").innerHTML = msg;
+            document.getElementById("msg1").style.display = "none";
+            document.getElementById("msg3").style.display = "none";
+        }
+        else {
+            msg = "We Have a Winner! " + score + " Points - WoW!";
+            document.getElementById("msg3").style.display = "block";
+            document.getElementById("msg3").innerHTML = msg;
+            document.getElementById("msg2").style.display = "none";
+            document.getElementById("msg1").style.display = "none";
+        }
+    }
+    ShowGameOver();
 
 }
 
