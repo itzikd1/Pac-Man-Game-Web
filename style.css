@@ -306,6 +306,7 @@
     background-color:transparent;
 }
 
+
 /****modal section*****/
 
 /* The Modal (background) */
@@ -377,5 +378,7 @@
     color: white;
     text-align: center;
     margin-top: -40px;
+    font-family: 'Pacifico', cursive;
+    font-size: 21px;
 
 }
