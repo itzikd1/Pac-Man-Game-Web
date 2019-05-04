@@ -73,7 +73,7 @@ function DrawBaseOfInfoCanvas() {
     infocontext.fillStyle = "#f1f1f1";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
-    infocontext.fillText("User Name",10,35);
+    infocontext.fillText(username,10,35);
 
     //lifes
     DrawLives();
@@ -90,7 +90,7 @@ function DrawBaseOfInfoCanvas() {
     infocontext.fillStyle = "#f1f1f1";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
-    infocontext.fillText(time_elapsed,200,90);
+    infocontext.fillText(time_elapsed,190,90);
 
     DrawLine(260,10);
 
@@ -104,7 +104,7 @@ function DrawBaseOfInfoCanvas() {
     infocontext.fillStyle = "#f1f1f1";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
-    infocontext.fillText(score,300,90);
+    infocontext.fillText(score,290,90);
 
     DrawLine(370,10);
 
@@ -120,6 +120,13 @@ function DrawBaseOfInfoCanvas() {
 
 }
 
+
+function noGhostOnThisPoint(pointElement, pointElement2) {
+    for(k=0; k<ghosts.length; k++)
+        if (pointElement == ghosts[k].i && pointElement2 == ghosts[k].j)
+            return false;
+    return true;
+}
 
 function locateGhosts() {
     //put ghosts on pinot
@@ -142,6 +149,13 @@ function locateGhosts() {
         randomNum = Math.random();
         var point = options_points[Math.floor(randomNum * 4)];
         if (board[point[0]][point[1]] != 4) {
+            while (!noGhostOnThisPoint(point[0],point[1])) {
+                randomNum = Math.random();
+                point = options_points[Math.floor(randomNum * 4)];
+                console.log(point)
+            }
+
+
             ghosts_remain--;
             var g = new Object();
             g.i = point[0];
@@ -322,7 +336,7 @@ function Start() {
         }
     }
     nikud_zaz.i = null;
-    while (nikud_zaz.i != null) {
+    while (nikud_zaz.i == null) {
         randomNum = Math.random();
         var point = options_points[Math.floor(randomNum * 4)];
         if (board[point[0]][point[1]]===0){
@@ -529,16 +543,20 @@ function DrawGhosts() {
         center.x = ghosts[k].j * 2* icons_radius + icons_radius;
         center.y = ghosts[k].i* 2 * icons_radius + icons_radius;
 
-        //draw background
         context.beginPath();
-        context.fillStyle = "pink"; //color
-        context.arc(center.x, center.y, icons_radius, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-        context.lineTo(center.x, center.y);
-        context.fill();
-        context.beginPath();
-        context.arc(center.x + 2, center.y - 8, eye_radius, 0, 2 * Math.PI); // circle
-        context.fillStyle = "yellow"; //color
-        context.fill();
+        var image = new Image();
+        image.src = "images/ghosts" + (k+1).toString() + ".png";
+        context.drawImage(image,center.x-icons_radius, center.y -icons_radius, 2* icons_radius ,2* icons_radius )
+
+        // context.beginPath();
+        // context.fillStyle = "pink"; //color
+        // context.arc(center.x, center.y, icons_radius, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+        // context.lineTo(center.x, center.y);
+        // context.fill();
+        // context.beginPath();
+        // context.arc(center.x + 2, center.y - 8, eye_radius, 0, 2 * Math.PI); // circle
+        // context.fillStyle = "yellow"; //color
+        // context.fill();
     }
 
 }
@@ -603,11 +621,21 @@ function UpdateGhostsPosition() {
         random_number = Math.floor(Math.random());
         if (Math.random() < chance_random) {
             minIndex = Math.floor(Math.random() * 4);
-            if (locations[minIndex][0] < 0 || locations[minIndex][0] >= rows || locations[minIndex][1] < 0 || locations[minIndex][1] >= cols || board[locations[minIndex][0]][locations[minIndex][1]]== 4)
-                return UpdateGhostsPosition();
+            while (locations[minIndex][0] < 0 || locations[minIndex][0] >= rows || locations[minIndex][1] < 0 || locations[minIndex][1] >= cols || board[locations[minIndex][0]][locations[minIndex][1]]== 4) {
+                minIndex = Math.floor(Math.random() * 4);
+            }
         }
         else
             minIndex = getMinIndex(steps);
+
+        for (var n=0; n<ghosts.length; n++) {
+            if (locations[minIndex][0] === ghosts[n].i && locations[minIndex][1] === ghosts[n].j ) {
+                while (locations[minIndex][0] < 0 || locations[minIndex][0] >= rows || locations[minIndex][1] < 0 || locations[minIndex][1] >= cols || board[locations[minIndex][0]][locations[minIndex][1]]== 4) {
+                    minIndex = Math.floor(Math.random() * 4);
+                }
+                break;
+            }
+        }
         new_i = locations[minIndex][0];
         new_j = locations[minIndex][1];
 
@@ -617,9 +645,6 @@ function UpdateGhostsPosition() {
         ghosts[i].j = new_j;
     }
     //DrawGhosts();
-    if (ghosts.length === 0) {
-        interval_ghosts.clearInterval(); //all of ghosts has been killed //to check if this possible
-    }
 
 }
 
@@ -677,7 +702,7 @@ function UpdatePosition() {
         score+=15;
         food_counter--;
         // console.log("food_counter = " + food_counter);
-    }else  if (board[pacmen.i][pacmen.j] === 13) {
+    } else  if (board[pacmen.i][pacmen.j] === 13) {
         score+=25;
         food_counter--;
         // console.log("food_counter = " + food_counter);
@@ -729,7 +754,7 @@ function UpdateNikudZazPosition() {
     var random_number;
     var new_i, new_j;
     var distance_up = -1;
-    var distance_down = -1;
+    var distance_down = 8-1;
     var distance_left = -1;
     var distance_right = -1;
     if (nikud_zaz.i-1 >=0 && board[nikud_zaz.i-1][nikud_zaz.j]!=4) {
