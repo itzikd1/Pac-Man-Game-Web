@@ -1,9 +1,6 @@
 var canvas = document.getElementById("game_canvas");
 var context = canvas.getContext("2d");
 
-var stickercanvas = document.getElementById("sticker_canvas");
-var stickercontext = stickercanvas.getContext("2d");
-
 var infocanvas = document.getElementById("info_canvas");
 var infocontext = infocanvas.getContext("2d");
 
@@ -22,12 +19,12 @@ var interval_sticker;
 var pressed; //for the pressed button (1,2,3,4)
 var restart = false;
 var bonus_flag ;
+var food_counter;
 
 var points5, points15, points25;
 
-var rows = 16;
+var rows = 14;
 var cols = 36;
-//todo: write walls
 var ghosts = new Array();
 
 
@@ -72,7 +69,7 @@ function DrawBaseOfInfoCanvas() {
     infocontext.stroke();
 
     //username
-    infocontext.fillStyle = "white";
+    infocontext.fillStyle = "#818181";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
     infocontext.fillText("User Name",10,35);
@@ -83,13 +80,13 @@ function DrawBaseOfInfoCanvas() {
     DrawLine(170,10);
 
     //Time
-    infocontext.fillStyle = "white";
+    infocontext.fillStyle = "#818181";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
     infocontext.fillText("Time:",180,35);
 
     //clock
-    infocontext.fillStyle = "white";
+    infocontext.fillStyle = "#818181";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
     infocontext.fillText(time_elapsed,200,90);
@@ -97,13 +94,13 @@ function DrawBaseOfInfoCanvas() {
     DrawLine(260,10);
 
     //Time
-    infocontext.fillStyle = "white";
+    infocontext.fillStyle = "#818181";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
     infocontext.fillText("Score:",280,35);
 
     //clock
-    infocontext.fillStyle = "white";
+    infocontext.fillStyle = "#818181";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
     infocontext.fillText(score,300,90);
@@ -133,6 +130,7 @@ function DrawBaseOfInfoCanvas() {
  * 12 = 15 points
  * 13 25 points
  * 0 = empty
+ * 20 = pill
  * @constructor
  */
 function Start() {
@@ -160,8 +158,10 @@ function Start() {
     var pacman_remain = 1;
     startSound();
     var food_remain = nBalls;
+    food_counter = nBalls;
     var time_limit = time; //todo: use it !
     start_time = new Date();
+    var two_pills = 2;
     for (var i = 0; i < rows; i++) {
         board[i] = new Array();
         //put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
@@ -226,7 +226,8 @@ function Start() {
                 (i === 8 && j === 27) ||
                 (i === 9 && j === 27) ||
                 (i === 10 && j === 28)||
-                (i === 10 && j === 25)||
+                (i === 10 && j === 25
+                )||
                 (i === 10 && j === 26)||
                 (i === 7 && j === 25)||
                 (i === 7 && j === 26)     ||
@@ -259,7 +260,11 @@ function Start() {
                     pacmen.j = j;
                     pacman_remain--;
                     board[i][j] = 2;
-                } else {
+                } else if (randomNum < 0.2 && two_pills > 0 && (i === 2 || i === 4 || i === 10)){
+                    board[i][j] = 20;
+                    two_pills--;
+                }
+                else {
                     board[i][j] = 0;
                 }
                 cnt--;
@@ -459,6 +464,12 @@ function Draw() {
                 context.fillStyle = points25color; //color
                 context.fill();
             }
+            else if (board[i][j] === 20) {
+                context.beginPath();
+                let image = new Image();
+                image.src = "images/pill.png";
+                context.drawImage(image,center.x-5 , center.y-5 , 20,20)
+            }
             else if (board[i][j] === 4) {
                 context.beginPath();
                 context.rect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
@@ -630,11 +641,17 @@ function UpdatePosition() {
     }
     if (board[pacmen.i][pacmen.j] === 11) {
         score+=5;
+        food_counter--;
+        console.log("food_counter = " + food_counter);
     }
     else if (board[pacmen.i][pacmen.j] === 12) {
         score+=15;
+        food_counter--;
+        console.log("food_counter = " + food_counter);
     }else  if (board[pacmen.i][pacmen.j] === 13) {
         score+=25;
+        food_counter--;
+        console.log("food_counter = " + food_counter);
     } else if(   board[pacmen.i][pacmen.j] === 7) {
         board[pacmen.i][pacmen.j] = 0;
         score+=50;
@@ -710,21 +727,24 @@ function UpdateNikudZazPosition() {
     nikud_zaz.i = new_i;
     nikud_zaz.j = new_j;
     board[nikud_zaz.i][nikud_zaz.j] = 7;
-
-    //
-    // if (typeof(nikud_zaz.i) === "undefined"){
-    //     interval_nikud_zaz.clearInterval(); //nikud has ben eeaten
-    // }
-
 }
 
 
 function CheckStickerOptions() {
-    var boom_image, bonus_image;
     if( bonus_flag &&  ((pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) || typeof(nikud_zaz.i) === "undefined") ){
         bonus_flag = false;
         $('#bonus_image').fadeIn('slow',function(){
             $('#bonus_image').delay(2000).fadeOut();
+        });
+    }
+    else if (lives === 0){
+        $('#gameover_image').fadeIn('slow',function(){
+            $('#gameover_image').delay(8000).fadeOut();
+        });
+    }
+    else if (food_counter === 0){
+        $('#win_image').fadeIn('slow',function(){
+            $('#win_image').delay(8000).fadeOut();
         });
     }
     else {

@@ -3,12 +3,14 @@
     display: block;
     margin-left: 0;
     /*margin-right: auto;*/
-    width: 50%;
+    width: 536.59px;
+    height: 120px;
 }
 
 .info {
     position: absolute;
     top: 0px;
+
     left: 770px;
     width: 600px;
     height: 200px;
@@ -28,21 +30,12 @@
     visibility: hidden;
 }
 
-
-.stickers {
-    /*padding: 15px 10px;*/
-    /*margin-left: 160px;*/
-    top: 110px;
-    left: 360px;
-    width: 300px;
-    height: 300px;
-    position: absolute;
-}
-
+#win_image,
+#gameover_image,
 #boom_image,
 #bonus_image{
-    top: 110px;
-    left: 360px;
+    top: 115px;
+    left: 400px;
     position: absolute;
     display: none;
 }
