@@ -46,7 +46,7 @@
 
 /* The side navigation menu */
 .Menu {
-    height: 400px; /* 100% Full-height */
+    height: 350px; /* 100% Full-height */
     width: 190px; /* 0 width - change this with JavaScript */
     position: fixed; /* Stay in place */
     z-index: 1; /* Stay on top */
@@ -129,14 +129,14 @@
 .keystable {
     text-align: center;
     font-family: 'Pacifico', cursive;
-    font-size: 16px;
+    font-size: 14px;
     color: #ad6bff;
     text-decoration: none;
 }
 
 .Settings {
     font-family: 'Pacifico', cursive;
-    font-size: 21px;
+    font-size: 19px;
     color: #F2CF66;
     text-decoration: none;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
