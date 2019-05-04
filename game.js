@@ -4,6 +4,9 @@ var context = canvas.getContext("2d");
 var stickercanvas = document.getElementById("sticker_canvas");
 var stickercontext = stickercanvas.getContext("2d");
 
+var infocanvas = document.getElementById("info_canvas");
+var infocontext = infocanvas.getContext("2d");
+
 var pacmen = new Object();
 var nikud_zaz = new Object();
 var board;
@@ -229,9 +232,9 @@ function Start() {
     addEventListener("keyup", function (e) {
         keysDown[e.which] = false;
     }, false);
-    UpdatePosition();
-    UpdateGhostsPosition();
-    UpdateNikudZazPosition();
+    // UpdatePosition();
+    // UpdateGhostsPosition();
+    // UpdateNikudZazPosition();
     interval = setInterval(UpdatePosition, 200);
     interval_ghosts = setInterval(UpdateGhostsPosition, 350);
     interval_nikud_zaz = setInterval(UpdateNikudZazPosition,1000);
@@ -283,6 +286,10 @@ function Draw() {
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     lblScore.value = score;
     lblTime.value = time_elapsed;
+
+    infocontext.fillStyle = "red";
+    infocontext.fillText("Maor",240,40,70)
+    infocontext.fill();
     var pac_eye_color = 'red'
     for (var i = 0; i < rows; i++) {
         for (var j = 0; j < cols; j++) {
@@ -496,8 +503,18 @@ function UpdateGhostsPosition() {
 }
 
 
+function GameOver() {
+    msg = "";
+    if (lives == 0)
+        msg = "You Lost";
+    else if(time_elapsed <= 0)
+        if (score < 150)
+            msg = "You Can Do Better than " + score + " Points";
+        else
+            msg = "We Have a Winner! "+ score + " Points - WoW!";
 
 
+}
 
 function UpdatePosition() {
     board[pacmen.i][pacmen.j] = 0;
@@ -544,7 +561,7 @@ function UpdatePosition() {
                 stickercanvas.visibility="visible";
                 let boom_image = new Image();
                 boom_image.src = 'images/boom.png';
-                Console.log("ghost number " + i );
+                console.log("ghost number " + i );
                 setTimeout(function(){
                     stickercontext.drawImage(boom_image, 60, 10, 58 , 35);
                     //console.log("hi");
@@ -560,7 +577,11 @@ function UpdatePosition() {
    // var time_time = new Date(time);
     time_elapsed = Math.floor(time - (currentTime - start_time) / 1000);
 
-        Draw(x);
+    if (lives <= 0)
+        GameOver();
+
+
+        Draw();
 }
 
 
