@@ -122,6 +122,37 @@ function DrawBaseOfInfoCanvas() {
 }
 
 
+function locateGhosts() {
+    //put ghosts on pinot
+    options_points = [];
+    options_points.push([0, 0]);
+    options_points.push([0, cols - 1]);
+    options_points.push([rows - 1, 0]);
+    options_points.push([rows - 1, cols - 1]);
+
+    //plaster for restart a new game
+    if (restart == true && ghosts.length !== 0) {
+        ghosts_remain = ghosts.length;
+        for (var k=0; k<ghosts.length; k++) {
+            board[ghosts[k].i][ghosts[k].j] = 0;
+        }
+        ghosts = new Array();
+    }
+
+    while (ghosts_remain > 0) {
+        randomNum = Math.random();
+        var point = options_points[Math.floor(randomNum * 4)];
+        if (board[point[0]][point[1]] != 4) {
+            ghosts_remain--;
+            var g = new Object();
+            g.i = point[0];
+            g.j = point[1];
+
+            ghosts.push(g)
+        }
+    }
+}
+
 /**
  * 7 = nikud zaz
  * 4 = wall
@@ -263,7 +294,7 @@ function Start() {
                     pacmen.j = j;
                     pacman_remain--;
                     board[i][j] = 2;
-                } else if (randomNum < 0.2 && two_pills > 0 && (i === 2 || i === 4 || i === 10)){
+                } else if (randomNum < 0.2 && two_pills > 0 && (i === 2 || i === 4 || i === 10) && is_not_locked_point(i,j)){
                     board[i][j] = 20;
                     two_pills--;
                 }
@@ -275,34 +306,13 @@ function Start() {
         }
     }
 
-    //put ghosts on pinot
-    options_points = [];
-    options_points.push([0,0]);
-    options_points.push([0,cols-1]);
-    options_points.push([rows-1,0]);
-    options_points.push([rows-1,cols-1]);
-
-    //plaster for restart a new game
-    if (restart==true && ghosts.length !== 0) {
-        ghosts_remain=ghosts.length;
-        ghosts = new Array();
-    }
-
-    while (ghosts_remain > 0) {
-        randomNum = Math.random();
-        var point = options_points[Math.floor(randomNum * 4)];
-        if (board[point[0]][point[1]]===0){
-            board[point[0]][point[1]] = 3;
-            ghosts_remain--;
-            var g = new Object();
-            g.i = point[0];
-            g.j = point[1];
-
-            ghosts.push(g)
-        }
+   locateGhosts();
 
 
-    }
+
+
+
+
     while (food_remain > 0) {
         var emptyCell = findRandomEmptyCell(board);
         var random = Math.floor(Math.random() * 3);
@@ -312,7 +322,8 @@ function Start() {
             board[emptyCell[0]][emptyCell[1]] = points_indexes[random];
         }
     }
-    while (typeof(nikud_zaz.i) === "undefined") {
+    nikud_zaz.i = null;
+    while (nikud_zaz.i != null) {
         randomNum = Math.random();
         var point = options_points[Math.floor(randomNum * 4)];
         if (board[point[0]][point[1]]===0){
@@ -356,6 +367,15 @@ function findRandomEmptyCell(board) {
         j = Math.floor((Math.random() * (cols-1)) + 1);
     }
     return [i, j];
+}
+
+function locatePacmen() {
+
+    point = findRandomEmptyCell(board);
+    pacmen.i = point[0];
+    pacmen.j = point[1];
+
+
 }
 
 /**
@@ -665,13 +685,13 @@ function UpdatePosition() {
         score+=50;
         clearInterval(interval_nikud_zaz);
 
-        nikud_zaz = new Object();
+        nikud_zaz = null;
 
     }
     else { //lose points
         for (var i = 0; i < ghosts.length; i++) {
             if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
-                if (lives === 3){
+                if (lives === 3) {
                     colision = new Date();
                     score -= 10;
                     lives--;
@@ -684,6 +704,13 @@ function UpdatePosition() {
                         colision = now;
                     }
                 }
+                if (lives <= 0)
+                     GameOver();
+                else {
+                    locatePacmen();
+                    locateGhosts();
+                }
+
             }
 
         }
@@ -692,8 +719,7 @@ function UpdatePosition() {
     var currentTime = new Date();
    // var time_time = new Date(time);
     time_elapsed = Math.floor(time - (currentTime - start_time) / 1000);
-
-    if (lives <= 0)
+    if (time_elapsed <= 0)
         GameOver();
 
 
