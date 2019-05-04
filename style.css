@@ -39,6 +39,14 @@
     position: absolute;
 }
 
+#boom_image,
+#bonus_image{
+    top: 110px;
+    left: 360px;
+    position: absolute;
+    display: none;
+}
+
 
 
 

@@ -644,30 +644,17 @@ function UpdateNikudZazPosition() {
 function CheckStickerOptions() {
     var boom_image, bonus_image;
     if( bonus_flag &&  ((pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) || typeof(nikud_zaz.i) === "undefined") ){
-        stickercanvas.visibility="visible";
-        bonus_image = new Image();
-        bonus_image.src = 'images/bonus.png';
-        if(bonus_flag) {
-            stickercontext.drawImage(bonus_image, 60, 10, 50, 20);
-            console.log("im here !");
-            // setTimeout(function () {
-            //     stickercanvas.visibility = "hidden";
-            //     stickercontext.clearRect(0, 0, stickercanvas.width, stickercanvas.height);
-            // }, 2000);
-            bonus_flag = false;
-        }
+        bonus_flag = false;
+        $('#bonus_image').fadeIn('slow',function(){
+            $('#bonus_image').delay(2000).fadeOut();
+        });
     }
     else {
         for (var i = 0; i < ghosts.length; i++) {
             if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
-                stickercanvas.visibility="visible";
-                boom_image = new Image();
-                boom_image.src = 'images/boom.png';
-                stickercontext.drawImage(boom_image, 60, 10, 58 , 35);
-                setTimeout(function(){
-                    stickercanvas.visibility="hidden";
-                    stickercontext.clearRect(0,0,stickercanvas.width,stickercanvas.height);
-                },2000);
+                $('#boom_image').fadeIn('slow',function(){
+                    $('#boom_image').delay(2000).stop().fadeOut();
+                });
             }
 
         }
