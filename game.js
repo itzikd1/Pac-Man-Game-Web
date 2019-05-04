@@ -7,6 +7,12 @@ var stickercontext = stickercanvas.getContext("2d");
 var infocanvas = document.getElementById("info_canvas");
 var infocontext = infocanvas.getContext("2d");
 
+infocanvas.width = 650;
+infocanvas.height = 120;
+infocanvas.style.left = "700px";
+infocanvas.style.top = "0px";
+infocanvas.style.position = "absolute";
+
 var pacmen = new Object();
 var nikud_zaz = new Object();
 var board;
@@ -291,7 +297,7 @@ function Draw() {
     lblTime.value = time_elapsed;
 
     infocontext.fillStyle = "red";
-    infocontext.fillText("Maor",240,40,70)
+    infocontext.rect(0,0,50,50);
     infocontext.fill();
     var pac_eye_color = 'red'
     for (var i = 0; i < rows; i++) {
