@@ -1,5 +1,6 @@
 var reg2 = new Array();
 var attempt = 5; // Variable to count number of attempts.
+var username;
 
 //todo function for first user is this:
 var person = {
@@ -122,13 +123,12 @@ function register() {
 }
 
 function validate(){
-    var username = document.getElementById("loginID").value;
+    username = document.getElementById("loginID").value;
     var password = document.getElementById("loginPASS").value;
     index = reg2.find(o => o.username==username)
     if (index==undefined)
         alert ("Not such a user exist");
     else if ( index.password == $("#loginPASS").val()){
-        alert ("Login successfully");
         ShowDiv('Settings');
         HideWelcome();
         // $("#username2").text("User sadadsName: "+username);

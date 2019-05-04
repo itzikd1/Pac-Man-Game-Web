@@ -7,11 +7,7 @@ var stickercontext = stickercanvas.getContext("2d");
 var infocanvas = document.getElementById("info_canvas");
 var infocontext = infocanvas.getContext("2d");
 
-infocanvas.width = 650;
-infocanvas.height = 120;
-infocanvas.style.left = "700px";
-infocanvas.style.top = "0px";
-infocanvas.style.position = "absolute";
+DrawBaseOfInfoCanvas();
 
 var pacmen = new Object();
 var nikud_zaz = new Object();
@@ -26,7 +22,7 @@ var interval_nikud_zaz;
 var interval_sticker;
 var pressed; //for the pressed button (1,2,3,4)
 var restart = false;
-var lives;
+var lives = 3;
 var bonus_flag ;
 
 var points5, points15, points25;
@@ -39,6 +35,42 @@ var ghosts = new Array();
 
 var drawing_helper=0;
 
+
+function DrawBaseOfInfoCanvas() {
+    infocanvas.width = 600;
+    infocanvas.height = 120;
+    infocanvas.style.left = "700px";
+    infocanvas.style.top = "5px";
+    infocanvas.style.position = "absolute";
+
+
+    infocontext.fillStyle = "#F2CF66";
+    infocontext.lineWidth="10";
+    infocontext.strokeStyle="#D1B358";
+    infocontext.rect(0,0,infocanvas.width,infocanvas.height);
+    infocontext.fill();
+    infocontext.stroke();
+
+    //username
+    infocontext.fillStyle = "white";
+    infocontext.font =  '30px Pacifico';
+    infocontext.textShadow = "2px -6px #D1B358";
+    infocontext.fillText("User Name",10,35);
+
+    //lifes
+    var life_image = new Image();
+    life_image.src = 'images/life.png';
+
+    for (var i=0; i<lives; i++) {
+        infocontext.drawImage(life_image, 10 + i* 50, 95, 50, 50);
+
+    }
+    infocontext.fill();
+
+
+
+
+}
 
 
 /**
@@ -296,9 +328,6 @@ function Draw() {
     lblScore.value = score;
     lblTime.value = time_elapsed;
 
-    infocontext.fillStyle = "red";
-    infocontext.rect(0,0,50,50);
-    infocontext.fill();
     var pac_eye_color = 'red'
     for (var i = 0; i < rows; i++) {
         for (var j = 0; j < cols; j++) {
