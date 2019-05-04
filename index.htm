@@ -6,13 +6,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
 
-
+    <script src="//code.jquery.com/jquery-1.12.4.js" id="api2"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js" id="api1"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
 
-<body onload="PageLoaded()">
+<body onload="PageLoaded()" background="images/backgroud.jpg">
 
 <img src="images\logo.png" alt="tmp_logo" height="120" class="logo_image_left">
 <canvas id="info_canvas"></canvas>
@@ -220,14 +221,18 @@
             See you next Time :)
         </p>
     </div>
-
-
 </div>
 
-
-
-
-
+<div id="GameOver" class="modal">
+    <script type="text/javascript" src=GameOver.js></script>
+    <!-- Modal content -->
+    <div class="modal-content">
+        <p id="msg1" style="display: none;">You Lost!</p>
+        <p id="msg2" style="display: none;">You Can Do Better than X points</p>
+        <p id="msg3" style="display: none;">We have a Winner!!!</p>
+        <button id="play_again" onclick="closeG()">Play again</button>
+    </div>
+</div>
 
 
     <div id="Game" class="Game mainArea">
@@ -243,7 +248,11 @@
         <img src="images/gameover.png" id="gameover_image" height="225" width="224"/>
         <img src="images/bonus.png" id="bonus_image" height="256" width="256"/>
         <img src="images/boom.png" id="boom_image" height="126.6" width="200"/>
+
     </div>
+
+
+
 </body>
 
 </html>

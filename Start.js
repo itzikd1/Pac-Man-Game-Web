@@ -9,6 +9,12 @@ function ShowModal(){
     openD();
 }
 
+function ShowGameOver(){
+    var selected = document.getElementById('GameOver');
+    selected .style.visibility="visible";
+    openG();
+}
+
 function ShowDiv(id)
 {
     //hide all sections
@@ -26,6 +32,8 @@ function ShowDiv(id)
     var section6 = document.getElementById('Login');
     section6.style.visibility="hidden";
     var section7 = document.getElementById('Register');
+    section7.style.visibility="hidden";
+    var section7 = document.getElementById('GameOver');
     section7.style.visibility="hidden";
 
     //show only one section

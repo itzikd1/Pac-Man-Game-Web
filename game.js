@@ -4,6 +4,7 @@ var context = canvas.getContext("2d");
 var infocanvas = document.getElementById("info_canvas");
 var infocontext = infocanvas.getContext("2d");
 
+var colision;
 var lives = 3;
 var pacmen = new Object();
 var nikud_zaz = new Object();
@@ -651,20 +652,29 @@ function UpdateGhostsPosition() {
 
 function GameOver() {
     msg = "";
-    if (lives == 0)
+    if (lives == 0) {
         msg = "You Lost";
-    else if(time_elapsed <= 0)
-        if (score < 150)
+        document.getElementById("msg1").style.display = "block";
+        document.getElementById("msg2").style.display = "none";
+        document.getElementById("msg3").style.display = "none";
+    }
+    else if(time_elapsed <= 0) {
+        if (score < 150) {
             msg = "You Can Do Better than " + score + " Points";
-        else
-            msg = "We Have a Winner! "+ score + " Points - WoW!";
-
-    // clearInterval(interval_sticker);
-    // clearInterval(interval);
-    // clearInterval(interval_ghosts);
-    // clearInterval(interval_nikud_zaz);
-
-
+            document.getElementById("msg2").style.display = "block";
+            document.getElementById("msg2").innerHTML = msg;
+            document.getElementById("msg1").style.display = "none";
+            document.getElementById("msg3").style.display = "none";
+        }
+        else {
+            msg = "We Have a Winner! " + score + " Points - WoW!";
+            document.getElementById("msg3").style.display = "block";
+            document.getElementById("msg3").innerHTML = msg;
+            document.getElementById("msg2").style.display = "none";
+            document.getElementById("msg1").style.display = "none";
+        }
+    }
+    ShowGameOver();
 
 }
 
@@ -709,8 +719,8 @@ function UpdatePosition() {
     }else if (board[pacmen.i][pacmen.j] === 20) {
         if(lives<3){
             lives++;
-            lives_flag = true;
         }
+        lives_flag = true;
     } else if(   board[pacmen.i][pacmen.j] === 7) {
         board[pacmen.i][pacmen.j] = 0;
         score+=50;
@@ -722,14 +732,26 @@ function UpdatePosition() {
     else { //lose points
         for (var i = 0; i < ghosts.length; i++) {
             if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
-                score -= 10;
-                lives--;
+                if (lives === 3) {
+                    colision = new Date();
+                    score -= 10;
+                    lives--;
+                }
+                else {
+                    var now= new Date();
+                    if(now-colision >= 1000){
+                        score -= 10;
+                        lives--;
+                        colision = now;
+                    }
+                }
                 if (lives <= 0)
                      GameOver();
                 else {
                     locatePacmen();
                     locateGhosts();
-            }
+                }
+
             }
 
         }
@@ -740,7 +762,6 @@ function UpdatePosition() {
     time_elapsed = Math.floor(time - (currentTime - start_time) / 1000);
     if (time_elapsed <= 0)
         GameOver();
-
 
 
         Draw();
@@ -754,7 +775,7 @@ function UpdateNikudZazPosition() {
     var random_number;
     var new_i, new_j;
     var distance_up = -1;
-    var distance_down = 8-1;
+    var distance_down = -1;
     var distance_left = -1;
     var distance_right = -1;
     if (nikud_zaz.i-1 >=0 && board[nikud_zaz.i-1][nikud_zaz.j]!=4) {
@@ -813,21 +834,9 @@ function CheckStickerOptions() {
         });
     }
     else if (lives_flag){
-        var element = $('#bigPill_image');
-        tmpAnimation = tmpAnimation + 90;
-
-        $({degrees: tmpAnimation - 90}).animate({degrees: tmpAnimation}, {
-            duration: 2000,
-            step: function(now) {
-                element.css({
-                    transform: 'rotate(' + now + 'deg)'
-                });
-            }
+        $('#bigPill_image').fadeIn('slow',function(){
+            $('#bigPill_image').delay(2000).stop().fadeOut();
         });
-
-        // $('#bigPill_image').fadeIn('slow',function(){
-        //     $('#bigPill_image').delay(3000).fadeOut();
-        // });
         lives_flag = false;
     }
     else {

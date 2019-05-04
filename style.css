@@ -335,6 +335,7 @@
 }
 
 /* The Close Button */
+.play_again,
 .close {
     color: #aaaaaa;
     float: right;
@@ -342,6 +343,8 @@
     font-weight: bold;
 }
 
+.play_again:hover,
+.play_again:focus,
 .close:hover,
 .close:focus {
     color: #000;
