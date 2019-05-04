@@ -20,6 +20,7 @@ var pressed; //for the pressed button (1,2,3,4)
 var restart = false;
 var bonus_flag ;
 var food_counter;
+var lives_flag;
 
 var points5, points15, points25;
 
@@ -48,7 +49,7 @@ function DrawLine(number, number2) {
     infocontext.beginPath();
     infocontext.moveTo(number, number2);
     infocontext.lineTo(number, 100 + number2);
-    infocontext.lineWidth="5";
+    infocontext.lineWidth="3";
     infocontext.stroke();
 
 }
@@ -62,14 +63,14 @@ function DrawBaseOfInfoCanvas() {
 
 
     infocontext.fillStyle = "#F2CF66";
-    infocontext.lineWidth="10";
-    infocontext.strokeStyle="#D1B358";
+    infocontext.lineWidth="5";
+    infocontext.strokeStyle="#000000";
     infocontext.rect(0,0,infocanvas.width,infocanvas.height);
     infocontext.fill();
     infocontext.stroke();
 
     //username
-    infocontext.fillStyle = "#818181";
+    infocontext.fillStyle = "#f1f1f1";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
     infocontext.fillText("User Name",10,35);
@@ -80,13 +81,13 @@ function DrawBaseOfInfoCanvas() {
     DrawLine(170,10);
 
     //Time
-    infocontext.fillStyle = "#818181";
+    infocontext.fillStyle = "#f1f1f1";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
     infocontext.fillText("Time:",180,35);
 
     //clock
-    infocontext.fillStyle = "#818181";
+    infocontext.fillStyle = "#f1f1f1";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
     infocontext.fillText(time_elapsed,200,90);
@@ -94,13 +95,13 @@ function DrawBaseOfInfoCanvas() {
     DrawLine(260,10);
 
     //Time
-    infocontext.fillStyle = "#818181";
+    infocontext.fillStyle = "#f1f1f1";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
     infocontext.fillText("Score:",280,35);
 
     //clock
-    infocontext.fillStyle = "#818181";
+    infocontext.fillStyle = "#f1f1f1";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
     infocontext.fillText(score,300,90);
@@ -135,6 +136,7 @@ function DrawBaseOfInfoCanvas() {
  */
 function Start() {
 
+    lives_flag = false;
     lives = 3;
     bonus_flag = true;
     ///////colors//////
@@ -655,6 +657,7 @@ function UpdatePosition() {
     }else if (board[pacmen.i][pacmen.j] === 20) {
         if(lives<3){
             lives++;
+            lives_flag = true;
         }
     } else if(   board[pacmen.i][pacmen.j] === 7) {
         board[pacmen.i][pacmen.j] = 0;
@@ -750,6 +753,24 @@ function CheckStickerOptions() {
         $('#win_image').fadeIn('slow',function(){
             $('#win_image').delay(8000).fadeOut();
         });
+    }
+    else if (lives_flag){
+        var element = $('#bigPill_image');
+        tmpAnimation = tmpAnimation + 90;
+
+        $({degrees: tmpAnimation - 90}).animate({degrees: tmpAnimation}, {
+            duration: 2000,
+            step: function(now) {
+                element.css({
+                    transform: 'rotate(' + now + 'deg)'
+                });
+            }
+        });
+
+        // $('#bigPill_image').fadeIn('slow',function(){
+        //     $('#bigPill_image').delay(3000).fadeOut();
+        // });
+        lives_flag = false;
     }
     else {
         for (var i = 0; i < ghosts.length; i++) {
