@@ -3,7 +3,6 @@ var context = canvas.getContext("2d");
 
 var infocanvas = document.getElementById("info_canvas");
 var infocontext = infocanvas.getContext("2d");
-var dontMove = true;
 var colision;
 var ghost_orig;
 var lives = 3;
@@ -360,9 +359,9 @@ function Start() {
     // UpdatePosition();
     // UpdateGhostsPosition();
     // UpdateNikudZazPosition();
-    interval = setInterval(UpdatePosition, 200);
-    interval_ghosts = setInterval(UpdateGhostsPosition, 350);
-    interval_nikud_zaz = setInterval(UpdateNikudZazPosition,200);
+    interval = setInterval(UpdatePosition, 150);
+    interval_ghosts = setInterval(UpdateGhostsPosition, 250);
+    interval_nikud_zaz = setInterval(UpdateNikudZazPosition,150);
 }
 
 function is_not_locked_point(i,j) {
@@ -421,6 +420,8 @@ function Draw() {
     context.clearRect(0, 0, canvas.width, canvas.height); //clean board
     DrawBaseOfInfoCanvas();
 
+    var wall = new Image();
+    wall.src = "images/wall.png";
     var pac_eye_color = 'red'
     for (var i = 0; i < rows; i++) {
         for (var j = 0; j < cols; j++) {
@@ -430,7 +431,10 @@ function Draw() {
 
             //draw background
 
-                context.beginPath();
+            //draw background
+
+
+            context.beginPath();
                 context.rect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
                 context.fillStyle = "black"; //color
                 context.fill();
@@ -514,6 +518,7 @@ function Draw() {
                 context.rect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
                 context.fillStyle = "white"; //color
                 context.fill();
+                context.drawImage(wall,center.x-icons_radius, center.y -icons_radius, 2* icons_radius ,2* icons_radius )
             }
         }
     }
@@ -531,14 +536,19 @@ function DrawNikudZaz() {
     center.y = nikud_zaz.i* 2 * icons_radius + icons_radius;
 
     //draw background
-    context.beginPath();
-    context.fillStyle = "red"; //color
-    context.arc(center.x, center.y, icons_radius, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-    context.lineTo(center.x, center.y);
-    context.fill();
-    context.fillStyle = "white"; //color
-    context.fillText("50",center.x-3,center.y,40);
+    var img = new Image();
+    img.src = "images/nikud_zaz.png";
+    context.drawImage(img,center.x-icons_radius, center.y -icons_radius, 2* icons_radius ,2* icons_radius )
 
+
+    // context.beginPath();
+    // context.fillStyle = "red"; //color
+    // context.arc(center.x, center.y, icons_radius, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+    // context.lineTo(center.x, center.y);
+    // context.fill();
+    // context.fillStyle = "white"; //color
+    // context.fillText("50",center.x-3,center.y,40);
+    //
 
 }
 
@@ -688,11 +698,9 @@ function UpdatePosition() {
     board[pacmen.i][pacmen.j] = 0;
     var x = GetKeyPressed();
     if (x==1 || x==2 || x==3 || x==4) {
-        dontMove = false;
         pressed=x;
 
     }
-    if (dontMove == false) {
         if (pressed === 3) {
             if (pacmen.j > 0 && board[pacmen.i][pacmen.j - 1] !== 4) {
                 pacmen.j--;
@@ -714,7 +722,7 @@ function UpdatePosition() {
             }
          }
 
-    }
+
     if (board[pacmen.i][pacmen.j] === 11) {
         score+=5;
         food_counter--;
