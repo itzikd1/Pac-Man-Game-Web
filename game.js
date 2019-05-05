@@ -650,34 +650,6 @@ function UpdateGhostsPosition() {
         ghosts[i].old_j = ghosts[i].j;
         ghosts[i].i = new_i;
         ghosts[i].j = new_j;
-
-        if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
-            boom_sticker();
-            if (lives === 3) {
-                colision = new Date();
-                score -= 10;
-                lives--;
-            }
-            else {
-                var now= new Date();
-                if(now-colision >= 1000){
-                    score -= 10;
-                    lives--;
-                    colision = now;
-                }
-            }
-            if (lives <= 0) {
-                game_over_sticker();
-                GameOver();
-
-            }
-            else {
-                locatePacmen();
-                locateGhosts();
-            }
-        }
-
-
     }
     //DrawGhosts();
 
@@ -722,25 +694,25 @@ function UpdatePosition() {
     }
     if (dontMove == false) {
         if (pressed === 3) {
-        if (pacmen.j > 0 && board[pacmen.i][pacmen.j - 1] !== 4) {
-            pacmen.j--;
+            if (pacmen.j > 0 && board[pacmen.i][pacmen.j - 1] !== 4) {
+                pacmen.j--;
+            }
         }
-    }
         if (pressed === 4) {
-        if (pacmen.j < cols-1 && board[pacmen.i][pacmen.j + 1] !== 4) {
-            pacmen.j++;
+            if (pacmen.j < cols-1 && board[pacmen.i][pacmen.j + 1] !== 4) {
+                pacmen.j++;
+            }
         }
-    }
         if (pressed === 1) {
-        if (pacmen.i > 0 && board[pacmen.i - 1][pacmen.j] !== 4) {
-            pacmen.i--;
+            if (pacmen.i > 0 && board[pacmen.i - 1][pacmen.j] !== 4) {
+                pacmen.i--;
+            }
         }
-    }
         if (pressed === 2) {
-        if (pacmen.i < rows-1 && board[pacmen.i + 1][pacmen.j] !== 4) {
-            pacmen.i++;
-        }
-    }
+            if (pacmen.i < rows-1 && board[pacmen.i + 1][pacmen.j] !== 4) {
+                pacmen.i++;
+            }
+         }
 
     }
     if (board[pacmen.i][pacmen.j] === 11) {
@@ -793,6 +765,7 @@ function UpdatePosition() {
             if (lives <= 0) {
                 game_over_sticker();
                 GameOver();
+
             }
             else {
                 locatePacmen();
@@ -808,6 +781,8 @@ function UpdatePosition() {
     if (time_elapsed <= 0) {
         game_over_sticker();
         GameOver();
+
+
 
 
     }
@@ -869,21 +844,6 @@ function UpdateNikudZazPosition() {
     nikud_zaz.i = new_i;
     nikud_zaz.j = new_j;
     //board[nikud_zaz.i][nikud_zaz.j] = 7;
-
-
-
-    if(  pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) {
-        //board[pacmen.i][pacmen.j] = 0;
-        score+=50;
-        clearInterval(interval_nikud_zaz);
-        bonus_sticer();
-        nikud_zaz.i=-1;
-        nikud_zaz.j=-1;
-        bonus_flag = true;
-        //nikud_zaz = null;
-
-    }
-
 }
 
 
@@ -898,10 +858,12 @@ function bonus_sticer() {
 }
 
 
+
 function game_over_sticker() {
-    $('#gameover_image').fadeIn('slow',function(){
+    $('#gameover_image').fadeIn('slow', function () {
         $('#gameover_image').delay(8000).fadeOut();
-    });}
+    });
+}
 
 function pill_sticker() {
     $('#bigPill_image').fadeIn('slow',function(){
@@ -918,6 +880,7 @@ function boom_sticker() {
 
 function win_sticer() {
 
-    $('#win_image').fadeIn('slow',function(){
+    $('#win_image').fadeIn('slow', function () {
         $('#win_image').delay(8000).fadeOut();
-    });}
+    });
+}
