@@ -50,6 +50,8 @@ function ShowDiv(id)
     if (welcomebutton.innerText=="Log Out" && id=="Welcome") {
         welcomebutton.innerText = "Welcome";
         HideGame();
+        document.getElementById('loginB').style.display="block"
+        document.getElementById('registerB').style.display="block"
     }
 
     //sound
