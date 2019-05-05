@@ -5,6 +5,7 @@ var infocanvas = document.getElementById("info_canvas");
 var infocontext = infocanvas.getContext("2d");
 
 var colision;
+var ghost_orig;
 var lives = 3;
 var pacmen = new Object();
 var nikud_zaz = new Object();
@@ -18,7 +19,6 @@ var interval_ghosts;
 var interval_nikud_zaz;
 var interval_sticker;
 var pressed; //for the pressed button (1,2,3,4)
-var restart = false;
 var bonus_flag ;
 var food_counter;
 var lives_flag;
@@ -74,7 +74,8 @@ function DrawBaseOfInfoCanvas() {
     infocontext.fillStyle = "#f1f1f1";
     infocontext.font =  '30px Pacifico';
     infocontext.textShadow = "2px -6px #D1B358";
-    infocontext.fillText(username,10,35);
+    if (typeof (username) !== "undefined")
+        infocontext.fillText(username,10,35);
 
     //lifes
     DrawLives();
@@ -129,6 +130,16 @@ function noGhostOnThisPoint(pointElement, pointElement2) {
     return true;
 }
 
+function StopGame() {
+   if (ghosts.length !== 0) {;
+        ghosts = new Array();
+    }
+   clearInterval(interval);
+   clearInterval(interval_nikud_zaz);
+   clearInterval(interval_ghosts);
+   clearInterval(interval_sticker);
+}
+
 function locateGhosts() {
     //put ghosts on pinot
     options_points = [];
@@ -136,13 +147,8 @@ function locateGhosts() {
     options_points.push([0, cols - 1]);
     options_points.push([rows - 1, 0]);
     options_points.push([rows - 1, cols - 1]);
-
-    //plaster for restart a new game
-    if (restart == true && ghosts.length !== 0) {
-        ghosts_remain = ghosts.length;
-        for (var k=0; k<ghosts.length; k++) {
-            board[ghosts[k].i][ghosts[k].j] = 0;
-        }
+    if (ghosts_remain ==0) {
+        ghosts_remain = ghost_orig;
         ghosts = new Array();
     }
 
@@ -181,6 +187,7 @@ function locateGhosts() {
  * @constructor
  */
 function Start() {
+    ghost_orig = ghosts_remain;
 
     lives_flag = false;
     lives = 3;
@@ -193,9 +200,6 @@ function Start() {
     points5 += (nBalls - points5 - points15 - points25);
     var points_remain = [points5,points15,points25];
     var points_indexes = [11,12,13];
-    if (!restart)
-        restart = true;
-    ///////////////////
 
     board = new Array();
     score = 0;
@@ -384,8 +388,9 @@ function findRandomEmptyCell(board) {
 }
 
 function locatePacmen() {
-
     point = findRandomEmptyCell(board);
+    while (!is_not_locked_point(point[0],point[1]))
+        point = findRandomEmptyCell(board);
     pacmen.i = point[0];
     pacmen.j = point[1];
 
@@ -729,7 +734,7 @@ function UpdatePosition() {
     if(  pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) {
         //board[pacmen.i][pacmen.j] = 0;
         score+=50;
-        window.clearInterval(interval_nikud_zaz);
+        clearInterval(interval_nikud_zaz);
         nikud_zaz.i=-1;
         nikud_zaz.j=-1;
         bonus_flag = true;
@@ -765,6 +770,8 @@ function UpdatePosition() {
    // var time_time = new Date(time);
     time_elapsed = Math.floor(time - (currentTime - start_time) / 1000);
     if (time_elapsed <= 0)
+        GameOver();
+    if (food_counter <= 0)
         GameOver();
     Draw();
 }

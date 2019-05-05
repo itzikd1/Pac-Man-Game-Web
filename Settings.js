@@ -6,6 +6,7 @@ var right_key;
 
 var nBalls;
 
+
 var points5color;
 var points15color;
 var points25color;

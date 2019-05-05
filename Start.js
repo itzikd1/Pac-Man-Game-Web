@@ -58,6 +58,7 @@ function ShowDiv(id)
     }
     if (id!="Game") {
         stopSound();
+        StopGame();
     }
 
     //todo: it will be better to call a function here to play the scripts according to id, for now it like this
