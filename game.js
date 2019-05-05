@@ -701,22 +701,22 @@ function UpdatePosition() {
         pressed=x;
 
     }
-        if (pressed === 3) {
+        if (x === 3) {
             if (pacmen.j > 0 && board[pacmen.i][pacmen.j - 1] !== 4) {
                 pacmen.j--;
             }
         }
-        if (pressed === 4) {
+        if (x === 4) {
             if (pacmen.j < cols-1 && board[pacmen.i][pacmen.j + 1] !== 4) {
                 pacmen.j++;
             }
         }
-        if (pressed === 1) {
+        if (x === 1) {
             if (pacmen.i > 0 && board[pacmen.i - 1][pacmen.j] !== 4) {
                 pacmen.i--;
             }
         }
-        if (pressed === 2) {
+        if (x === 2) {
             if (pacmen.i < rows-1 && board[pacmen.i + 1][pacmen.j] !== 4) {
                 pacmen.i++;
             }
