@@ -341,7 +341,7 @@ function Start() {
         randomNum = Math.random();
         var point = options_points[Math.floor(randomNum * 4)];
         if (board[point[0]][point[1]]===0){
-            board[point[0]][point[1]] = 7;
+            //board[point[0]][point[1]] = 7;
             nikud_zaz.i = point[0];
             nikud_zaz.j = point[1];
         }
@@ -432,7 +432,7 @@ function Draw() {
                 context.rect(center.x - icons_radius, center.y - icons_radius, 2*icons_radius, 2*icons_radius);
                 context.fillStyle = "black"; //color
                 context.fill();
-                DrawGhosts()
+                DrawGhosts();
                 DrawNikudZaz();
 
 
@@ -518,20 +518,24 @@ function Draw() {
 }
 
 function DrawNikudZaz() {
+
+    if (nikud_zaz.i===-1 && nikud_zaz.j ===-1)
+        return;
+
     var icons_radius = 15;
     var eye_radius = 2.5;
-        var center = new Object();
-        center.x = nikud_zaz.j * 2* icons_radius + icons_radius;
-        center.y = nikud_zaz.i* 2 * icons_radius + icons_radius;
+    var center = new Object();
+    center.x = nikud_zaz.j * 2* icons_radius + icons_radius;
+    center.y = nikud_zaz.i* 2 * icons_radius + icons_radius;
 
-        //draw background
-        context.beginPath();
-        context.fillStyle = "red"; //color
-        context.arc(center.x, center.y, icons_radius, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
-        context.lineTo(center.x, center.y);
-        context.fill();
-        context.fillStyle = "white"; //color
-        context.fillText("50",center.x-3,center.y,40);
+    //draw background
+    context.beginPath();
+    context.fillStyle = "red"; //color
+    context.arc(center.x, center.y, icons_radius, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+    context.lineTo(center.x, center.y);
+    context.fill();
+    context.fillStyle = "white"; //color
+    context.fillText("50",center.x-3,center.y,40);
 
 
 }
@@ -721,50 +725,48 @@ function UpdatePosition() {
             lives++;
         }
         lives_flag = true;
-    } else if(   board[pacmen.i][pacmen.j] === 7) {
-        board[pacmen.i][pacmen.j] = 0;
+    }
+    if(  pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) {
+        //board[pacmen.i][pacmen.j] = 0;
         score+=50;
-        clearInterval(interval_nikud_zaz);
-
-        nikud_zaz = null;
+        window.clearInterval(interval_nikud_zaz);
+        nikud_zaz.i=-1;
+        nikud_zaz.j=-1;
+        bonus_flag = true;
+        //nikud_zaz = null;
 
     }
-    else { //lose points
-        for (var i = 0; i < ghosts.length; i++) {
-            if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
-                if (lives === 3) {
-                    colision = new Date();
+    for (var i = 0; i < ghosts.length; i++) {
+        if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
+            if (lives === 3) {
+                colision = new Date();
+                score -= 10;
+                lives--;
+            }
+            else {
+                var now= new Date();
+                if(now-colision >= 1000){
                     score -= 10;
                     lives--;
+                    colision = now;
                 }
-                else {
-                    var now= new Date();
-                    if(now-colision >= 1000){
-                        score -= 10;
-                        lives--;
-                        colision = now;
-                    }
-                }
-                if (lives <= 0)
-                     GameOver();
-                else {
-                    locatePacmen();
-                    locateGhosts();
-                }
-
             }
-
+            if (lives <= 0)
+                 GameOver();
+            else {
+                locatePacmen();
+                locateGhosts();
+            }
         }
     }
+
     board[pacmen.i][pacmen.j] = 2;
     var currentTime = new Date();
    // var time_time = new Date(time);
     time_elapsed = Math.floor(time - (currentTime - start_time) / 1000);
     if (time_elapsed <= 0)
         GameOver();
-
-
-        Draw();
+    Draw();
 }
 
 
@@ -809,15 +811,16 @@ function UpdateNikudZazPosition() {
 
     nikud_zaz.old_i = nikud_zaz.i;
     nikud_zaz.old_j = nikud_zaz.j;
-    board[nikud_zaz.old_i][nikud_zaz.old_j] = 0;
+    //board[nikud_zaz.old_i][nikud_zaz.old_j] = 0;
     nikud_zaz.i = new_i;
     nikud_zaz.j = new_j;
-    board[nikud_zaz.i][nikud_zaz.j] = 7;
+    //board[nikud_zaz.i][nikud_zaz.j] = 7;
 }
 
 
 function CheckStickerOptions() {
-    if( bonus_flag &&  ((pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) || typeof(nikud_zaz.i) === "undefined") ){
+    if( bonus_flag &&  ((pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) || ( nikud_zaz.i === -1 && nikud_zaz.j )) ){
+        console.log("im here !");
         bonus_flag = false;
         $('#bonus_image').fadeIn('slow',function(){
             $('#bonus_image').delay(2000).fadeOut();
