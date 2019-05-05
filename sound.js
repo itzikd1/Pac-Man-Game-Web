@@ -17,3 +17,8 @@ function sound(src) {
 function startSound() {
     mySound.play();
 }
+
+function stopSound() {
+    mySound.stop();
+    mySound = new sound("1.mp3");
+}
