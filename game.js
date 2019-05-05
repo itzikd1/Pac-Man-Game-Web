@@ -3,7 +3,7 @@ var context = canvas.getContext("2d");
 
 var infocanvas = document.getElementById("info_canvas");
 var infocontext = infocanvas.getContext("2d");
-
+var dontMove = true;
 var colision;
 var ghost_orig;
 var lives = 3;
@@ -17,7 +17,6 @@ var time_elapsed = 0;
 var interval;
 var interval_ghosts;
 var interval_nikud_zaz;
-var interval_sticker;
 var pressed; //for the pressed button (1,2,3,4)
 var bonus_flag ;
 var food_counter;
@@ -137,7 +136,6 @@ function StopGame() {
    clearInterval(interval);
    clearInterval(interval_nikud_zaz);
    clearInterval(interval_ghosts);
-   clearInterval(interval_sticker);
 }
 
 function locateGhosts() {
@@ -364,8 +362,7 @@ function Start() {
     // UpdateNikudZazPosition();
     interval = setInterval(UpdatePosition, 200);
     interval_ghosts = setInterval(UpdateGhostsPosition, 350);
-    interval_nikud_zaz = setInterval(UpdateNikudZazPosition,1000);
-    interval_sticker = setInterval(CheckStickerOptions,100);
+    interval_nikud_zaz = setInterval(UpdateNikudZazPosition,200);
 }
 
 function is_not_locked_point(i,j) {
@@ -653,6 +650,34 @@ function UpdateGhostsPosition() {
         ghosts[i].old_j = ghosts[i].j;
         ghosts[i].i = new_i;
         ghosts[i].j = new_j;
+
+        if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
+            boom_sticker();
+            if (lives === 3) {
+                colision = new Date();
+                score -= 10;
+                lives--;
+            }
+            else {
+                var now= new Date();
+                if(now-colision >= 1000){
+                    score -= 10;
+                    lives--;
+                    colision = now;
+                }
+            }
+            if (lives <= 0) {
+                game_over_sticker();
+                GameOver();
+
+            }
+            else {
+                locatePacmen();
+                locateGhosts();
+            }
+        }
+
+
     }
     //DrawGhosts();
 
@@ -690,27 +715,33 @@ function GameOver() {
 function UpdatePosition() {
     board[pacmen.i][pacmen.j] = 0;
     var x = GetKeyPressed();
-    if (x==1 || x==2 || x==3 || x==4)
+    if (x==1 || x==2 || x==3 || x==4) {
+        dontMove = false;
         pressed=x;
-    if (x === 3) {
+
+    }
+    if (dontMove == false) {
+        if (pressed === 3) {
         if (pacmen.j > 0 && board[pacmen.i][pacmen.j - 1] !== 4) {
             pacmen.j--;
         }
     }
-    if (x === 4) {
+        if (pressed === 4) {
         if (pacmen.j < cols-1 && board[pacmen.i][pacmen.j + 1] !== 4) {
             pacmen.j++;
         }
     }
-    if (x === 1) {
+        if (pressed === 1) {
         if (pacmen.i > 0 && board[pacmen.i - 1][pacmen.j] !== 4) {
             pacmen.i--;
         }
     }
-    if (x === 2) {
+        if (pressed === 2) {
         if (pacmen.i < rows-1 && board[pacmen.i + 1][pacmen.j] !== 4) {
             pacmen.i++;
         }
+    }
+
     }
     if (board[pacmen.i][pacmen.j] === 11) {
         score+=5;
@@ -838,6 +869,21 @@ function UpdateNikudZazPosition() {
     nikud_zaz.i = new_i;
     nikud_zaz.j = new_j;
     //board[nikud_zaz.i][nikud_zaz.j] = 7;
+
+
+
+    if(  pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) {
+        //board[pacmen.i][pacmen.j] = 0;
+        score+=50;
+        clearInterval(interval_nikud_zaz);
+        bonus_sticer();
+        nikud_zaz.i=-1;
+        nikud_zaz.j=-1;
+        bonus_flag = true;
+        //nikud_zaz = null;
+
+    }
+
 }
 
 
