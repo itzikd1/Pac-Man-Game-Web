@@ -16,7 +16,7 @@ function openG() {
     window.clearInterval(interval);
     window.clearInterval(interval_ghosts);
     window.clearInterval(interval_nikud_zaz);
-    window.clearInterval(interval_sticker);
+    // interval.clearInterval();
     // interval.clearInterval();
     // interval_ghosts.clearInterval();
     // interval_nikud_zaz.clearInterval();

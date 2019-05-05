@@ -3,7 +3,7 @@ var context = canvas.getContext("2d");
 
 var infocanvas = document.getElementById("info_canvas");
 var infocontext = infocanvas.getContext("2d");
-
+var dontMove = true;
 var colision;
 var ghost_orig;
 var lives = 3;
@@ -17,7 +17,6 @@ var time_elapsed = 0;
 var interval;
 var interval_ghosts;
 var interval_nikud_zaz;
-var interval_sticker;
 var pressed; //for the pressed button (1,2,3,4)
 var bonus_flag ;
 var food_counter;
@@ -137,7 +136,6 @@ function StopGame() {
    clearInterval(interval);
    clearInterval(interval_nikud_zaz);
    clearInterval(interval_ghosts);
-   clearInterval(interval_sticker);
 }
 
 function locateGhosts() {
@@ -364,8 +362,7 @@ function Start() {
     // UpdateNikudZazPosition();
     interval = setInterval(UpdatePosition, 200);
     interval_ghosts = setInterval(UpdateGhostsPosition, 350);
-    interval_nikud_zaz = setInterval(UpdateNikudZazPosition,1000);
-    interval_sticker = setInterval(CheckStickerOptions,100);
+    interval_nikud_zaz = setInterval(UpdateNikudZazPosition,100);
 }
 
 function is_not_locked_point(i,j) {
@@ -690,27 +687,33 @@ function GameOver() {
 function UpdatePosition() {
     board[pacmen.i][pacmen.j] = 0;
     var x = GetKeyPressed();
-    if (x==1 || x==2 || x==3 || x==4)
+    if (x==1 || x==2 || x==3 || x==4) {
+        dontMove = false;
         pressed=x;
-    if (x === 3) {
-        if (pacmen.j > 0 && board[pacmen.i][pacmen.j - 1] !== 4) {
-            pacmen.j--;
-        }
+
     }
-    if (x === 4) {
-        if (pacmen.j < cols-1 && board[pacmen.i][pacmen.j + 1] !== 4) {
-            pacmen.j++;
+    if (dontMove == false) {
+        if (pressed === 3) {
+            if (pacmen.j > 0 && board[pacmen.i][pacmen.j - 1] !== 4) {
+                pacmen.j--;
+            }
         }
-    }
-    if (x === 1) {
-        if (pacmen.i > 0 && board[pacmen.i - 1][pacmen.j] !== 4) {
-            pacmen.i--;
+        if (pressed === 4) {
+            if (pacmen.j < cols-1 && board[pacmen.i][pacmen.j + 1] !== 4) {
+                pacmen.j++;
+            }
         }
-    }
-    if (x === 2) {
-        if (pacmen.i < rows-1 && board[pacmen.i + 1][pacmen.j] !== 4) {
-            pacmen.i++;
+        if (pressed === 1) {
+            if (pacmen.i > 0 && board[pacmen.i - 1][pacmen.j] !== 4) {
+                pacmen.i--;
+            }
         }
+        if (pressed === 2) {
+            if (pacmen.i < rows-1 && board[pacmen.i + 1][pacmen.j] !== 4) {
+                pacmen.i++;
+            }
+         }
+
     }
     if (board[pacmen.i][pacmen.j] === 11) {
         score+=5;
@@ -762,6 +765,7 @@ function UpdatePosition() {
             if (lives <= 0) {
                 game_over_sticker();
                 GameOver();
+
             }
             else {
                 locatePacmen();
@@ -777,6 +781,8 @@ function UpdatePosition() {
     if (time_elapsed <= 0) {
         game_over_sticker();
         GameOver();
+
+
 
 
     }
@@ -852,10 +858,12 @@ function bonus_sticer() {
 }
 
 
+
 function game_over_sticker() {
-    $('#gameover_image').fadeIn('slow',function(){
+    $('#gameover_image').fadeIn('slow', function () {
         $('#gameover_image').delay(8000).fadeOut();
-    });}
+    });
+}
 
 function pill_sticker() {
     $('#bigPill_image').fadeIn('slow',function(){
@@ -872,6 +880,7 @@ function boom_sticker() {
 
 function win_sticer() {
 
-    $('#win_image').fadeIn('slow',function(){
+    $('#win_image').fadeIn('slow', function () {
         $('#win_image').delay(8000).fadeOut();
-    });}
+    });
+}
