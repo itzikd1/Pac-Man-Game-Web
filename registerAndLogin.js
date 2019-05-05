@@ -133,8 +133,8 @@ function validate(){
         HideWelcome();
         // $("#username2").text("User sadadsName: "+username);
         ShowGame();
-        document.getElementById('loginB').style.display="block"
-        document.getElementById('registerB').style.display="block"
+        document.getElementById('loginB').style.display="none"
+        document.getElementById('registerB').style.display="none"
         return true;
     }
     else{
