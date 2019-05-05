@@ -726,6 +726,7 @@ function UpdatePosition() {
         food_counter--;
         // console.log("food_counter = " + food_counter);
     }else if (board[pacmen.i][pacmen.j] === 20) {
+        pill_sticker();
         if(lives<3){
             lives++;
         }
@@ -735,6 +736,7 @@ function UpdatePosition() {
         //board[pacmen.i][pacmen.j] = 0;
         score+=50;
         clearInterval(interval_nikud_zaz);
+        bonus_sticer();
         nikud_zaz.i=-1;
         nikud_zaz.j=-1;
         bonus_flag = true;
@@ -743,6 +745,7 @@ function UpdatePosition() {
     }
     for (var i = 0; i < ghosts.length; i++) {
         if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
+            boom_sticker();
             if (lives === 3) {
                 colision = new Date();
                 score -= 10;
@@ -756,8 +759,10 @@ function UpdatePosition() {
                     colision = now;
                 }
             }
-            if (lives <= 0)
-                 GameOver();
+            if (lives <= 0) {
+                game_over_sticker();
+                GameOver();
+            }
             else {
                 locatePacmen();
                 locateGhosts();
@@ -769,10 +774,21 @@ function UpdatePosition() {
     var currentTime = new Date();
    // var time_time = new Date(time);
     time_elapsed = Math.floor(time - (currentTime - start_time) / 1000);
-    if (time_elapsed <= 0)
+    if (time_elapsed <= 0) {
+        game_over_sticker();
         GameOver();
-    if (food_counter <= 0)
+
+
+    }
+    if (food_counter <= 0) {
+        win_sticer();
         GameOver();
+
+    }
+
+    // if( bonus_flag &&  ((pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) || ( nikud_zaz.i === -1 && nikud_zaz.j )) )
+    //     bonus_sticer();
+
     Draw();
 }
 
@@ -825,38 +841,37 @@ function UpdateNikudZazPosition() {
 }
 
 
-function CheckStickerOptions() {
-    if( bonus_flag &&  ((pacmen.i === nikud_zaz.i && pacmen.j === nikud_zaz.j) || ( nikud_zaz.i === -1 && nikud_zaz.j )) ){
-        console.log("im here !");
-        bonus_flag = false;
-        $('#bonus_image').fadeIn('slow',function(){
-            $('#bonus_image').delay(2000).fadeOut();
-        });
-    }
-    else if (lives === 0){
-        $('#gameover_image').fadeIn('slow',function(){
-            $('#gameover_image').delay(8000).fadeOut();
-        });
-    }
-    else if (food_counter === 0){
-        $('#win_image').fadeIn('slow',function(){
-            $('#win_image').delay(8000).fadeOut();
-        });
-    }
-    else if (lives_flag){
-        $('#bigPill_image').fadeIn('slow',function(){
-            $('#bigPill_image').delay(2000).stop().fadeOut();
-        });
-        lives_flag = false;
-    }
-    else {
-        for (var i = 0; i < ghosts.length; i++) {
-            if (ghosts[i].i===pacmen.i && ghosts[i].j===pacmen.j) {
-                $('#boom_image').fadeIn('slow',function(){
-                    $('#boom_image').delay(2000).stop().fadeOut();
-                });
-            }
 
-        }
-    }
+
+//stickers
+function bonus_sticer() {
+    bonus_flag = false;
+    $('#bonus_image').fadeIn('slow',function(){
+        $('#bonus_image').delay(2000).fadeOut();
+    });
 }
+
+
+function game_over_sticker() {
+    $('#gameover_image').fadeIn('slow',function(){
+        $('#gameover_image').delay(8000).fadeOut();
+    });}
+
+function pill_sticker() {
+    $('#bigPill_image').fadeIn('slow',function(){
+        $('#bigPill_image').delay(2000).stop().fadeOut();
+    });
+    lives_flag = false;
+}
+
+function boom_sticker() {
+    $('#boom_image').fadeIn('slow',function(){
+        $('#boom_image').delay(2000).stop().fadeOut();
+    });
+}
+
+function win_sticer() {
+
+    $('#win_image').fadeIn('slow',function(){
+        $('#win_image').delay(8000).fadeOut();
+    });}
