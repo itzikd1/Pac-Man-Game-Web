@@ -25,7 +25,7 @@ function openG() {
 
 function closeG() {
     gameover.style.display = "none";
-    Start();
+    ShowDiv('Settings');
 }
 
 
